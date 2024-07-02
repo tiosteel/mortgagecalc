@@ -1,0 +1,6 @@
+@localServiceUrl = http://localhost:4004/mortgage/calculator
+
+// get 6-months euribor
+
+###
+GET {{localServiceUrl}}/getEuribor(day=2024-06-16,period='monthly6')

@@ -1,0 +1,22 @@
+{
+    "requires": {
+        "[development]": {
+            "db": {
+                "kind": "sqlite",
+                "credentials": {
+                    "url": "../db.sqlite"
+                }
+            }
+        },
+        "[production]": {
+            "db": "hana-cloud"
+        }
+    },
+    "hana": {
+        "deploy-format": "hdbtable",
+        "journal": {
+            "enable-drop": true,
+            "change-mode": "drop"
+        }
+    }
+}

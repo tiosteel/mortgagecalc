@@ -1,0 +1,32 @@
+{
+  "name": "@mortgagecalc/monorepo",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "@sap/cds-hana": "^2",
+    "sqlite3": "^5",
+    "@mortgagecalc/foundation": "*",
+    "@mortgagecalc/calculatorservice": "*",
+    "@mortgagecalc/database": "*"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^7",
+    "express": "^4",
+    "@sap/eslint-plugin-cds": "^3",
+    "eslint": "^9"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "clean": "rm -rf database/gen"
+  },
+  "workspaces": [
+    "packages/*",
+    "srv/*",
+    "app/*",
+    "database"
+  ]
+}

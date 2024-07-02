@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "cds-serve",
+      "command": "npx cds-serve",
+      "request": "launch",
+      "type": "node-terminal"
+    }
+  ]
+}

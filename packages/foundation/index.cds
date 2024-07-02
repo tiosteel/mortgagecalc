@@ -1,0 +1,1 @@
+// this file has to be kept to at least allow to import i18n

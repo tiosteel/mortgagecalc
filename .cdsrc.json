@@ -1,0 +1,35 @@
+{
+    "requires": {
+        "db": {
+            "[development]": {
+                "kind": "sqlite",
+                "credentials": {
+                    "url": "db.sqlite"
+                }
+            },
+            "kind": "hana"
+        }
+    },
+    "log": {
+        "levels": {
+            "sqlite": "debug",
+            "hana": "debug"
+        }
+    },
+    "build": {
+        "target": "database/gen",
+        "tasks": [
+            {
+                "for": "hana",
+                "src": "database/db",
+                "dest": "./db",
+                "options": {
+                    "model": [
+                        "services.cds",
+                        "database/db/hana"
+                    ]
+                }
+            }
+        ]
+    }
+}
