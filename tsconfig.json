@@ -4,8 +4,9 @@
         "module": "commonjs",
         "outDir": "./gen/srv",
         "rootDirs": [
-            "./srv",
-            "./@cds-models"
+            "./srv/calculator",
+            "./srv/site",
+            "./database"
         ],
         "baseUrl": "./",
         "moduleResolution": "node",
@@ -20,7 +21,9 @@
         "strictPropertyInitialization": false,
         "paths": {
             "#cds-models/*": [
-                "./@cds-models/*/index.ts"
+                "./srv/calculator/@cds-models/*/index.ts",
+                "./srv/site/@cds-models/*/index.ts",
+                "./database/@cds-models/*/index.ts"
             ]
         }
     },
