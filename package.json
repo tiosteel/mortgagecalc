@@ -17,16 +17,21 @@
     "@sap/cds-dk": "^7",
     "express": "^4",
     "@sap/eslint-plugin-cds": "^3",
-    "eslint": "^9"
+    "eslint": "^9",
+    "@cap-js/cds-typer": ">=0.1"
   },
   "scripts": {
     "start": "cds-serve",
-    "clean": "rm -rf database/gen"
+    "clean": "rm -rf database/gen",
+    "build:models": "npx @cap-js/cds-typer '*' --outputDirectory @cds-models"
   },
   "workspaces": [
     "packages/*",
     "srv/*",
     "app/*",
     "database"
-  ]
+  ],
+  "imports": {
+    "#cds-models/*": "./@cds-models/*/index.js"
+  }
 }

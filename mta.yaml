@@ -34,6 +34,12 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: mortgagecalc-db
+  - name: monorepo-srv
+    type: nodejs
+    path: database/gen/srv
+    requires:
+      - name: monorepo-db
+      - name: mortgagecalc-db
 
 resources:
   - name: mortgagecalc-db

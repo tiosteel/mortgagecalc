@@ -7,7 +7,7 @@ namespace mortgagecalc.db.tables;
     UpdateRestrictions.Updatable: false,
     DeleteRestrictions.Deletable: false
 }
-entity Euribor: cuid {
+entity EuriborValues: cuid {
     day: Date @required;
     weekly: Decimal @required;
     monthly1: Decimal;

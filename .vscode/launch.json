@@ -2,8 +2,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "cds-serve",
-      "command": "npx cds-serve",
+      "name": "cds-ts serve",
+      "command": "npx cds-ts serve",
       "request": "launch",
       "type": "node-terminal"
     }

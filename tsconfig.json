@@ -2,8 +2,8 @@
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
-        "outDir": "./gen/srv/srv",
-        "rootDir": "./srv",
+        "outDir": "./gen/srv",
+        "rootDir": "./",
         "baseUrl": "./",
         "moduleResolution": "node",
         "skipLibCheck": true,
@@ -13,9 +13,15 @@
         "strict": true,
         "strictNullChecks": false,
         "strictPropertyInitialization": false,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "paths": {
+            "#cds-models/*": [
+                "./@cds-models/*/index.ts"
+            ]
+        }
     },
     "include": [
-        "./srv/**/*"
+        "./srv/**/*",
+        "./database/**/*"
     ]
 }
