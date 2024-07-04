@@ -3,17 +3,21 @@
         "target": "es6",
         "module": "commonjs",
         "outDir": "./gen/srv",
-        "rootDir": "./",
+        "rootDirs": [
+            "./srv",
+            "./@cds-models"
+        ],
         "baseUrl": "./",
         "moduleResolution": "node",
         "skipLibCheck": true,
         "preserveConstEnums": true,
-        "sourceMap": false,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
         "allowJs": true,
         "strict": true,
         "strictNullChecks": false,
         "strictPropertyInitialization": false,
-        "esModuleInterop": true,
         "paths": {
             "#cds-models/*": [
                 "./@cds-models/*/index.ts"
