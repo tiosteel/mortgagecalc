@@ -10,7 +10,7 @@ export class CalculatorService extends ApplicationService {
     
     async getEuribor(day: Date, period: euriborPeriod): Promise<number|undefined> {
         const { EuriborValues: ServiceEuriborValues } = await import('#cds-models/CalculatorService');
-        const { EuriborValues } = await import('@mortgagecalc/database/tables');
+        const { EuriborValues } = await import('#cds-models/db/tables');
         const result: EuriborValue|undefined = await SELECT.one.from(EuriborValues).where({day: {'<=': day}});
         
         return result?.[period];

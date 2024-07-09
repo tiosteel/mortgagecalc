@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "NodeNext",
+        "outDir": "./gen/srv",
+        "rootDirs": [
+            "database",
+            "srv/calculator",
+            "srv/site"
+        ],
+        "baseUrl": ".",
+        "moduleResolution": "NodeNext",
+        "skipLibCheck": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowJs": true,
+        "strict": true,
+        "strictNullChecks": false,
+        "strictPropertyInitialization": false
+    }
+}
