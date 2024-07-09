@@ -11,7 +11,8 @@
     "sqlite3": "^5",
     "@mortgagecalc/foundation": "*",
     "@mortgagecalc/calculatorservice": "*",
-    "@mortgagecalc/database": "*"
+    "@mortgagecalc/database": "*",
+    "@mortgagecalc/types": "*"
   },
   "devDependencies": {
     "@sap/cds-dk": "^7",
@@ -22,8 +23,8 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "clean": "rm -rf database/gen database/@cds-models @cds-models srv/site/@cds-models srv/calculator/@cds-models",
-    "build:models": "npx @cap-js/cds-typer '*' --outputDirectory @cds-models"
+    "clean": "rm -rf node_modules package-lock.json database/gen packages/types",
+    "build:models": "npx @cap-js/cds-typer '*' --outputDirectory packages/types/@cds-models"
   },
   "workspaces": [
     "packages/*",
