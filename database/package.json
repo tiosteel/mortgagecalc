@@ -6,5 +6,15 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "./*": {
+      "require": {
+        "default": "./@cds-models/mortgagecalc/db/*/index.js",
+        "types": "./@cds-models/mortgagecalc/db/*/index.ts"
+      },
+      "import": {
+        "default": "./@cds-models/mortgagecalc/db/*/index.js",
+        "types": "./@cds-models/mortgagecalc/db/*/index.ts"
+      }
+    }
 }

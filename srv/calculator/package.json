@@ -9,8 +9,7 @@
     "@sap/cds": "^7",
     "express": "^4",
     "@mortgagecalc/foundation": "*",
-    "@mortgagecalc/database": "*",
-    "@mortgagecalc/types": "*"
+    "@mortgagecalc/database": "*"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
@@ -19,8 +18,5 @@
   },
   "scripts": {
     "start": "cds-serve"
-  },
-  "imports": {
-    "#cds-models/*": "@mortgagecalc/types/*"
   }
 }
