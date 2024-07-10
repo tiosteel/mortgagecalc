@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "clean": "rm -rf node_modules package-lock.json database/gen database/@cds-models srv/calculator/@cds-models srv/site/@cds-models @cds-models",
+    "clean": "rm -rf node_modules package-lock.json database/gen srv/calculator/gen database/@cds-models srv/calculator/@cds-models srv/site/@cds-models @cds-models",
     "build:models": "npx @cap-js/cds-typer '*' --outputDirectory database/@cds-models"
   },
   "workspaces": [
