@@ -1,8 +1,8 @@
-import { ApplicationService } from "@sap/cds";
+import * as cds from "@sap/cds"
 import type { EuriborValue } from '#cds-models/db/tables';
 import type { euriborPeriod } from '#cds-models/db/types';
 
-export class CalculatorService extends ApplicationService {
+export class CalculatorService extends cds.ApplicationService {
 
     init(): Promise<void> {
         return super.init();

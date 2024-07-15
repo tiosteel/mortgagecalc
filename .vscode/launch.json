@@ -6,6 +6,12 @@
       "command": "npx cds-ts serve",
       "request": "launch",
       "type": "node-terminal"
+    },
+    {
+      "name": "cds serve",
+      "command": "npx cds serve",
+      "request": "launch",
+      "type": "node-terminal"
     }
   ]
 }
