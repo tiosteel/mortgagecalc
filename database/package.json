@@ -2,12 +2,13 @@
   "name": "@mortgagecalc/database",
   "version": "1.0.0",
   "dependencies": {
-    "@sap/cds": "^8"
+    "@sap/cds": "^7"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "exports": {
+    "./*.json": "./*.json",
     "./*": {
       "require": {
         "default": "./@cds-models/mortgagecalc/db/*/index.js",

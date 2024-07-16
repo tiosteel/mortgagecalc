@@ -2,8 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "NodeNext",
-    "outDir": "./gen/srv",
-    "rootDir": ".",
+    "rootDirs": ["database", "srv/calculator", "srv/site"],
     "baseUrl": ".",
     "moduleResolution": "NodeNext",
     "skipLibCheck": true,
@@ -15,6 +14,5 @@
     "strict": true,
     "strictNullChecks": false,
     "strictPropertyInitialization": false
-  },
-  "references": [{ "path": "./srv/calculator" }]
+  }
 }
