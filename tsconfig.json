@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "NodeNext",
+    "outDir": "./gen",
     "rootDirs": ["database", "srv/calculator", "srv/site"],
     "baseUrl": ".",
     "moduleResolution": "NodeNext",
