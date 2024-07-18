@@ -10,15 +10,20 @@ build-parameters:
       commands:
         - npm ci # https://docs.npmjs.com/cli/v10/commands/npm-ci 
         - npx cds build --production # this will mainly build the database according to configuration in root .cdsrc - services must be taken into account
+        
+        # build workspaces https://cap.cloud.sap/docs/guides/deployment/custom-builds#build-ws
         - npx -p @sap/cds-dk cds build ./srv/calculator --production --ws-pack --opts
-          workspaceRoot=.. && tsc --project ./srv/calculator # https://cap.cloud.sap/docs/guides/deployment/custom-builds#build-ws
+          workspaceRoot=.. && tsc --project ./srv/calculator 
+        - npx -p @sap/cds-dk cds build ./srv/site --production --ws-pack --opts
+          workspaceRoot=.. && tsc --project ./srv/site
+
           # locally all packages behave as one, but on deploy they perform independently so package-lock is required for every of them.
         - cp package-lock.json ./srv/calculator/gen/srv
         - cp package-lock.json ./srv/site/gen/srv
 modules:
-  - name: mortgagecalc-srv
+  - name: mortgagecalc-calculator-service
     type: nodejs
-    path: gen/srv
+    path: srv/calculator/gen/srv
     parameters:
       buildpack: nodejs_buildpack
       readiness-health-check-type: http
@@ -26,7 +31,23 @@ modules:
     build-parameters:
       builder: npm
     provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+      - name: mortgage-calculator-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: mortgagecalc-db
+  
+  - name: mortgagecalc-site-service
+    type: nodejs
+    path: srv/site/gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+    build-parameters:
+      builder: npm
+    provides:
+      - name: mortgage-site-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
     requires:
@@ -34,14 +55,9 @@ modules:
 
   - name: mortgagecalc-db-deployer
     type: hdb
-    path: gen/db
+    path: database/gen/db
     parameters:
       buildpack: nodejs_buildpack
-    requires:
-      - name: mortgagecalc-db
-  - name: monorepo-srv
-    type: nodejs
-    path: database/gen/srv
     requires:
       - name: mortgagecalc-db
 
