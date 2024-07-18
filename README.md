@@ -30,6 +30,7 @@ File or Folder | Purpose
 
 - To perform the build run `mbt build`.
 - The required build sequence can be seen in the `build-parameters` section of mta.yaml
+- Related duscussion: https://github.com/cap-js/cds-typer/issues/271
 
 ## Deploy
 
