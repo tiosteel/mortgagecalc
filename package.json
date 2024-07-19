@@ -23,9 +23,8 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "clean": "rm -rf gen database/gen srv/calculator/gen srv/site/gen",
-    "fullclean": "rm -rf node_modules database/node_modules package-lock.json; npm run clean",
-    "buildtest": "npx -p @sap/cds-dk cds build ./srv/calculator --production --ws-pack --opts workspaceRoot=.."
+    "clean": "rm -rf gen database/gen srv/calculator/gen srv/site/gen mta_archives",
+    "fullclean": "rm -rf node_modules database/node_modules package-lock.json; npm run clean"
   },
   "workspaces": [
     "packages/*",
