@@ -16,6 +16,7 @@
             "hana": "debug"
         }
     },
+    "auth": "basic",
     "build": {
         "target": "database/gen",
         "tasks": [
@@ -25,7 +26,7 @@
                 "dest": "./db",
                 "options": {
                     "model": [
-                        "services.cds",
+                        "index.cds",
                         "database/db/hana"
                     ]
                 }

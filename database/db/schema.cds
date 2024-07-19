@@ -1,5 +1,3 @@
-using { cuid, temporal } from '@sap/cds/common';
-
 namespace mortgagecalc.db.tables;
 
 @Capabilities: {
@@ -7,8 +5,8 @@ namespace mortgagecalc.db.tables;
     UpdateRestrictions.Updatable: false,
     DeleteRestrictions.Deletable: false
 }
-entity EuriborValues: cuid {
-    day: Date @required;
+entity EuriborValues {
+    key day: Date @required;
     weekly: Decimal @required;
     monthly1: Decimal;
     monthly3: Decimal;

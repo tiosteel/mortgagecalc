@@ -8,7 +8,9 @@
   "dependencies": {
     "@sap/cds": "^8",
     "express": "^4",
+    "@sap/xssec": "^4.1.3",
     "@mortgagecalc/foundation": "*",
+    "@mortgagecalc/calculatorservice": "*",
     "@mortgagecalc/database": "*"
   },
   "devDependencies": {

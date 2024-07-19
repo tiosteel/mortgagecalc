@@ -1,9 +1,8 @@
 // This is an automatically generated file. Please do not change its contents manually!
-import * as _ from './../../..';
 import * as __ from './../../../_';
 export function _EuriborValueAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class extends _._cuidAspect(Base) {
-        day?: __.CdsDate | null;
+  return class EuriborValue extends Base {
+        day?: __.CdsDate;
         weekly?: number | null;
         monthly1?: number | null;
         monthly3?: number | null;
