@@ -16,7 +16,7 @@
             "hana": "debug"
         }
     },
-    "auth": "basic",
+    "auth": "xsuaa",
     "build": {
         "target": "database/gen",
         "tasks": [

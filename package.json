@@ -9,10 +9,12 @@
     "@sap/cds": "^8",
     "@sap/cds-hana": "^2",
     "sqlite3": "^5",
+    "hdb": "0.19.8",
     "@mortgagecalc/foundation": "*",
     "@mortgagecalc/calculatorservice": "*",
     "@mortgagecalc/siteservice": "*",
-    "@mortgagecalc/database": "*"
+    "@mortgagecalc/database": "*",
+    "@sap/xssec": "^4"
   },
   "devDependencies": {
     "@sap/cds-dk": "^8",

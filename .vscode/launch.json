@@ -8,6 +8,12 @@
       "type": "node-terminal"
     },
     {
+      "name": "cds-ts serve production",
+      "command": "npx cds-ts serve --production",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
       "name": "cds serve",
       "command": "npx cds serve",
       "request": "launch",
