@@ -46,5 +46,5 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
 
 ## Q&A
 
-Q: Why not CAP 8.0?
+Q: Any known issues to track?
 A: Waiting for next Typer issue to be resolved: https://github.com/cap-js/cds-types/issues/136
