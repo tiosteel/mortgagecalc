@@ -38,7 +38,8 @@ As per usual, deploy mtar created by `mbt build`.
 
 ## Remote debug
 
-TBD
+cf ssh -N -L 9229:127.0.0.1:9229 mortgagecalc-calculator-service
+cf ssh -N -L 9229:127.0.0.1:9229 mortgagecalc-site-service
 
 ## Learn More
 

@@ -1,5 +1,5 @@
 {
     "requires": {
-        "auth": "basic"
+        "auth": "mocked"
     }
 }

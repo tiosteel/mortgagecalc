@@ -12,6 +12,15 @@
       "command": "npx cds serve",
       "request": "launch",
       "type": "node-terminal"
+    },
+    {
+      "name": "attach to node process",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "localRoot": "${workspaceFolder}/srv/calculator",
+      "preLaunchTask": "tsc: build - srv/calculator/tsconfig.json",
+      "outFiles": ["${workspaceFolder}/srv/calculator/gen/srv/**/*.js"]
     }
   ]
 }
