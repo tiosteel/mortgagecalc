@@ -12,8 +12,10 @@ build-parameters:
         - npx cds build --production # this will mainly build the database according to configuration in root .cdsrc - services must be taken into account
 
         # build workspaces https://cap.cloud.sap/docs/guides/deployment/custom-builds#build-ws
-        - npx -p @sap/cds-dk cds build ./srv/calculator --production --ws-pack --opts workspaceRoot=.. && tsc --project ./srv/calculator
-        - npx -p @sap/cds-dk cds build ./srv/site --production --ws-pack --opts workspaceRoot=.. && tsc --project ./srv/site # locally all packages behave as one, but on deploy they perform independently so package-lock is required for every of them.
+        - npx -p @sap/cds-dk cds build ./srv/calculator --production --ws-pack --opts workspaceRoot=..
+        - npx -p @sap/cds-dk cds build ./srv/site --production --ws-pack --opts workspaceRoot=.. # locally all packages behave as one, but on deploy they perform independently so package-lock is required for every of them.
+        - tsc --project ./srv/calculator
+        - tsc --project ./srv/site
         - cp package-lock.json ./srv/calculator/gen/srv
         - cp package-lock.json ./srv/site/gen/srv
 modules:

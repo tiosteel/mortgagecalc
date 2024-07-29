@@ -48,4 +48,4 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
 ## Q&A
 
 Q: Any known issues to track?
-A: Waiting for next Typer issue to be resolved: https://github.com/cap-js/cds-types/issues/136
+A: Waiting for next Typer issue to be resolved: https://github.com/cap-js/cds-types/issues/136. Until then the package "@cap-js/cds-types": ">=0.6.1" must be installed manually.

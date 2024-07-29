@@ -23,10 +23,13 @@
       "name": "attach to node process",
       "type": "node",
       "request": "attach",
+      "restart": true,
       "port": 9229,
-      "localRoot": "${workspaceFolder}/srv/calculator",
-      "preLaunchTask": "tsc: build - srv/calculator/tsconfig.json",
-      "outFiles": ["${workspaceFolder}/srv/calculator/gen/srv/**/*.js"]
+      "sourceMaps": true,
+      "trace": true,
+      "preLaunchTask": "tsc build calculator",
+      "localRoot": "${workspaceFolder}/srv/calculator/gen/srv",
+      "remoteRoot": "home/vcap/app"
     }
   ]
 }

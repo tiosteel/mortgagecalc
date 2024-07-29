@@ -34,7 +34,7 @@
         "$tsc"
       ],
       "group": "build",
-      "label": "tsc: build - srv/calculator/tsconfig.json"
+      "label": "tsc build calculator"
     }
   ]
 }
