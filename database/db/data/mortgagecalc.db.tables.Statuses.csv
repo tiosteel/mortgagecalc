@@ -1,0 +1,8 @@
+code;name;descr
+requested;requested;requested
+calculated;calculated;calculated
+confirmed;confirmed;confirmed, waiting for activation
+active;active;active
+closed;closed;closed
+frozen;frozen;frozen
+terminated;terminated;terminated)
