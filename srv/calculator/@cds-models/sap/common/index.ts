@@ -3,7 +3,7 @@ import * as __ from './../../_';
 export type Locale = string;
 // the following represents the CDS aspect 'CodeList'
 export function _CodeListAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class extends Base {
+  return class CodeList extends Base {
         name?: string | null;
         descr?: string | null;
       static readonly actions: Record<never, never>
@@ -12,7 +12,7 @@ export function _CodeListAspect<TBase extends new (...args: any[]) => object>(Ba
 export class CodeList extends _CodeListAspect(__.Entity) {}
 // the following represents the CDS aspect 'TextsAspect'
 export function _TextsAspectAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class extends Base {
+  return class TextsAspect extends Base {
     /**
     * Type for a language code
     */
@@ -27,7 +27,7 @@ export class TextsAspect extends _TextsAspectAspect(__.Entity) {}
 * See https://cap.cloud.sap/docs/cds/common#entity-languages
 */
 export function _LanguageAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class extends _CodeListAspect(Base) {
+  return class Language extends _CodeListAspect(Base) {
     /**
     * Type for a language code
     */
@@ -47,7 +47,7 @@ Object.defineProperty(Languages, 'name', { value: 'sap.common.Languages' })
 * See https://cap.cloud.sap/docs/cds/common#entity-countries
 */
 export function _CountryAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class extends _CodeListAspect(Base) {
+  return class Country extends _CodeListAspect(Base) {
         code?: string;
       static readonly actions: Record<never, never>
   };
@@ -64,7 +64,7 @@ Object.defineProperty(Countries, 'name', { value: 'sap.common.Countries' })
 * See https://cap.cloud.sap/docs/cds/common#entity-currencies
 */
 export function _CurrencyAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class extends _CodeListAspect(Base) {
+  return class Currency extends _CodeListAspect(Base) {
         code?: string;
         symbol?: string | null;
         minorUnit?: number | null;
@@ -83,7 +83,7 @@ Object.defineProperty(Currencies, 'name', { value: 'sap.common.Currencies' })
 * See https://cap.cloud.sap/docs/cds/common#entity-timezones
 */
 export function _TimezoneAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class extends _CodeListAspect(Base) {
+  return class Timezone extends _CodeListAspect(Base) {
         code?: string;
       static readonly actions: Record<never, never>
   };

@@ -3,7 +3,9 @@ using { mortgagecalc.db.types as types } from '@mortgagecalc/database';
 
 @path: '/mortgage/calculator'
 service CalculatorService {
-    function getEuribor(day: Date, period: types.euriborPeriod) returns Decimal;
+    function getEuribor(day: Date, period: types.EuriborPeriod) returns Decimal;
 
-    entity EuriborValues as projection on tables.EuriborValues;
+    entity Contracts as projection on tables.Contracts actions {
+        action calculate() returns Contracts;
+    }; 
 }

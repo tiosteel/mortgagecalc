@@ -6,23 +6,26 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@mortgagecalc/calculatorservice": "*",
+    "@mortgagecalc/database": "*",
+    "@mortgagecalc/foundation": "*",
+    "@mortgagecalc/siteservice": "*",
     "@sap/cds": "^8",
     "@sap/cds-hana": "^2",
-    "sqlite3": "^5",
+    "@sap/xssec": "^4",
     "hdb": "0.19.8",
-    "@mortgagecalc/foundation": "*",
-    "@mortgagecalc/calculatorservice": "*",
-    "@mortgagecalc/siteservice": "*",
-    "@mortgagecalc/database": "*",
-    "@sap/xssec": "^4"
+    "sqlite3": "^5"
   },
   "devDependencies": {
-    "@sap/cds-dk": "^8",
-    "express": "^4",
-    "@sap/eslint-plugin-cds": "^3",
-    "eslint": "^9",
     "@cap-js/cds-typer": "^0.24.0",
-    "@cap-js/cds-types": ">=0.6.1"
+    "@cap-js/cds-types": "^0.6.3",
+    "@jest/globals": "^29.7.0",
+    "@sap/cds-dk": "^8",
+    "@sap/eslint-plugin-cds": "^3",
+    "@types/jest": "^29.5.12",
+    "eslint": "^9",
+    "express": "^4",
+    "ts-jest": "^29.2.4"
   },
   "scripts": {
     "start": "cds-serve",

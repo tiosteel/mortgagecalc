@@ -1,4 +1,6 @@
 // This is an automatically generated file. Please do not change its contents manually!
+export type Money = number;
+export type Percentages = number;
 // enum
 export const EuriborPeriod = {
   weekly: "weekly",
