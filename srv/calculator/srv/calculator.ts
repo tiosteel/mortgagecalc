@@ -1,4 +1,4 @@
-import { ApplicationService } from '@sap/cds';
+import { ApplicationService, log } from '@sap/cds';
 import type { Request } from '@sap/cds';
 import type { EuriborValue, Contract } from '#cds-models/db/tables';
 import type { EuriborPeriod } from '#cds-models/db/types';
@@ -30,7 +30,19 @@ export class CalculatorService extends ApplicationService {
      * @param { import('@sap/cds').Request } req
      */
     async onCalculate(req: Request) {
-        const contract: Contract = await SELECT.one.from(req.subject);
-        const contractBuilder = new ContractBuilder(contract, MortgageFormula, ContractPersistanceProxy);
+        const contract: Contract = await SELECT.one.from(req.subject)
+        .columns(contract => {
+            contract`.*`;
+            contract.ContractPayments('*');
+            contract.ContractRates('*');
+         });
+        
+         const contractBuilder = new ContractBuilder(contract, MortgageFormula, ContractPersistanceProxy);
+
+        contractBuilder.buildCleansedContract(contractBuilder.initial);
+        contractBuilder.buildSortedContract(contractBuilder.cleansedContractLayer);
+        contractBuilder.buildFinalContract(contractBuilder.sortedContractLayer);
+        
+        log('asdf');
     }
 }

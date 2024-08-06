@@ -10,19 +10,14 @@ const contract: Contract = {
     "dateStart": "2024-01-28", 
     "dateFinish": "2034-02-15", 
     "baseInterestRate": 2.4, 
-    "monthlyPaymentDate": 15
+    "monthlyPaymentDate": 15,
+    ContractPayments: []
 };
 
 describe('Test ContractBuilder', () => {
     test('test buildBasicTimeSheetLayer', () => {
         const contractBuilder = new ContractBuilder(contract, MortgageFormula, ContractPersistanceProxy);
-        contractBuilder.buildBasicTimeSheetLayer();
-        expect(contractBuilder.basicTimeSheetLayer).toMatchObject(contract);
-    });
-
-    test('test buildBasicTimeSheetLayer', () => {
-        const contractBuilder = new ContractBuilder(contract, MortgageFormula, ContractPersistanceProxy);
-        contractBuilder.buildAppliedDiscountsLayer();
-        expect(contractBuilder.appliedDiscountsLayer).toMatchObject(contract);
+        contractBuilder.buildCleansedContract();
+        expect(contractBuilder.cleansedContractLayer).toMatchObject(contractBuilder.initial);
     });
 });

@@ -9,10 +9,14 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         dateStart?: __.CdsDate | null;
         dateFinish?: __.CdsDate | null;
         baseInterestRate?: _mortgagecalc_db_types.Percentages | null;
+        baseEuriborRate?: _mortgagecalc_db_types.Percentages | null;
         monthlyPaymentDate?: number | null;
+        totalPayment?: _mortgagecalc_db_types.Money | null;
+        totalInterest?: _mortgagecalc_db_types.Money | null;
+        totalPercentage?: _mortgagecalc_db_types.Percentages | null;
         ContractRates?: __.Composition.of.many<ContractRates>;
-        ContractBills?: __.Composition.of.many<ContractBills>;
-        ContractExtraPayments?: __.Composition.of.many<ContractPayments>;
+        ContractPayments?: __.Composition.of.many<ContractPayments>;
+        numberOfPeriods?: number | null;
       static readonly actions: Record<never, never>
   };
 }
@@ -23,9 +27,10 @@ export class Contracts extends Array<Contract> {$count?: number}
 Object.defineProperty(Contracts, 'name', { value: 'mortgagecalc.db.tables.Contracts' })
 
 export function _ContractRateAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class ContractRate extends _._cuidAspect(_._temporalAspect(Base)) {
+  return class ContractRate extends _._cuidAspect(Base) {
         parent?: __.Association.to<Contract> | null;
         parent_ID?: string | null;
+        validFrom?: __.CdsTimestamp | null;
         euriborRate?: _mortgagecalc_db_types.Percentages | null;
         interestRate?: _mortgagecalc_db_types.Percentages | null;
       static readonly actions: Record<never, never>
@@ -37,28 +42,15 @@ Object.defineProperty(ContractRate, 'is_singular', { value: true })
 export class ContractRates extends Array<ContractRate> {$count?: number}
 Object.defineProperty(ContractRates, 'name', { value: 'mortgagecalc.db.tables.ContractRates' })
 
-export function _ContractBillAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class ContractBill extends _._cuidAspect(Base) {
-        parent?: __.Association.to<Contract> | null;
-        parent_ID?: string | null;
-        paymentDate?: __.CdsDate | null;
-        interestValue?: _mortgagecalc_db_types.Money | null;
-      static readonly actions: Record<never, never>
-  };
-}
-export class ContractBill extends _ContractBillAspect(__.Entity) {}
-Object.defineProperty(ContractBill, 'name', { value: 'mortgagecalc.db.tables.ContractBills' })
-Object.defineProperty(ContractBill, 'is_singular', { value: true })
-export class ContractBills extends Array<ContractBill> {$count?: number}
-Object.defineProperty(ContractBills, 'name', { value: 'mortgagecalc.db.tables.ContractBills' })
-
 export function _ContractPaymentAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class ContractPayment extends _._cuidAspect(Base) {
-        paymentDate?: __.CdsDate | null;
         parent?: __.Association.to<Contract> | null;
         parent_ID?: string | null;
+        paymentDate?: __.CdsDate | null;
         body?: _mortgagecalc_db_types.Money | null;
         interest?: _mortgagecalc_db_types.Money | null;
+        required?: boolean | null;
+        remainingDebt?: _mortgagecalc_db_types.Money | null;
         total?: _mortgagecalc_db_types.Money | null;
       static readonly actions: Record<never, never>
   };
