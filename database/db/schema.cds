@@ -5,7 +5,7 @@ using { mortgagecalc.db.types as types } from './types';
 @description : 'Head entity - planned contract to be calculated'
 entity Contracts: cuid {
     years: Integer @assert.range: [ 1, 50 ];
-    amount: Date;
+    amount: types.Money;
     dateStart: Date;
     dateFinish: Date;
     baseInterestRate: types.Percentages;
@@ -33,6 +33,7 @@ entity ContractBills: cuid {
 
 @description : 'Expected contract payments. Both regular and extra.'
 entity ContractPayments: cuid {
+    paymentDate: Date;
     parent: Association to one Contracts;
     body: types.Money;
     interest: types.Money;

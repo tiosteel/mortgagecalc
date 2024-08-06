@@ -4,15 +4,20 @@ import type { EuriborValue, Contract } from '#cds-models/db/tables';
 import type { EuriborPeriod } from '#cds-models/db/types';
 import ContractBuilder from "./lib/ContractBuilder";
 
+import MortgageFormula from './lib/MortgageFormula/MortgageFormula';
+import ContractPersistanceProxy from './lib/ContractPersistanceProxy';
+
 export class CalculatorService extends ApplicationService {
 
     init(): Promise<void> {
+        this.on('calculate', this.onCalculate);
+
         return super.init();
     }
     
     async getEuribor(day: Date, period: EuriborPeriod): Promise<number|undefined> {
         const { EuriborValues } = await import('#cds-models/db/tables');
-        const result: EuriborValue|undefined = await SELECT.one.from(EuriborValues).where({day: {'<=': day}});
+        const result: EuriborValue|undefined = await SELECT.one.from(EuriborValues).where({day: {'<=': day}}).orderBy('day desc');
         
         if (!result) {
             throw new Error();
@@ -24,10 +29,8 @@ export class CalculatorService extends ApplicationService {
     /**
      * @param { import('@sap/cds').Request } req
      */
-    async calculateContract(req: Request) {
-        const { Contracts } = await import('#cds-models/db/tables');
-
-        const contract: Contract = await SELECT.one.from(Contracts, req.subject);
-        const contractBuilder = new ContractBuilder(contract);
+    async onCalculate(req: Request) {
+        const contract: Contract = await SELECT.one.from(req.subject);
+        const contractBuilder = new ContractBuilder(contract, MortgageFormula, ContractPersistanceProxy);
     }
 }

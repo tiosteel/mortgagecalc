@@ -5,7 +5,7 @@ import * as __ from './../../../_';
 export function _ContractAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class Contract extends _._cuidAspect(Base) {
         years?: number | null;
-        amount?: __.CdsDate | null;
+        amount?: _mortgagecalc_db_types.Money | null;
         dateStart?: __.CdsDate | null;
         dateFinish?: __.CdsDate | null;
         baseInterestRate?: _mortgagecalc_db_types.Percentages | null;
@@ -54,6 +54,7 @@ Object.defineProperty(ContractBills, 'name', { value: 'mortgagecalc.db.tables.Co
 
 export function _ContractPaymentAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class ContractPayment extends _._cuidAspect(Base) {
+        paymentDate?: __.CdsDate | null;
         parent?: __.Association.to<Contract> | null;
         parent_ID?: string | null;
         body?: _mortgagecalc_db_types.Money | null;

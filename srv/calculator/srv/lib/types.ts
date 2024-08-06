@@ -6,3 +6,7 @@ export type GConstructor<T = {}> = new (...args: any[]) => T;
 
 // restricted types for mixins
 export type WithBaseContract = GConstructor<{ initial: Contract }>;
+
+export type PersistanceProxy = {
+    save(contract: Contract): Promise<Boolean>;
+};
