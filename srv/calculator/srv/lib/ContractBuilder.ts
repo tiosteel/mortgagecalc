@@ -37,8 +37,8 @@ export default class ContractBuilder {
     buildSortedContract(contract: Contract = this.initial) {
         const sortedContract = structuredClone(contract);
 
-        sortedContract.ContractPayments.sort((a, b) => b.paymentDate.localeCompare(a.paymentDate));
-        sortedContract.ContractRates.sort((a, b) => b.validFrom.localeCompare(a.validFrom));
+        sortedContract.ContractPayments.sort((a, b) => a.paymentDate.localeCompare(b.paymentDate));
+        sortedContract.ContractRates.sort((a, b) => a.validFrom.localeCompare(b.validFrom));
 
         this.sortedContractLayer = sortedContract;
     }
@@ -73,7 +73,7 @@ export default class ContractBuilder {
             while (paymentsClone.some(payment => payment.paymentDate === this.dateToString(dateOfPayment))) {
                 const extraPayment = paymentsClone.shift();
                 resultPayments.push(extraPayment);
-                remainingDebt -= extraPayment.body;
+                remainingDebt += extraPayment.body;
             }
 
             const requiredPayment: ContractPayment = {
@@ -119,7 +119,8 @@ export default class ContractBuilder {
     }
 
     dateToString(date: Date): CdsDate {
-        return date.toISOString().split('T').at(0) as CdsDate;
+        const result: CdsDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}` as CdsDate;
+        return result;
     }
 
     getMonthlyRateMath(interestRate: Percentages, EuriborRate: Percentages): number {
