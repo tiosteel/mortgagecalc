@@ -68,7 +68,7 @@ export default class ContractBuilder {
 
             const ppmt = this.math.PPMT(this.getMonthlyRateMath(interestRate, euriborRate), 1, contract.numberOfPeriods, remainingDebt);
             const ipmt = this.math.IPMT(this.getMonthlyRateMath(interestRate, euriborRate), 1, contract.numberOfPeriods, remainingDebt);
-            remainingDebt -= ppmt;
+            remainingDebt += ppmt;
 
             while (paymentsClone.some(payment => payment.paymentDate === this.dateToString(dateOfPayment))) {
                 const extraPayment = paymentsClone.shift();
