@@ -11,13 +11,14 @@ entity Contracts: cuid {
     baseInterestRate: types.Percentages;
     baseEuriborRate: types.Percentages;
     monthlyPaymentDate: Integer @assert.range: [ 1, 28 ] default 1;
-    totalPayment: types.Money;
-    totalInterest: types.Money;
-    totalPercentage: types.Percentages;
     ContractRates: Composition of many ContractRates on ContractRates.parent = $self;
     ContractPayments: Composition of many ContractPayments on ContractPayments.parent = $self;
 
     @calculated numberOfPeriods: Integer = years * 12;
+
+    totalInterest: types.Money default 0;
+    totalPayment: types.Money = amount - totalInterest stored;
+    totalOverpayPercentage: types.Percentages = totalInterest / totalPayment * 100 stored;
 }
 
 @description : `Contract rates (euribor + interest rate) is not a static thing.
@@ -35,11 +36,11 @@ entity ContractPayments: cuid {
     parent: Association to one Contracts;
 
     paymentDate: Date;
-    body: types.Money;
-    interest: types.Money;
-    required: Boolean;
+    body: types.Money default 0;
+    interest: types.Money default 0;
+    required: Boolean default true;
     remainingDebt: types.Money;
-    total: types.Money;
+    total: types.Money = interest + body stored;
 }
 
 @description: `Daily Euribor values. Usually defined for workdays only. 

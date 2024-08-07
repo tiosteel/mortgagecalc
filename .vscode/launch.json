@@ -4,6 +4,9 @@
     {
       "name": "cds-ts serve",
       "command": "npx cds-ts serve",
+      "env": {
+        "DEBUG": "all"
+      },
       "request": "launch",
       "type": "node-terminal"
     },

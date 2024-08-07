@@ -2,18 +2,15 @@ import type { Contract, ContractPayments} from '#cds-models/db/tables';
 import type { CdsDate } from '#cds-models/_';
 import type IMortgageFormula from '../MortgageFormula/IMortgageFormula';
 import type { PersistanceProxy } from '../types';
-import { IContractBuilderState, IContractBuilderStateConstruct } from './types';
+import type { IContractBuilderState, IContractBuilderStateConstruct } from './types';
 
 export default class ContractBuilder {
 
     initial: Contract;
     math: IMortgageFormula;
     dbProxy: PersistanceProxy;
-
     cleansedContractLayer: Contract;
-
     sortedContractLayer: Contract;
-
     finalContractLayer: Contract;
 
     constructor(contract: Contract, math: IMortgageFormula, dbProxy: PersistanceProxy) {
@@ -46,7 +43,7 @@ export default class ContractBuilder {
 
         const resultPayments = this.createFirstPeriodResultPayments(state, contract.numberOfPeriods);
 
-        /** and that's why we calculate for 1 period lesser */
+        /** first period is calculated by this.createFirstPeriodResultPayments and that's why here we calculate for 1 period lesser */
         for (let numberOfPeriods = contract.numberOfPeriods - 1; numberOfPeriods > 0; numberOfPeriods--) {
             if (state.remainingDebt <= 0) break;
 
@@ -55,22 +52,26 @@ export default class ContractBuilder {
 
             const ppmt = this.math.PPMT(state.monthlyRate4Formula, 1, numberOfPeriods, state.remainingDebt);
             const ipmt = this.math.IPMT(state.monthlyRate4Formula, 1, numberOfPeriods, state.remainingDebt);
-            state.remainingDebt += state.remainingDebt;
 
-            this.calculateExtraPayments(state, resultPayments);
+            state.remainingDebt += ppmt;
 
             resultPayments.push({
                 body: ppmt,
                 interest: ipmt,
                 paymentDate: state.paymentDateCDS,
-                remainingDebt: state.remainingDebt,
-                total: ppmt + ipmt
+                remainingDebt: state.remainingDebt
             });
+
+            this.calculateExtraPayments(state, resultPayments);
         }
 
         finalContract.ContractPayments = resultPayments;
-
+        this.calculateTotals(finalContract);
         this.finalContractLayer = finalContract;
+    }
+
+    protected calculateTotals(contract: Contract) {
+        contract.totalInterest = contract.ContractPayments.reduce((total, payment) => total + payment.interest, 0);
     }
 
     protected calculateRatesChange(state: IContractBuilderState): void {
@@ -90,8 +91,14 @@ export default class ContractBuilder {
     protected calculateExtraPayments(state: IContractBuilderState, resultPayments: ContractPayments) {
         while (state.payments.some(payment => payment.paymentDate === state.paymentDateCDS)) {
             const extraPayment = state.payments.shift();
-            resultPayments.push(extraPayment);
+
+            if (extraPayment.body + state.remainingDebt < 0) {
+                extraPayment.body =  -state.remainingDebt
+            }
+            
             state.remainingDebt += extraPayment.body;
+            extraPayment.remainingDebt = state.remainingDebt;
+            resultPayments.push(extraPayment);
         }
     }
 
@@ -107,7 +114,8 @@ export default class ContractBuilder {
             {
                 paymentDate: state.paymentDateCDS,
                 body: 0, // remember: this is only percentage payment, so the debt body is not touched here
-                interest: this.math.IPMT(state.monthlyRate4Formula, 1, numberOfPeriods, state.remainingDebt)
+                interest: this.math.IPMT(state.monthlyRate4Formula, 1, numberOfPeriods, state.remainingDebt),
+                remainingDebt: state.remainingDebt
             }
         ];
 

@@ -11,12 +11,12 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         baseInterestRate?: _mortgagecalc_db_types.Percentages | null;
         baseEuriborRate?: _mortgagecalc_db_types.Percentages | null;
         monthlyPaymentDate?: number | null;
-        totalPayment?: _mortgagecalc_db_types.Money | null;
-        totalInterest?: _mortgagecalc_db_types.Money | null;
-        totalPercentage?: _mortgagecalc_db_types.Percentages | null;
         ContractRates?: __.Composition.of.many<ContractRates>;
         ContractPayments?: __.Composition.of.many<ContractPayments>;
         numberOfPeriods?: number | null;
+        totalInterest?: _mortgagecalc_db_types.Money | null;
+        totalPayment?: _mortgagecalc_db_types.Money | null;
+        totalOverpayPercentage?: _mortgagecalc_db_types.Percentages | null;
       static readonly actions: Record<never, never>
   };
 }

@@ -7,7 +7,7 @@ export class ContractBuilderState implements IContractBuilderState {
     
     euriborRate: Percentages;
     interestRate: Percentages;
-    #remainingDebt: Money;
+    remainingDebt: Money;
     paymentDate: Date;
 
     payments: ContractPayments;
@@ -30,13 +30,5 @@ export class ContractBuilderState implements IContractBuilderState {
 
     get monthlyRate4Formula(): number {
         return (this.interestRate + this.euriborRate) / 12 /** months */ / 100 /** % */;
-    }
-
-    get remainingDebt(): number {
-        return this.#remainingDebt
-    } 
-
-    set remainingDebt(val: number) {
-        this.#remainingDebt = val > 0 ? val : 0;
     }
 }
