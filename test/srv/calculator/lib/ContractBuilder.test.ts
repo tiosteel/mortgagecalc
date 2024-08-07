@@ -1,4 +1,4 @@
-import ContractBuilder from "@mortgagecalc/calculatorservice/srv/lib/ContractBuilder";
+import ContractBuilder from "@mortgagecalc/calculatorservice/srv/lib/ContractBuilder/ContractBuilder";
 import MortgageFormula from "@mortgagecalc/calculatorservice/srv/lib/MortgageFormula/MortgageFormula";
 import ContractPersistanceProxy from "@mortgagecalc/calculatorservice/srv/lib/ContractPersistanceProxy";
 import type { Contract } from "@mortgagecalc/database/tables";
