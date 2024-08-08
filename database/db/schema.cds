@@ -17,7 +17,7 @@ entity Contracts: cuid {
     @calculated numberOfPeriods: Integer = years * 12;
 
     totalInterest: types.Money default 0;
-    totalPayment: types.Money = amount - totalInterest stored;
+    totalPayment: types.Money = -amount + totalInterest stored;
     totalOverpayPercentage: types.Percentages = totalInterest / totalPayment * 100 stored;
 }
 
