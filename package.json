@@ -25,18 +25,23 @@
     "@types/jest": "^29.5.12",
     "eslint": "^9",
     "express": "^4",
-    "ts-jest": "^29.2.4"
+    "ts-jest": "^29.2.4",
+    "cds-plugin-ui5": "^0.9.3"
   },
   "scripts": {
     "start": "cds-serve",
     "test": "jest",
     "clean": "rm -rf gen database/gen srv/calculator/gen srv/site/gen mta_archives",
-    "fullclean": "rm -rf node_modules database/node_modules package-lock.json; npm run clean"
+    "fullclean": "rm -rf node_modules database/node_modules package-lock.json; npm run clean",
+    "watch-mortageform": "cds watch --open mortgagecalc.mortageform/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "workspaces": [
     "packages/*",
     "srv/*",
     "app/*",
     "database"
+  ],
+  "sapux": [
+    "app/mortageform"
   ]
 }
