@@ -18,7 +18,7 @@ entity Contracts: cuid {
 
     totalInterest: types.Money default 0;
     totalPayment: types.Money = -amount + totalInterest stored;
-    totalOverpayPercentage: types.Percentages = totalInterest / totalPayment * 100 stored;
+    totalOverpayPercentage: types.Percentages = totalInterest / (-amount + totalInterest) * 100 stored;
 }
 
 @description : `Contract rates (euribor + interest rate) is not a static thing.

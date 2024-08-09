@@ -10,24 +10,22 @@ build-parameters:
       commands:
         - npm ci # https://docs.npmjs.com/cli/v10/commands/npm-ci 
         - npx cds build --production # this will mainly build the database according to configuration in root .cdsrc - services must be taken into account
-
-        # build workspaces https://cap.cloud.sap/docs/guides/deployment/custom-builds#build-ws
-        - npx -p @sap/cds-dk cds build ./srv/calculator --production --ws-pack --opts workspaceRoot=..
-        - npx -p @sap/cds-dk cds build ./srv/site --production --ws-pack --opts workspaceRoot=.. # locally all packages behave as one, but on deploy they perform independently so package-lock is required for every of them.
-        - tsc --project ./srv/calculator
-        - tsc --project ./srv/site
-        - cp package-lock.json ./srv/calculator/gen/srv
-        - cp package-lock.json ./srv/site/gen/srv
 modules:
   - name: mortgagecalc-calculator-service
     type: nodejs
-    path: srv/calculator/gen/srv
+    path: srv/calculator
     parameters:
       buildpack: nodejs_buildpack
       readiness-health-check-type: http
       readiness-health-check-http-endpoint: /health
     build-parameters:
-      builder: npm
+      build-result: gen/srv
+      builder: custom
+      commands:
+        - npx -p @sap/cds-dk cds build --production --ws-pack --opts workspaceRoot=../../
+        - tsc
+        - cp ../../package-lock.json ./gen/srv
+        - find gen/srv -name '*.ts' -delete
     provides:
       - name: mortgage-calculator-api # required by consumers of CAP services (e.g. approuter)
         properties:
@@ -38,13 +36,19 @@ modules:
 
   - name: mortgagecalc-site-service
     type: nodejs
-    path: srv/site/gen/srv
+    path: srv/site
     parameters:
       buildpack: nodejs_buildpack
       readiness-health-check-type: http
       readiness-health-check-http-endpoint: /health
     build-parameters:
-      builder: npm
+      build-result: gen/srv
+      builder: custom
+      commands:
+        - npx -p @sap/cds-dk cds build --production --ws-pack --opts workspaceRoot=../../
+        - tsc
+        - cp ../../package-lock.json ./gen/srv
+        - find gen/srv -name '*.ts' -delete
     provides:
       - name: mortgage-site-api # required by consumers of CAP services (e.g. approuter)
         properties:
