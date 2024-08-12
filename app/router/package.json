@@ -1,0 +1,21 @@
+{
+  "name": "@mortgagecalc/approuter",
+  "dependencies": {
+    "@sap/approuter": "^16.0.0"
+  },
+  "engines": {
+    "node": "^20.0.0"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js",
+    "dev": "node ../../node_modules/dev-approuter"
+  },
+  "devDependencies": {
+    "dev-approuter": "^0.2.26",
+    "@mortgagecalc/mortgageform": "../mortgageform",
+    "@mortgagecalc/monorepo": "*"
+  },
+  "peerDependencies": {
+    "@mortgagecalc/monorepo": "workspace:*"
+  }
+}

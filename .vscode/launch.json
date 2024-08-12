@@ -11,6 +11,15 @@
       "type": "node-terminal"
     },
     {
+      "name": "start all",
+      "command": "npm run dev -w @mortgagecalc/approuter",
+      "env": {
+        "DEBUG": "all"
+      },
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
       "name": "cds-ts serve production",
       "command": "npx cds-ts serve --production",
       "request": "launch",

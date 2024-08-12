@@ -19,6 +19,7 @@
   "devDependencies": {
     "@cap-js/cds-typer": "^0.24.0",
     "@cap-js/cds-types": "^0.6.3",
+    "dev-approuter": "^0.2.26",
     "@jest/globals": "^29.7.0",
     "@sap/cds-dk": "^8",
     "@typescript-eslint/eslint-plugin": "^7.14.1",

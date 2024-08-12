@@ -5,7 +5,7 @@ _out
 *.sqlite-wal
 *.sqlite-shm
 connection.properties
-default-*.json
+/default-*.json
 .cdsrc-private.json
 gen/
 node_modules/

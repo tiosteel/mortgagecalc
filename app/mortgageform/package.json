@@ -1,5 +1,5 @@
 {
-	"name": "mortgagecalc.mortgageform",
+	"name": "@mortgagecalc/mortgageform",
 	"version": "1.0.0",
 	"description": "UI5 Application: mortgagecalc.mortgageform",
 	"author": "Mikhail Ponomarev",
