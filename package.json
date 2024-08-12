@@ -21,9 +21,11 @@
     "@cap-js/cds-types": "^0.6.3",
     "@jest/globals": "^29.7.0",
     "@sap/cds-dk": "^8",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.14.1",
     "@sap/eslint-plugin-cds": "^3",
     "@types/jest": "^29.5.12",
-    "eslint": "^9",
+    "eslint": "^8.57.0",
     "express": "^4",
     "ts-jest": "^29.2.4",
     "cds-plugin-ui5": "^0.9.3"
@@ -31,6 +33,7 @@
   "scripts": {
     "start": "cds-serve",
     "test": "jest",
+    "start-mortgageform": "npm run start -w mortgagecalc.mortgageform",
     "clean": "rm -rf gen database/gen srv/calculator/gen srv/site/gen mta_archives | find . -name '_build_tmp' -delete",
     "fullclean": "rm -rf node_modules database/node_modules package-lock.json; npm run clean",
     "watch-mortageform": "cds watch --open mortgagecalc.mortageform/index.html?sap-ui-xx-viewCache=false --livereload false"
