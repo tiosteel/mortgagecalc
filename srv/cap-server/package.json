@@ -28,10 +28,22 @@
     "@types/jest": "^29.5.12",
     "eslint": "^8.57.0",
     "express": "^4",
-    "ts-jest": "^29.2.4",
-    "cds-plugin-ui5": "^0.9.3"
+    "ts-jest": "^29.2.4"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-ts serve"
+  },
+  "imports": {
+    "#cds-models/db/*": "@mortgagecalc/database/*",
+    "#cds-models/*": {
+      "require": {
+        "default": "./@cds-models/*/index.js",
+        "types": "./@cds-models/*/index.ts"
+      },
+      "import": {
+        "default": "./@cds-models/*/index.js",
+        "types": "./@cds-models/*/index.ts"
+      }
+    }
   }
 }

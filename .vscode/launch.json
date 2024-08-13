@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "cds-ts serve",
-      "command": "npx cds-ts serve",
+      "command": "npx cds-ts serve -p @mortgagecalc/cap-server",
       "env": {
         "DEBUG": "all"
       },

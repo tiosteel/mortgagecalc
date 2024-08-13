@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "NodeNext",
     "outDir": "./gen",
-    "rootDirs": ["database", "srv/calculator", "srv/site"],
+    "rootDirs": ["database", "srv/calculator", "srv/site", "srv/cap-server"],
     "baseUrl": ".",
     "moduleResolution": "NodeNext",
     "skipLibCheck": true,
