@@ -1,0 +1,20 @@
+{
+    "requires": {
+        "db": {
+            "[development]": {
+                "kind": "sqlite",
+                "credentials": {
+                    "url": "../../db.sqlite"
+                }
+            },
+            "kind": "hana"
+        }
+    },
+    "log": {
+        "levels": {
+            "sqlite": "debug",
+            "hana": "debug"
+        }
+    },
+    "auth": "mocked"
+}

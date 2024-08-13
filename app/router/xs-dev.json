@@ -1,0 +1,10 @@
+{
+  "welcomeFile": "webapp/index.html",
+  "authenticationMethod": "none",
+  "routes": [
+      {
+          "dependency": "mortgageform",
+          "authenticationType": "none"
+      }
+  ]
+}

@@ -2,13 +2,11 @@
   "PORT": 5001,
   "destinations": [
     {
-      "name": "mortgage-calculator-api",
-      "url": "http://localhost:4004",
-      "forwardAuthToken": true
-    },
-    {
-      "name": "mortgage-site-api",
-      "url": "http://localhost:4004",
+      "Name": "cap-server",
+      "Authentication": "NoAuthentication",
+      "ProxyType": "Internet",
+      "Type": "HTTP",
+      "URL": "http://localhost:4004",
       "forwardAuthToken": true
     }
   ]
