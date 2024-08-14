@@ -1,81 +1,178 @@
 {
-	"_version": "1.12.0",
-
-	"sap.app": {
-		"id": "mortgagecalc.mortgageform",
-		"type": "application",
-		"i18n": "i18n/i18n.properties",
-		"title": "{{appTitle}}",
-		"description": "{{appDescription}}",
-		"applicationVersion": {
-			"version": "${version}"
-		}
-	},
-
-	"sap.ui": {
-		"technology": "UI5",
-		"icons": {},
-		"deviceTypes": {
-			"desktop": true,
-			"tablet": true,
-			"phone": true
-		}
-	},
-
-	"sap.ui5": {
-		"rootView": {
-			"viewName": "mortgagecalc.mortgageform.view.App",
-			"type": "XML",
-			"async": true,
-			"id": "app"
-		},
-
-		"dependencies": {
-			"minUI5Version": "1.127.0",
-			"libs": {
-				"sap.ui.core": {},
-				"sap.m": {}
-			}
-		},
-
-		"handleValidation": true,
-
-		"contentDensities": {
-			"compact": true,
-			"cozy": true
-		},
-
-		"models": {
-			"i18n": {
-				"type": "sap.ui.model.resource.ResourceModel",
-				"settings": {
-					"bundleName": "mortgagecalc.mortgageform.i18n.i18n"
-				}
-			}
-		},
-
-		"routing": {
-			"config": {
-				"routerClass": "sap.m.routing.Router",
-				"viewType": "XML",
-				"viewPath": "mortgagecalc.mortgageform.view",
-				"controlId": "app",
-				"controlAggregation": "pages",
-				"async": true
-			},
-			"routes": [
-				{
-					"pattern": "",
-					"name": "main",
-					"target": "main"
-				}
-			],
-			"targets": {
-				"main": {
-					"viewId": "main",
-					"viewName": "Main"
-				}
-			}
-		}
-	}
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "mortgagecalc.mortgageform",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.14.3",
+      "toolsId": "9c072ff2-05f8-4ed3-aaa2-8d161cb382da"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/mortgage/calculator/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "mortgagecalc-display": {
+          "semanticObject": "mortgagecalc",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.127.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "mortgagecalc.mortgageform.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ContractsList",
+          "target": "ContractsList"
+        },
+        {
+          "pattern": "Contracts({key}):?query:",
+          "name": "ContractsObjectPage",
+          "target": "ContractsObjectPage"
+        },
+        {
+          "pattern": "Contracts({key})/ContractPayments({key2}):?query:",
+          "name": "ContractPaymentsObjectPage",
+          "target": "ContractPaymentsObjectPage"
+        }
+      ],
+      "targets": {
+        "ContractsList": {
+          "type": "Component",
+          "id": "ContractsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Contracts",
+              "variantManagement": "Page",
+              "navigation": {
+                "Contracts": {
+                  "detail": {
+                    "route": "ContractsObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ContractsObjectPage": {
+          "type": "Component",
+          "id": "ContractsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Contracts",
+              "navigation": {
+                "ContractPayments": {
+                  "detail": {
+                    "route": "ContractPaymentsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ContractPaymentsObjectPage": {
+          "type": "Component",
+          "id": "ContractPaymentsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Contracts/ContractPayments"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
 }

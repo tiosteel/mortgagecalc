@@ -37,7 +37,8 @@
     "start-mortgageform": "npm run start -w mortgagecalc.mortgageform",
     "clean": "rm -rf gen database/gen srv/calculator/gen srv/site/gen mta_archives | find . -name '_build_tmp' -delete",
     "fullclean": "rm -rf node_modules database/node_modules package-lock.json; npm run clean",
-    "watch-mortageform": "cds watch --open mortgagecalc.mortageform/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-mortageform": "cds watch --open mortgagecalc.mortageform/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-mortgageform": "cds watch --open mortgageform/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "workspaces": [
     "packages/*",
@@ -46,6 +47,7 @@
     "database"
   ],
   "sapux": [
-    "app/mortageform"
+    "app/mortageform",
+    "app/mortgageform"
   ]
 }
