@@ -14,7 +14,8 @@
       "name": "start all",
       "command": "npm run dev -w @mortgagecalc/approuter",
       "env": {
-        "DEBUG": "all"
+        "DEBUG": "all",
+        "CDS_ENV": "development"
       },
       "request": "launch",
       "type": "node-terminal"
