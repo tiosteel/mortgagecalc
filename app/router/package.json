@@ -12,7 +12,6 @@
   },
   "devDependencies": {
     "dev-approuter": "^0.2.26",
-    "@mortgagecalc/cap-server": "*",
     "@mortgagecalc/mortgageform": "*"
   }
 }

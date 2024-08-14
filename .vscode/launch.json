@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "cds-ts serve",
+      "name": "start CAP server",
       "command": "npx cds-ts serve -p @mortgagecalc/cap-server",
       "env": {
         "DEBUG": "all"
@@ -11,7 +11,7 @@
       "type": "node-terminal"
     },
     {
-      "name": "start all",
+      "name": "start approuter",
       "command": "npm run dev -w @mortgagecalc/approuter",
       "env": {
         "DEBUG": "all",

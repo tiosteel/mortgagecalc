@@ -3,6 +3,11 @@
   "authenticationMethod": "none",
   "routes": [
       {
+        "authenticationType": "none",
+        "destination": "cap-server",
+        "source": "/mortgage/calculator(/.*)"
+      },
+      {
           "dependency": "mortgageform",
           "authenticationType": "none"
       }
