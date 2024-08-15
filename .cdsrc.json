@@ -25,7 +25,7 @@
                 "dest": "./db",
                 "options": {
                     "model": [
-                        "index.cds",
+                        "srv/cap-server",
                         "database/db/hana"
                     ]
                 }
