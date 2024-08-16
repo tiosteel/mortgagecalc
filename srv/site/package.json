@@ -21,5 +21,18 @@
   },
   "scripts": {
     "start": "cds-serve"
+  },
+  "imports": {
+    "#cds-models/db/*": "@mortgagecalc/database/*",
+    "#cds-models/*": {
+      "require": {
+        "default": "./@cds-models/*/index.js",
+        "types": "./@cds-models/*/index.ts"
+      },
+      "import": {
+        "default": "./@cds-models/*/index.js",
+        "types": "./@cds-models/*/index.ts"
+      }
+    }
   }
 }

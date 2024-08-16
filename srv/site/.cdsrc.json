@@ -1,8 +1,18 @@
 {
-    "requires": {
-        "auth": "xsuaa",
-        "db": {
-            "kind": "hana"
+  "requires": {
+    "auth": "xsuaa",
+    "db": {
+      "kind": "hana"
+    },
+    "calculatorService": {
+      "[development]": {
+        "kind": "odata",
+        "model": "./srv/external/calculatorService",
+        "credentials": {
+          "url": "/mortgage/calculator",
+          "forwardAuthToken": true
         }
+      }
     }
+  }
 }

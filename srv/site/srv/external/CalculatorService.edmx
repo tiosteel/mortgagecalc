@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+    <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="CalculatorService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Contracts" EntityType="CalculatorService.Contracts">
+          <NavigationPropertyBinding Path="ContractRates" Target="ContractRates"/>
+          <NavigationPropertyBinding Path="ContractPayments" Target="ContractPayments"/>
+          <NavigationPropertyBinding Path="SiblingEntity" Target="Contracts"/>
+        </EntitySet>
+        <EntitySet Name="ContractRates" EntityType="CalculatorService.ContractRates">
+          <NavigationPropertyBinding Path="parent" Target="Contracts"/>
+          <NavigationPropertyBinding Path="SiblingEntity" Target="ContractRates"/>
+        </EntitySet>
+        <EntitySet Name="ContractPayments" EntityType="CalculatorService.ContractPayments">
+          <NavigationPropertyBinding Path="parent" Target="Contracts"/>
+          <NavigationPropertyBinding Path="SiblingEntity" Target="ContractPayments"/>
+        </EntitySet>
+        <FunctionImport Name="getEuribor" Function="CalculatorService.getEuribor"/>
+      </EntityContainer>
+      <EntityType Name="Contracts">
+        <Key>
+          <PropertyRef Name="ID"/>
+          <PropertyRef Name="IsActiveEntity"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="years" Type="Edm.Int32"/>
+        <Property Name="amount" Type="Edm.Decimal" Precision="13" Scale="2"/>
+        <Property Name="dateStart" Type="Edm.Date"/>
+        <Property Name="dateFinish" Type="Edm.Date"/>
+        <Property Name="baseInterestRate" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="baseEuriborRate" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="monthlyPaymentDate" Type="Edm.Int32" DefaultValue="1"/>
+        <NavigationProperty Name="ContractRates" Type="Collection(CalculatorService.ContractRates)" Partner="parent">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ContractPayments" Type="Collection(CalculatorService.ContractPayments)" Partner="parent">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <Property Name="numberOfPeriods" Type="Edm.Int32"/>
+        <Property Name="totalInterest" Type="Edm.Decimal" Precision="13" Scale="2" DefaultValue="0"/>
+        <Property Name="totalPayment" Type="Edm.Decimal" Precision="13" Scale="2"/>
+        <Property Name="totalOverpayPercentage" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+        <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <NavigationProperty Name="DraftAdministrativeData" Type="CalculatorService.DraftAdministrativeData" ContainsTarget="true"/>
+        <NavigationProperty Name="SiblingEntity" Type="CalculatorService.Contracts"/>
+      </EntityType>
+      <EntityType Name="ContractRates">
+        <Key>
+          <PropertyRef Name="ID"/>
+          <PropertyRef Name="IsActiveEntity"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="parent" Type="CalculatorService.Contracts" Partner="ContractRates">
+          <ReferentialConstraint Property="parent_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="parent_ID" Type="Edm.Guid"/>
+        <Property Name="validFrom" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="euriborRate" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="interestRate" Type="Edm.Decimal" Precision="13" Scale="3"/>
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+        <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <NavigationProperty Name="DraftAdministrativeData" Type="CalculatorService.DraftAdministrativeData" ContainsTarget="true"/>
+        <NavigationProperty Name="SiblingEntity" Type="CalculatorService.ContractRates"/>
+      </EntityType>
+      <EntityType Name="ContractPayments">
+        <Key>
+          <PropertyRef Name="ID"/>
+          <PropertyRef Name="IsActiveEntity"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="parent" Type="CalculatorService.Contracts" Partner="ContractPayments">
+          <ReferentialConstraint Property="parent_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="parent_ID" Type="Edm.Guid"/>
+        <Property Name="paymentDate" Type="Edm.Date"/>
+        <Property Name="body" Type="Edm.Decimal" Precision="13" Scale="2" DefaultValue="0"/>
+        <Property Name="interest" Type="Edm.Decimal" Precision="13" Scale="2" DefaultValue="0"/>
+        <Property Name="required" Type="Edm.Boolean" DefaultValue="true"/>
+        <Property Name="remainingDebt" Type="Edm.Decimal" Precision="13" Scale="2"/>
+        <Property Name="total" Type="Edm.Decimal" Precision="13" Scale="2"/>
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+        <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+        <NavigationProperty Name="DraftAdministrativeData" Type="CalculatorService.DraftAdministrativeData" ContainsTarget="true"/>
+        <NavigationProperty Name="SiblingEntity" Type="CalculatorService.ContractPayments"/>
+      </EntityType>
+      <EntityType Name="DraftAdministrativeData">
+        <Key>
+          <PropertyRef Name="DraftUUID"/>
+        </Key>
+        <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+        <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+        <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+        <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+        <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+      </EntityType>
+      <Action Name="calculate" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CalculatorService.Contracts"/>
+        <ReturnType Type="CalculatorService.Contracts"/>
+      </Action>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CalculatorService.Contracts"/>
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+        <ReturnType Type="CalculatorService.Contracts"/>
+      </Action>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CalculatorService.ContractRates"/>
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+        <ReturnType Type="CalculatorService.ContractRates"/>
+      </Action>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CalculatorService.ContractPayments"/>
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+        <ReturnType Type="CalculatorService.ContractPayments"/>
+      </Action>
+      <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CalculatorService.Contracts"/>
+        <ReturnType Type="CalculatorService.Contracts"/>
+      </Action>
+      <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CalculatorService.Contracts"/>
+        <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+        <ReturnType Type="CalculatorService.Contracts"/>
+      </Action>
+      <Function Name="getEuribor" IsBound="false" IsComposable="false">
+        <Parameter Name="day" Type="Edm.Date"/>
+        <Parameter Name="period" Type="Edm.String"/>
+        <ReturnType Type="Edm.Decimal" Scale="variable"/>
+      </Function>
+      <Annotations Target="CalculatorService.getEuribor(Edm.Date,Edm.String)/period">
+        <Annotation Term="Validation.AllowedValues">
+          <Collection>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="weekly"/>
+              <PropertyValue Property="Value" String="weekly"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="monthly1"/>
+              <PropertyValue Property="Value" String="monthly1"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="monthly3"/>
+              <PropertyValue Property="Value" String="monthly3"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="monthly6"/>
+              <PropertyValue Property="Value" String="monthly6"/>
+            </Record>
+            <Record Type="Validation.AllowedValue">
+              <Annotation Term="Core.SymbolicName" String="yearly"/>
+              <PropertyValue Property="Value" String="yearly"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts">
+        <Annotation Term="Core.Description" String="Head entity - planned contract to be calculated"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.EntityContainer/Contracts">
+        <Annotation Term="Common.DraftRoot">
+          <Record Type="Common.DraftRootType">
+            <PropertyValue Property="ActivationAction" String="CalculatorService.draftActivate"/>
+            <PropertyValue Property="EditAction" String="CalculatorService.draftEdit"/>
+            <PropertyValue Property="PreparationAction" String="CalculatorService.draftPrepare"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/years">
+        <Annotation Term="Validation.Minimum" Int="1"/>
+        <Annotation Term="Validation.Maximum" Int="50"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/monthlyPaymentDate">
+        <Annotation Term="Validation.Minimum" Int="1"/>
+        <Annotation Term="Validation.Maximum" Int="28"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/numberOfPeriods">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/totalPayment">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/totalOverpayPercentage">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/HasDraftEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.Contracts/DraftAdministrativeData">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractRates">
+        <Annotation Term="Core.Description" String="Contract rates (euribor + interest rate) is not a static thing.&#xA;Euribor part is recalculated every 6 months. Base rate can be adjusted by discounts or fees"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.EntityContainer/ContractRates">
+        <Annotation Term="Common.DraftNode">
+          <Record Type="Common.DraftNodeType">
+            <PropertyValue Property="PreparationAction" String="CalculatorService.draftPrepare"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractRates/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractRates/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractRates/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractRates/HasDraftEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractRates/DraftAdministrativeData">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractPayments">
+        <Annotation Term="Core.Description" String="Expected contract payments. Both regular and extra."/>
+      </Annotations>
+      <Annotations Target="CalculatorService.EntityContainer/ContractPayments">
+        <Annotation Term="Common.DraftNode">
+          <Record Type="Common.DraftNodeType">
+            <PropertyValue Property="PreparationAction" String="CalculatorService.draftPrepare"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractPayments/ID">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractPayments/total">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractPayments/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractPayments/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractPayments/HasDraftEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.ContractPayments/DraftAdministrativeData">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.DraftAdministrativeData">
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.DraftAdministrativeData/DraftUUID">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}"/>
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.DraftAdministrativeData/CreationDateTime">
+        <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.DraftAdministrativeData/CreatedByUser">
+        <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.DraftAdministrativeData/DraftIsCreatedByMe">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.DraftAdministrativeData/LastChangeDateTime">
+        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.DraftAdministrativeData/LastChangedByUser">
+        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.DraftAdministrativeData/InProcessByUser">
+        <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}"/>
+      </Annotations>
+      <Annotations Target="CalculatorService.DraftAdministrativeData/DraftIsProcessedByMe">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

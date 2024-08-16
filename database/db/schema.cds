@@ -3,6 +3,7 @@ using { cuid } from '@sap/cds/common';
 using { mortgagecalc.db.types as types } from './types';
 
 @description : 'Head entity - planned contract to be calculated'
+@odata.draft.enabled
 entity Contracts: cuid {
     years: Integer @assert.range: [ 1, 50 ];
     amount: types.Money;

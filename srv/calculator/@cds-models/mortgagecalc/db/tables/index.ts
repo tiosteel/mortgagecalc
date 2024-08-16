@@ -20,11 +20,10 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
       static readonly actions: Record<never, never>
   };
 }
-export class Contract extends _ContractAspect(__.Entity) {static drafts: typeof Contract}
+export class Contract extends _ContractAspect(__.Entity) {}
 Object.defineProperty(Contract, 'name', { value: 'mortgagecalc.db.tables.Contracts' })
 Object.defineProperty(Contract, 'is_singular', { value: true })
-export class Contracts extends Array<Contract> {static drafts: typeof Contract
-$count?: number}
+export class Contracts extends Array<Contract> {$count?: number}
 Object.defineProperty(Contracts, 'name', { value: 'mortgagecalc.db.tables.Contracts' })
 
 export function _ContractRateAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
@@ -37,11 +36,10 @@ export function _ContractRateAspect<TBase extends new (...args: any[]) => object
       static readonly actions: Record<never, never>
   };
 }
-export class ContractRate extends _ContractRateAspect(__.Entity) {static drafts: typeof ContractRate}
+export class ContractRate extends _ContractRateAspect(__.Entity) {}
 Object.defineProperty(ContractRate, 'name', { value: 'mortgagecalc.db.tables.ContractRates' })
 Object.defineProperty(ContractRate, 'is_singular', { value: true })
-export class ContractRates extends Array<ContractRate> {static drafts: typeof ContractRate
-$count?: number}
+export class ContractRates extends Array<ContractRate> {$count?: number}
 Object.defineProperty(ContractRates, 'name', { value: 'mortgagecalc.db.tables.ContractRates' })
 
 export function _ContractPaymentAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
@@ -57,11 +55,10 @@ export function _ContractPaymentAspect<TBase extends new (...args: any[]) => obj
       static readonly actions: Record<never, never>
   };
 }
-export class ContractPayment extends _ContractPaymentAspect(__.Entity) {static drafts: typeof ContractPayment}
+export class ContractPayment extends _ContractPaymentAspect(__.Entity) {}
 Object.defineProperty(ContractPayment, 'name', { value: 'mortgagecalc.db.tables.ContractPayments' })
 Object.defineProperty(ContractPayment, 'is_singular', { value: true })
-export class ContractPayments extends Array<ContractPayment> {static drafts: typeof ContractPayment
-$count?: number}
+export class ContractPayments extends Array<ContractPayment> {$count?: number}
 Object.defineProperty(ContractPayments, 'name', { value: 'mortgagecalc.db.tables.ContractPayments' })
 
 export function _EuriborValueAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
