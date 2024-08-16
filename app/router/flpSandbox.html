@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!-- Copyright (c) 2015 SAP AG, All Rights Reserved -->
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{appTitle}}</title>
+
+    <script src="https://sapui5.hana.ondemand.com/1.127.0/test-resources/sap/ushell/bootstrap/sandbox.js" id="sap-ushell-bootstrap"></script>
+    <!-- Bootstrap the UI5 core library. 'data-sap-ui-frameOptions="allow"'' is a NON-SECURE setting for test environments -->
+    <script id="sap-ui-bootstrap"
+        src="https://sapui5.hana.ondemand.com/1.127.0/resources/sap-ui-core.js"
+        data-sap-ui-libs=""
+        data-sap-ui-async="true"
+        data-sap-ui-preload="async"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-compatVersion="edge"
+        data-sap-ui-language="en"
+        data-sap-ui-resourceroots='{"mortgagecalc.mortgageform": "../"}'
+        data-sap-ui-frameOptions="allow"
+        data-sap-ui-flexibilityServices='[{"connector": "LocalStorageConnector"}]'>
+    </script>
+    <script>
+        sap.ui.getCore().attachInit(function () {
+            sap.ushell.Container.createRenderer().placeAt("content");
+        });
+    </script>
+</head>
+
+<!-- UI Content -->
+
+<body class="sapUiBody" id="content">
+</body>
+
+</html>

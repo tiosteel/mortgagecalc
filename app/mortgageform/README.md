@@ -7,7 +7,7 @@
 |**Generation Platform**<br>Visual Studio Code|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local Cap|
-|**Service URL**<br>http://localhost:4004/mortgage/calculator/|
+|**Service URL**<br>http://localhost:4004/mortgage/site/|
 |**Module Name**<br>mortgageform|
 |**Application Title**<br>Mortgage Calculator|
 |**Namespace**<br>mortgagecalc|

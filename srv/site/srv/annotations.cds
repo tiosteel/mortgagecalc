@@ -1,4 +1,4 @@
-using CalculatorService as service from './calculator';
+using SiteService as service from './site';
 annotate service.Contracts with @(
     UI.LineItem : [
         {

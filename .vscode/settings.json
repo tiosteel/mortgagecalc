@@ -8,5 +8,8 @@
     // "tab",
     // "tsv"
   ],
-  "files.watcherExclude": {}
+  "files.watcherExclude": {
+    "**/node_modules/*/**": false,
+    "**/node_modules/[!@]*/**/*": true
+  }
 }

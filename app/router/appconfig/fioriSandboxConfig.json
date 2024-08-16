@@ -1,0 +1,30 @@
+{
+    "defaultRenderer": "fiori2",
+    "bootstrapPlugins": {
+        "RuntimeAuthoringPlugin": {
+            "component": "sap.ushell.plugins.rta",
+            "config": {
+                "validateAppVersion": false
+            }
+        }
+    },
+    "renderers": {
+        "fiori2": {
+            "componentData": {
+                "config": {
+                    "search": "hidden",
+                    "enableSearch": false
+                }
+            }
+        }
+    },
+    "applications": {
+        "mortgagecalcmortgageform-tile": {
+            "title": "Mortgage Calculator",
+            "description": "An SAP Fiori application.",
+            "additionalInformation": "SAPUI5.Component=mortgagecalc.mortgageform",
+            "applicationType": "URL",
+            "url": "mortgagecalc.mortgageform"
+        }
+    }
+}

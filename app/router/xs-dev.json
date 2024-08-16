@@ -1,15 +1,21 @@
 {
-  "welcomeFile": "webapp/index.html",
+  "welcomeFile": "/flpSandbox.html",
   "authenticationMethod": "none",
   "routes": [
-      {
-        "authenticationType": "none",
-        "destination": "cap-server",
-        "source": "/mortgage/calculator(/.*)"
-      },
-      {
-          "dependency": "mortgageform",
-          "authenticationType": "none"
-      }
+    {
+      "authenticationType": "none",
+      "destination": "cap-server",
+      "source": "/mortgage/site(/.*)"
+    },
+    {
+      "dependency": "mortgageform",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "localDir": "./",
+      "authenticationType": "none"
+    }
   ]
 }
