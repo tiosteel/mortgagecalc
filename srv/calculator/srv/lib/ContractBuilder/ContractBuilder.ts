@@ -11,7 +11,8 @@ export default class ContractBuilder {
     dbProxy: PersistanceProxy;
     cleansedContractLayer: Contract;
     sortedContractLayer: Contract;
-    finalContractLayer: Contract;
+    calculatedContractLayer: Contract;
+    postCleansedContractLayer: Contract;
 
     constructor(contract: Contract, math: IMortgageFormula, dbProxy: PersistanceProxy) {
         this.initial = structuredClone(contract);
@@ -19,13 +20,13 @@ export default class ContractBuilder {
         this.dbProxy = dbProxy;
     }
 
-    buildCleansedContract(contract: Contract = this.initial) {
-        const cleansedContract = structuredClone(contract);
-        cleansedContract.ContractPayments =
-            cleansedContract.ContractPayments
+    buildPreCleansedContract(contract: Contract = this.initial) {
+        const preCleansedContract = structuredClone(contract);
+        preCleansedContract.ContractPayments =
+            preCleansedContract.ContractPayments
                 .filter(payment => !payment.required)
                 .map(payment => ({ ...payment, remainingDebt: null }));
-        this.cleansedContractLayer = cleansedContract;
+        this.cleansedContractLayer = preCleansedContract;
     }
 
     buildSortedContract(contract: Contract = this.initial) {
@@ -37,8 +38,8 @@ export default class ContractBuilder {
         this.sortedContractLayer = sortedContract;
     }
 
-    buildFinalContract(contract: Contract = this.initial, ContractBuilderState: IContractBuilderStateConstruct) {
-        const finalContract = structuredClone(contract);
+    buildCalculatedContract(contract: Contract = this.initial, ContractBuilderState: IContractBuilderStateConstruct) {
+        const calculatedContract = structuredClone(contract);
         const state = new ContractBuilderState(contract);
 
         const resultPayments = this.createFirstPeriodResultPayments(state, contract.numberOfPeriods);
@@ -65,9 +66,23 @@ export default class ContractBuilder {
             this.calculateExtraPayments(state, resultPayments);
         }
 
-        finalContract.ContractPayments = resultPayments;
-        this.calculateTotals(finalContract);
-        this.finalContractLayer = finalContract;
+        calculatedContract.ContractPayments = resultPayments;
+        this.calculateTotals(calculatedContract);
+        this.calculatedContractLayer = calculatedContract;
+    }
+
+    buildPostCleansedContract(contract: Contract = this.initial) {
+        const postCleansedContract = structuredClone(contract);
+
+        postCleansedContract.totalInterest = +postCleansedContract.totalInterest.toFixed(2);
+
+        postCleansedContract.ContractPayments.forEach(contractPayment => {
+            contractPayment.body = +contractPayment.body.toFixed(2);
+            contractPayment.interest = +contractPayment.interest.toFixed(2);
+            contractPayment.remainingDebt = +contractPayment.remainingDebt.toFixed(2);
+        });
+        
+        this.postCleansedContractLayer = postCleansedContract;
     }
 
     protected calculateTotals(contract: Contract) {

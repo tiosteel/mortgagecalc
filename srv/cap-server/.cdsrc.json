@@ -1,20 +1,27 @@
 {
-    "requires": {
-        "db": {
-            "[development]": {
-                "kind": "sqlite",
-                "credentials": {
-                    "url": "../../db.sqlite"
-                }
-            },
-            "kind": "hana"
+  "requires": {
+    "db": {
+      "[development]": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "../../db.sqlite"
         }
+      },
+      "kind": "hana"
     },
-    "log": {
-        "levels": {
-            "sqlite": "debug",
-            "hana": "debug"
-        }
-    },
-    "auth": "mocked"
+    "ExternalCalculatorService": {
+      "kind": "rest",
+      "credentials": {
+        "url": "http://localhost:4004/mortgage/calculator",
+        "forwardAuthToken": true
+      }
+    }
+  },
+  "log": {
+    "levels": {
+      "sqlite": "debug",
+      "hana": "debug"
+    }
+  },
+  "auth": "mocked"
 }

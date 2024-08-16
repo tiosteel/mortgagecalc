@@ -10,6 +10,7 @@
     "express": "^4",
     "@sap/xssec": "^4.1.3",
     "hdb": "0.19.8",
+    "@sap-cloud-sdk/http-client": "3.18.1",
     "@mortgagecalc/foundation": "*",
     "@mortgagecalc/calculatorservice": "*",
     "@mortgagecalc/database": "*"
@@ -32,6 +33,14 @@
       "import": {
         "default": "./@cds-models/*/index.js",
         "types": "./@cds-models/*/index.ts"
+      }
+    }
+  },
+  "cds": {
+    "requires": {
+      "CalculatorService": {
+        "kind": "odata",
+        "model": "srv/external/CalculatorService"
       }
     }
   }

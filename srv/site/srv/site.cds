@@ -5,5 +5,5 @@ using { mortgagecalc.db.types as types } from '@mortgagecalc/database';
 service SiteService {
     function getEuribor(day: Date, period: types.EuriborPeriod) returns Decimal;
 
-    entity Contracts as projection on tables.Contracts; 
+    entity Contracts as projection on tables.Contracts;
 }

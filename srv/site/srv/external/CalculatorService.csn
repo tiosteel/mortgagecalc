@@ -1,0 +1,520 @@
+{
+ "meta": {
+  "creator": "cds-dk 8.1.1"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "CalculatorService.getEuribor": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "day": {
+     "type": "cds.Date"
+    },
+    "period": {
+     "type": "cds.LargeString",
+     "@Validation.AllowedValues": [
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "weekly",
+       "Value": "weekly"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "monthly1",
+       "Value": "monthly1"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "monthly3",
+       "Value": "monthly3"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "monthly6",
+       "Value": "monthly6"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "yearly",
+       "Value": "yearly"
+      }
+     ]
+    }
+   },
+   "returns": {
+    "type": "cds.Decimal"
+   }
+  },
+  "CalculatorService.Contracts": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "ID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@Core.ComputedDefaultValue": true
+    },
+    "years": {
+     "type": "cds.Integer",
+     "@Validation.Minimum": 1,
+     "@Validation.Maximum": 50
+    },
+    "amount": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 2
+    },
+    "dateStart": {
+     "type": "cds.Date"
+    },
+    "dateFinish": {
+     "type": "cds.Date"
+    },
+    "baseInterestRate": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3
+    },
+    "baseEuriborRate": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3
+    },
+    "monthlyPaymentDate": {
+     "type": "cds.Integer",
+     "default": {
+      "val": 1
+     },
+     "@Validation.Minimum": 1,
+     "@Validation.Maximum": 28
+    },
+    "ContractRates": {
+     "type": "cds.Composition",
+     "target": "CalculatorService.ContractRates",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "ContractPayments": {
+     "type": "cds.Composition",
+     "target": "CalculatorService.ContractPayments",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "numberOfPeriods": {
+     "type": "cds.Integer",
+     "@Core.Computed": true
+    },
+    "totalInterest": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 2,
+     "default": {
+      "val": 0
+     }
+    },
+    "totalPayment": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 2,
+     "@Core.Computed": true
+    },
+    "totalOverpayPercentage": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3,
+     "@Core.Computed": true
+    },
+    "IsActiveEntity": {
+     "key": true,
+     "type": "cds.Boolean",
+     "notNull": true,
+     "default": {
+      "val": true
+     },
+     "@UI.Hidden": true
+    },
+    "HasActiveEntity": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "default": {
+      "val": false
+     },
+     "@UI.Hidden": true
+    },
+    "HasDraftEntity": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "default": {
+      "val": false
+     },
+     "@UI.Hidden": true
+    },
+    "DraftAdministrativeData": {
+     "type": "cds.Association",
+     "target": "CalculatorService.DraftAdministrativeData",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": [],
+     "@UI.Hidden": true
+    },
+    "SiblingEntity": {
+     "type": "cds.Association",
+     "target": "CalculatorService.Contracts",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "actions": {
+    "calculate": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      }
+     },
+     "returns": {
+      "type": "CalculatorService.Contracts"
+     }
+    },
+    "draftPrepare": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      },
+      "SideEffectsQualifier": {
+       "type": "cds.LargeString"
+      }
+     },
+     "returns": {
+      "type": "CalculatorService.Contracts"
+     }
+    },
+    "draftActivate": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      }
+     },
+     "returns": {
+      "type": "CalculatorService.Contracts"
+     }
+    },
+    "draftEdit": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      },
+      "PreserveChanges": {
+       "type": "cds.Boolean"
+      }
+     },
+     "returns": {
+      "type": "CalculatorService.Contracts"
+     }
+    }
+   },
+   "doc": "Head entity - planned contract to be calculated",
+   "@Common.DraftRoot": {
+    "$Type": "Common.DraftRootType",
+    "ActivationAction": "CalculatorService.draftActivate",
+    "EditAction": "CalculatorService.draftEdit",
+    "PreparationAction": "CalculatorService.draftPrepare"
+   }
+  },
+  "CalculatorService.ContractRates": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "ID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@Core.ComputedDefaultValue": true
+    },
+    "parent": {
+     "type": "cds.Association",
+     "target": "CalculatorService.Contracts",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "parent_ID": {
+     "type": "cds.UUID"
+    },
+    "validFrom": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset"
+    },
+    "euriborRate": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3
+    },
+    "interestRate": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 3
+    },
+    "IsActiveEntity": {
+     "key": true,
+     "type": "cds.Boolean",
+     "notNull": true,
+     "default": {
+      "val": true
+     },
+     "@UI.Hidden": true
+    },
+    "HasActiveEntity": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "default": {
+      "val": false
+     },
+     "@UI.Hidden": true
+    },
+    "HasDraftEntity": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "default": {
+      "val": false
+     },
+     "@UI.Hidden": true
+    },
+    "DraftAdministrativeData": {
+     "type": "cds.Association",
+     "target": "CalculatorService.DraftAdministrativeData",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": [],
+     "@UI.Hidden": true
+    },
+    "SiblingEntity": {
+     "type": "cds.Association",
+     "target": "CalculatorService.ContractRates",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "actions": {
+    "draftPrepare": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      },
+      "SideEffectsQualifier": {
+       "type": "cds.LargeString"
+      }
+     },
+     "returns": {
+      "type": "CalculatorService.ContractRates"
+     }
+    }
+   },
+   "doc": "Contract rates (euribor + interest rate) is not a static thing. Euribor part is recalculated every 6 months. Base rate can be adjusted by discounts or fees",
+   "@Common.DraftNode": {
+    "$Type": "Common.DraftNodeType",
+    "PreparationAction": "CalculatorService.draftPrepare"
+   }
+  },
+  "CalculatorService.ContractPayments": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "ID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@Core.ComputedDefaultValue": true
+    },
+    "parent": {
+     "type": "cds.Association",
+     "target": "CalculatorService.Contracts",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "parent_ID": {
+     "type": "cds.UUID"
+    },
+    "paymentDate": {
+     "type": "cds.Date"
+    },
+    "body": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 2,
+     "default": {
+      "val": 0
+     }
+    },
+    "interest": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 2,
+     "default": {
+      "val": 0
+     }
+    },
+    "required": {
+     "type": "cds.Boolean",
+     "default": {
+      "val": true
+     }
+    },
+    "remainingDebt": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 2
+    },
+    "total": {
+     "type": "cds.Decimal",
+     "precision": 13,
+     "scale": 2,
+     "@Core.Computed": true
+    },
+    "IsActiveEntity": {
+     "key": true,
+     "type": "cds.Boolean",
+     "notNull": true,
+     "default": {
+      "val": true
+     },
+     "@UI.Hidden": true
+    },
+    "HasActiveEntity": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "default": {
+      "val": false
+     },
+     "@UI.Hidden": true
+    },
+    "HasDraftEntity": {
+     "type": "cds.Boolean",
+     "notNull": true,
+     "default": {
+      "val": false
+     },
+     "@UI.Hidden": true
+    },
+    "DraftAdministrativeData": {
+     "type": "cds.Association",
+     "target": "CalculatorService.DraftAdministrativeData",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": [],
+     "@UI.Hidden": true
+    },
+    "SiblingEntity": {
+     "type": "cds.Association",
+     "target": "CalculatorService.ContractPayments",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "actions": {
+    "draftPrepare": {
+     "kind": "action",
+     "params": {
+      "in": {
+       "type": "$self"
+      },
+      "SideEffectsQualifier": {
+       "type": "cds.LargeString"
+      }
+     },
+     "returns": {
+      "type": "CalculatorService.ContractPayments"
+     }
+    }
+   },
+   "doc": "Expected contract payments. Both regular and extra.",
+   "@Common.DraftNode": {
+    "$Type": "Common.DraftNodeType",
+    "PreparationAction": "CalculatorService.draftPrepare"
+   }
+  },
+  "CalculatorService.DraftAdministrativeData": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "DraftUUID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@UI.Hidden": true,
+     "@Common.Label": "{i18n>Draft_DraftUUID}",
+     "@Core.ComputedDefaultValue": true
+    },
+    "CreationDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Common.Label": "{i18n>Draft_CreationDateTime}"
+    },
+    "CreatedByUser": {
+     "type": "cds.String",
+     "length": 256,
+     "@Common.Label": "{i18n>Draft_CreatedByUser}"
+    },
+    "DraftIsCreatedByMe": {
+     "type": "cds.Boolean",
+     "@UI.Hidden": true,
+     "@Common.Label": "{i18n>Draft_DraftIsCreatedByMe}"
+    },
+    "LastChangeDateTime": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@Common.Label": "{i18n>Draft_LastChangeDateTime}"
+    },
+    "LastChangedByUser": {
+     "type": "cds.String",
+     "length": 256,
+     "@Common.Label": "{i18n>Draft_LastChangedByUser}"
+    },
+    "InProcessByUser": {
+     "type": "cds.String",
+     "length": 256,
+     "@Common.Label": "{i18n>Draft_InProcessByUser}"
+    },
+    "DraftIsProcessedByMe": {
+     "type": "cds.Boolean",
+     "@UI.Hidden": true,
+     "@Common.Label": "{i18n>Draft_DraftIsProcessedByMe}"
+    }
+   },
+   "@Common.Label": "{i18n>Draft_DraftAdministrativeData}"
+  },
+  "CalculatorService": {
+   "kind": "service",
+   "@cds.external": true
+  }
+ }
+}

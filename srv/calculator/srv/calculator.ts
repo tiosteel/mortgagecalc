@@ -40,10 +40,11 @@ export class CalculatorService extends ApplicationService {
 
         const contractBuilder = new ContractBuilder(contract, MortgageFormula, ContractPersistanceProxy);
 
-        contractBuilder.buildCleansedContract(contractBuilder.initial);
+        contractBuilder.buildPreCleansedContract(contractBuilder.initial);
         contractBuilder.buildSortedContract(contractBuilder.cleansedContractLayer);
-        contractBuilder.buildFinalContract(contractBuilder.sortedContractLayer, ContractBuilderState);
+        contractBuilder.buildCalculatedContract(contractBuilder.sortedContractLayer, ContractBuilderState);
+        contractBuilder.buildPostCleansedContract(contractBuilder.calculatedContractLayer);
 
-        await UPDATE(req.subject).with(contractBuilder.finalContractLayer);
+        await UPDATE(req.subject).with(contractBuilder.postCleansedContractLayer);
     }
 }

@@ -16,10 +16,9 @@ entity Contracts: cuid {
     ContractPayments: Composition of many ContractPayments on ContractPayments.parent = $self;
 
     @calculated numberOfPeriods: Integer = years * 12;
+    @calculated totalPayment: types.Money = -amount + totalInterest;
 
     totalInterest: types.Money default 0;
-    totalPayment: types.Money = -amount + totalInterest stored;
-    totalOverpayPercentage: types.Percentages = totalInterest / (-amount + totalInterest) * 100 stored;
 }
 
 @description : `Contract rates (euribor + interest rate) is not a static thing.

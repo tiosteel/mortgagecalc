@@ -99,6 +99,21 @@ annotate service.Contracts with @(
                 $Type : 'UI.DataField',
                 Label : 'baseInterestRate',
                 Value : baseInterestRate
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'baseEuriborRate',
+                Value : baseEuriborRate
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'totalPayment',
+                Value : totalPayment
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'totalInterest',
+                Value : totalInterest
             }
         ]
     },
@@ -120,4 +135,7 @@ annotate service.Contracts with @(
         }
     ]
 );
-
+annotate service.Contracts with {
+    baseEuriborRate @readonly;
+    totalInterest @readonly;
+}

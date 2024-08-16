@@ -17,9 +17,8 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         ContractRates?: __.Composition.of.many<ContractRates>;
         ContractPayments?: __.Composition.of.many<ContractPayments>;
         numberOfPeriods?: number | null;
-        totalInterest?: _mortgagecalc_db_types.Money | null;
         totalPayment?: _mortgagecalc_db_types.Money | null;
-        totalOverpayPercentage?: _mortgagecalc_db_types.Percentages | null;
+        totalInterest?: _mortgagecalc_db_types.Money | null;
       static readonly actions: Record<never, never>
   };
 }

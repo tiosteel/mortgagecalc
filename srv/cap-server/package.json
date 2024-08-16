@@ -14,7 +14,8 @@
     "@sap/cds-hana": "^2",
     "@sap/xssec": "^4",
     "hdb": "0.19.8",
-    "sqlite3": "^5"
+    "sqlite3": "^5",
+    "@sap-cloud-sdk/http-client": "3.18.1"
   },
   "devDependencies": {
     "@cap-js/cds-typer": "^0.24.0",
