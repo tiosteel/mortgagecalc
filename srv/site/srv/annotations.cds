@@ -27,6 +27,55 @@ annotate service.Contracts with @(
             Value : baseInterestRate
         }
     ],
+    UI.LineItem #ContractPayments : [
+        {
+            $Type : 'UI.DataField',
+            Label : 'paymentDate',
+            Value : ContractPayments.paymentDate
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'body',
+            Value : ContractPayments.body
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'interest',
+            Value : ContractPayments.interest
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'required',
+            Value : ContractPayments.required
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'remainingDebt',
+            Value : ContractPayments.remainingDebt
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'total',
+            Value : ContractPayments.total
+        }
+    ],
+    UI.LineItem #ContractRates : [
+        {
+            $Type : 'UI.DataField',
+            Label : 'validFrom',
+            Value : ContractRates.validFrom
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'euriborRate',
+            Value : ContractRates.euriborRate
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'interestRate',
+            Value : ContractRates.interestRate
+        }        
+    ],
     UI.FieldGroup #Contract: {
         $Type : 'UI.FieldGroupType',
         Data: [
@@ -58,6 +107,16 @@ annotate service.Contracts with @(
             $Type : 'UI.ReferenceFacet',
             Label : 'Contract Info',
             Target : '@UI.FieldGroup#Contract'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Contract Payments',
+            Target : '@UI.LineItem#ContractPayments'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Contract Rates',
+            Target : '@UI.LineItem#ContractRates'
         }
     ]
 );

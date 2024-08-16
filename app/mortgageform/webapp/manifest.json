@@ -106,11 +106,6 @@
           "pattern": "Contracts({key}):?query:",
           "name": "ContractsObjectPage",
           "target": "ContractsObjectPage"
-        },
-        {
-          "pattern": "Contracts({key})/ContractPayments({key2}):?query:",
-          "name": "ContractPaymentsObjectPage",
-          "target": "ContractPaymentsObjectPage"
         }
       ],
       "targets": {
@@ -132,10 +127,7 @@
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "type": "ResponsiveTable",
-                    "creationMode":{                                          
-                      "name": "Inline"
-                    }
+                    "type": "ResponsiveTable"
                   }
                 }
               }
@@ -150,24 +142,13 @@
             "settings": {
               "editableHeaderContent": false,
               "contextPath": "/Contracts",
-              "navigation": {
-                "ContractPayments": {
-                  "detail": {
-                    "route": "ContractPaymentsObjectPage"
+              "controlConfiguration" : {
+                "@com.sap.vocabularies.UI.v1.LineItem" : {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
                   }
                 }
               }
-            }
-          }
-        },
-        "ContractPaymentsObjectPage": {
-          "type": "Component",
-          "id": "ContractPaymentsObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "editableHeaderContent": false,
-              "contextPath": "/Contracts/ContractPayments"
             }
           }
         }
