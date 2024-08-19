@@ -16,17 +16,6 @@ export class SiteService extends ApplicationService {
         req.on('succeeded', async () => {
             const srv = await cds.connect.to('ExternalCalculatorService');
             await srv.post(`/Contracts(ID=${ID},IsActiveEntity=true)/calculate`, {});
-
-            const contract = await SELECT.one.from(req.subject)
-                .columns(contract => {
-                    contract`.*`;
-                    contract.ContractPayments('*');
-                    contract.ContractRates('*');
-                });
-            
-            res.totalInterest = contract.totalInterest;
-            res.totalPayment = contract.totalInterest;
-            res.ContractPayments = contract.ContractPayments;
         });
     }
 }

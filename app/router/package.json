@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node node_modules/@sap/approuter/approuter.js",
-    "dev": "node -e 'new require(`dev-approuter`)' _"
+    "dev": "node index.js"
   },
   "devDependencies": {
     "dev-approuter": "^0.2.26",
