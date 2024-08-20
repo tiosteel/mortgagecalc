@@ -120,12 +120,19 @@ annotate service.Contracts with @(
         {
             $Type : 'UI.ReferenceFacet',
             Label : 'Contract Payments',
-            Target: 'ContractPayments/@UI.PresentationVariant'
+            Target: 'ContractPayments/@UI.PresentationVariant',
+            ![@UI.Hidden]: true
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Contract Extra Payments',
+            Target: 'ContractExtraPayments/@UI.PresentationVariant',
+            ![@UI.Hidden]: false
         },
         {
             $Type : 'UI.ReferenceFacet',
             Label : 'Contract Rates',
-            Target: 'ContractRates/@UI.PresentationVariant'
+            Target: 'ContractRates/@UI.PresentationVariant',
         }
     ]
 );
@@ -198,6 +205,66 @@ annotate service.ContractPayments with @(UI: {
 annotate service.ContractPayments with {
     required @readonly;
 };
+
+annotate service.ContractExtraPayments with @(UI: {
+    LineItem           : [
+        {
+            $Type: 'UI.DataField',
+            Label: 'paymentDate',
+            Value: paymentDate
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'body',
+            Value: body
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'interest',
+            Value: interest
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'required',
+            Value: required
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'remainingDebt',
+            Value: remainingDebt
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'total',
+            Value: total
+        }
+    ],
+    SelectionPresentationVariant  : {
+        $Type : 'UI.SelectionPresentationVariantType',
+        SelectionVariant : {
+            $Type : 'UI.SelectionVariantType',
+            
+        },
+        PresentationVariant : {
+            $Type : 'UI.PresentationVariantType',
+            
+        },
+    },
+    PresentationVariant: {
+        $Type         : 'UI.PresentationVariantType',
+        SortOrder     : [
+            {
+                Property  : paymentDate,
+                Descending: false,
+            },
+            {
+                Property  : required,
+                Descending: true,
+            }
+        ],
+        Visualizations: ['@UI.LineItem'],
+    },
+});
 
 annotate service.ContractRates with @(UI: {
     LineItem           : [

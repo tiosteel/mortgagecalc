@@ -15,8 +15,8 @@ entity Contracts: cuid, managed {
     Currency: Currency;
     ContractRates: Composition of many ContractRates on ContractRates.parent = $self;
     ContractPayments: Composition of many ContractPayments on ContractPayments.parent = $self;
-    ContractExtraPayments: Composition of many ContractPayments on ContractExtraPayments.parent = $self and ContractExtraPayments.required = false;
-
+    ContractExtraPayments: Composition of many ContractExtraPayments on ContractExtraPayments.parent = $self and ContractExtraPayments.required = false;
+    
     @calculated numberOfPeriods: Integer = years * 12;
     @calculated totalPayment: types.Money = -amount + totalInterest;
     @calculated contractTitle: String = concat(amount, concat(' ', concat(Currency.code, concat(', ', concat(baseInterestRate + baseCentralBankRate, ' %')))));
@@ -37,6 +37,18 @@ entity ContractRates: cuid {
 
 @description : 'Expected contract payments. Both regular and extra.'
 entity ContractPayments: cuid {
+    parent: Association to one Contracts;
+
+    paymentDate: Date;
+    body: types.Money default 0;
+    interest: types.Money default 0;
+    required: Boolean default true;
+    remainingDebt: types.Money;
+    total: types.Money = interest + body stored;
+}
+
+@description : 'Expected contract payments. Both regular and extra.'
+entity ContractExtraPayments: cuid {
     parent: Association to one Contracts;
 
     paymentDate: Date;
