@@ -32,7 +32,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: mortgagecalc-db
-      - name: monorepo-auth
+      - name: mortgagecalc-auth
 
   - name: mortgagecalc-site-service
     type: nodejs
@@ -55,7 +55,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: mortgagecalc-db
-      - name: monorepo-auth
+      - name: mortgagecalc-auth
       - name: mortgage-calculator-api
 
   - name: mortgagecalc-db-deployer
@@ -65,7 +65,63 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: mortgagecalc-db
+  
+  - name: mortgagecalc-mortgageform-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+    - name: mortgagecalc-mortgageform-repo-host
+      parameters:
+        content-target: true
+    build-parameters:
+      build-result: mortgageformresources
+      requires:
+      - artifacts:
+        - mortgagecalc-mortgageform.zip
+        name: mortgagecalc-mortgageform
+        target-path: mortgageformresources/
 
+  - name: mortgagecalc-mortgageform
+    type: html5
+    path: app/mortgageform
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+      - npm install
+      - npm run build:cf
+      supported-platforms: []
+
+  - name: mortgagecalc-mortgageform-destination-content
+    type: com.sap.application.content
+    requires:
+    - name: mortgagecalc-mortgageform-destination-service
+      parameters:
+        content-target: true
+    - name: mortgagecalc-mortgageform-repo-host
+      parameters:
+        service-key:
+          name: mortgagecalc-mortgageform-repo-host-key
+    - name: mortgagecalc-auth
+      parameters:
+        service-key:
+          name: mortgagecalc-auth-key
+    parameters:
+      content:
+        subaccount:
+          destinations:
+          - Name: mortgageform-repo-host
+            ServiceInstanceName: mortgagecalc-mortgageform-html5-app-host-service
+            ServiceKeyName: mortgagecalc-mortgageform-repo-host-key
+            sap.cloud.service: mortgagecalcmortgageform
+          - Authentication: OAuth2UserTokenExchange
+            Name: mortgageform_xsuaa
+            ServiceInstanceName: mortgagecalc-auth
+            ServiceKeyName: mortgagecalc-auth-key
+            sap.cloud.service: mortgagecalcmortgageform
+          existing_destinations_policy: update
+    build-parameters:
+      no-source: true
 resources:
   - name: mortgagecalc-db
     type: com.sap.xs.hdi-container
@@ -73,7 +129,7 @@ resources:
       service: hana
       service-plan: hdi-shared
 
-  - name: monorepo-auth
+  - name: mortgagecalc-auth
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
@@ -82,3 +138,10 @@ resources:
       config:
         xsappname: monorepo-${org}-${space}
         tenant-mode: dedicated
+  
+  - name: mortgagecalc-mortgageform-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: mortgagecalc-mortgageform-html5-app-host-service
+      service-plan: app-host

@@ -158,5 +158,8 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "service": "mortgagecalcmortgageform"
   }
 }
