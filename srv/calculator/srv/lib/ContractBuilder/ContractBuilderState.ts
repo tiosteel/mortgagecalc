@@ -5,7 +5,7 @@ import type { CdsDate } from '#cds-models/_';
 
 export class ContractBuilderState implements IContractBuilderState {
     
-    euriborRate: Percentages;
+    centralBankRate: Percentages;
     interestRate: Percentages;
     remainingDebt: Money;
     paymentDate: Date;
@@ -14,7 +14,7 @@ export class ContractBuilderState implements IContractBuilderState {
     rates: ContractRates;
     
     constructor(contract: Contract) {
-        this.euriborRate = contract.baseEuriborRate;
+        this.centralBankRate = contract.baseCentralBankRate;
         this.interestRate = contract.baseInterestRate;
         this.remainingDebt = contract.amount;
         this.paymentDate = new Date(contract.dateStart);
@@ -29,6 +29,6 @@ export class ContractBuilderState implements IContractBuilderState {
     }
 
     get monthlyRate4Formula(): number {
-        return (this.interestRate + this.euriborRate) / 12 /** months */ / 100 /** % */;
+        return (this.interestRate + this.centralBankRate) / 12 /** months */ / 100 /** % */;
     }
 }

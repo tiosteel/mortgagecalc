@@ -9,13 +9,22 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         dateStart?: __.CdsDate | null;
         dateFinish?: __.CdsDate | null;
         baseInterestRate?: _mortgagecalc_db_types.Percentages | null;
-        baseEuriborRate?: _mortgagecalc_db_types.Percentages | null;
+        baseCentralBankRate?: _mortgagecalc_db_types.Percentages | null;
         monthlyPaymentDate?: number | null;
+    /**
+    * Type for an association to Currencies
+    * 
+    * See https://cap.cloud.sap/docs/cds/common#type-currency
+    */
+        Currency?: _.Currency | null;
+        Currency_code?: string | null;
         ContractRates?: __.Composition.of.many<ContractRates>;
         ContractPayments?: __.Composition.of.many<ContractPayments>;
+        ContractExtraPayments?: __.Composition.of.many<ContractPayments>;
         numberOfPeriods?: number | null;
         totalPayment?: _mortgagecalc_db_types.Money | null;
         contractTitle?: string | null;
+        contractDescription?: string | null;
         totalInterest?: _mortgagecalc_db_types.Money | null;
       static readonly actions: Record<never, never>
   };
@@ -32,7 +41,7 @@ export function _ContractRateAspect<TBase extends new (...args: any[]) => object
         parent?: __.Association.to<Contract> | null;
         parent_ID?: string | null;
         validFrom?: __.CdsDate | null;
-        euriborRate?: _mortgagecalc_db_types.Percentages | null;
+        centralBankRate?: _mortgagecalc_db_types.Percentages | null;
         interestRate?: _mortgagecalc_db_types.Percentages | null;
       static readonly actions: Record<never, never>
   };
@@ -64,8 +73,8 @@ export class ContractPayments extends Array<ContractPayment> {static drafts: typ
 $count?: number}
 Object.defineProperty(ContractPayments, 'name', { value: 'mortgagecalc.db.tables.ContractPayments' })
 
-export function _EuriborValueAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class EuriborValue extends Base {
+export function _CentralBankValueAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
+  return class CentralBankValue extends Base {
         day?: __.CdsDate;
         weekly?: number | null;
         monthly1?: number | null;
@@ -75,8 +84,8 @@ export function _EuriborValueAspect<TBase extends new (...args: any[]) => object
       static readonly actions: Record<never, never>
   };
 }
-export class EuriborValue extends _EuriborValueAspect(__.Entity) {}
-Object.defineProperty(EuriborValue, 'name', { value: 'mortgagecalc.db.tables.EuriborValues' })
-Object.defineProperty(EuriborValue, 'is_singular', { value: true })
-export class EuriborValues extends Array<EuriborValue> {$count?: number}
-Object.defineProperty(EuriborValues, 'name', { value: 'mortgagecalc.db.tables.EuriborValues' })
+export class CentralBankValue extends _CentralBankValueAspect(__.Entity) {}
+Object.defineProperty(CentralBankValue, 'name', { value: 'mortgagecalc.db.tables.CentralBankValues' })
+Object.defineProperty(CentralBankValue, 'is_singular', { value: true })
+export class CentralBankValues extends Array<CentralBankValue> {$count?: number}
+Object.defineProperty(CentralBankValues, 'name', { value: 'mortgagecalc.db.tables.CentralBankValues' })

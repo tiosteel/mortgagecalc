@@ -7,7 +7,7 @@ export interface IContractBuilderState {
     remainingDebt: Money,
     paymentDate: Date,
     interestRate: Percentages,
-    euriborRate: Percentages,
+    centralBankRate: Percentages,
     get paymentDateCDS(): CdsDate;
     get monthlyRate4Formula(): number;
 }

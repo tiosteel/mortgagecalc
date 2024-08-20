@@ -1,7 +1,7 @@
 import { ApplicationService, log } from '@sap/cds';
 import type { Request } from '@sap/cds';
-import type { EuriborValue, Contract } from '#cds-models/db/tables';
-import type { EuriborPeriod } from '#cds-models/db/types';
+import type { CentralBankValue, Contract } from '#cds-models/db/tables';
+import type { CentralBankPeriod } from '#cds-models/db/types';
 import ContractBuilder from "./lib/ContractBuilder/ContractBuilder";
 
 import MortgageFormula from './lib/MortgageFormula/MortgageFormula';
@@ -16,9 +16,9 @@ export class CalculatorService extends ApplicationService {
         return super.init();
     }
 
-    async getEuribor(day: Date, period: EuriborPeriod): Promise<number | undefined> {
-        const { EuriborValues } = await import('#cds-models/db/tables');
-        const result: EuriborValue | undefined = await SELECT.one.from(EuriborValues).where({ day: { '<=': day } }).orderBy('day desc');
+    async getEuribor(day: Date, period: CentralBankPeriod): Promise<number | undefined> {
+        const { CentralBankValues } = await import('#cds-models/db/tables');
+        const result: CentralBankValue | undefined = await SELECT.one.from(CentralBankValues).where({ day: { '<=': day } }).orderBy('day desc');
 
         if (!result) {
             throw new Error();

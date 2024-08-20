@@ -1,12 +1,12 @@
 import MortgageFormula from "@mortgagecalc/calculatorservice/srv/lib/MortgageFormula/MortgageFormula";
 
-const euriborRate = 3.9;
+const centralBankRate = 3.9;
 const interestRate = 1.4;
 
 const pv = 50000;
 const years = 10;
 
-const monthlyRate = (euriborRate + interestRate) / 12 / 100;
+const monthlyRate = (centralBankRate + interestRate) / 12 / 100;
 const nper = years * 12;
 
 /**

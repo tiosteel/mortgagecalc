@@ -7,8 +7,8 @@ module.exports.ContractRate = { is_singular: true, __proto__: csn.ContractRates 
 module.exports.ContractRates = csn.ContractRates
 module.exports.ContractPayment = { is_singular: true, __proto__: csn.ContractPayments }
 module.exports.ContractPayments = csn.ContractPayments
-module.exports.EuriborValue = { is_singular: true, __proto__: csn.EuriborValues }
-module.exports.EuriborValues = csn.EuriborValues
+module.exports.CentralBankValue = { is_singular: true, __proto__: csn.CentralBankValues }
+module.exports.CentralBankValues = csn.CentralBankValues
 // events
 // actions
 // enums

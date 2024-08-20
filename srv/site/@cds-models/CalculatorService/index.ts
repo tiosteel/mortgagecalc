@@ -12,7 +12,7 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         dateStart?: __.CdsDate | null;
         dateFinish?: __.CdsDate | null;
         baseInterestRate?: number | null;
-        baseEuriborRate?: number | null;
+        baseCentralBankRate?: number | null;
         monthlyPaymentDate?: number | null;
         ContractRates?: __.Composition.of.many<ContractRates>;
         ContractPayments?: __.Composition.of.many<ContractPayments>;
@@ -43,7 +43,7 @@ export class Contracts extends Array<Contract> {$count?: number}
 Object.defineProperty(Contracts, 'name', { value: 'CalculatorService.Contracts' })
 
 /**
-* Contract rates (euribor + interest rate) is not a static thing. Euribor part is recalculated every 6 months. Base rate can be adjusted by discounts or fees
+* Contract rates (centralBank + interest rate) is not a static thing. CentralBank part is recalculated every 6 months. Base rate can be adjusted by discounts or fees
 */
 export function _ContractRateAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class ContractRate extends Base {
@@ -52,7 +52,7 @@ export function _ContractRateAspect<TBase extends new (...args: any[]) => object
         parent_IsActiveEntity?: boolean | null;
         parent_ID?: string | null;
         validFrom?: __.CdsTimestamp | null;
-        euriborRate?: number | null;
+        centralBankRate?: number | null;
         interestRate?: number | null;
         IsActiveEntity?: boolean;
         HasActiveEntity?: boolean;

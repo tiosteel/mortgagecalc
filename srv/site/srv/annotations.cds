@@ -1,6 +1,18 @@
 using SiteService as service from './site';
 
 annotate service.Contracts with @(
+    UI.HeaderInfo: {
+        TypeName : 'Contract',
+        TypeNamePlural: 'Contracts',
+        Title : {
+            $Type : 'UI.DataField',
+            Value: contractTitle
+        },
+        Description: {
+            $Type: 'UI.DataField',
+            Value: contractDescription
+        }
+    },
     UI.LineItem               : [
         {
             $Type: 'UI.DataField',
@@ -44,8 +56,8 @@ annotate service.Contracts with @(
         },
         {
             $Type: 'UI.DataField',
-            Label: 'euriborRate',
-            Value: ContractRates.euriborRate
+            Label: 'centralBankRate',
+            Value: ContractRates.centralBankRate
         },
         {
             $Type: 'UI.DataField',
@@ -55,16 +67,21 @@ annotate service.Contracts with @(
     ],
     UI.FieldGroup #Contract   : {
         $Type: 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type: 'UI.DataField',
-                Label: 'years',
-                Value: years
-            },
+        Data : [ 
             {
                 $Type: 'UI.DataField',
                 Label: 'amount',
                 Value: amount
+            },
+            {
+                $Type: 'UI.DataField',
+                Label: 'currency',
+                Value: Currency_code
+            },
+            {
+                $Type: 'UI.DataField',
+                Label: 'years',
+                Value: years
             },
             {
                 $Type: 'UI.DataField',
@@ -79,8 +96,8 @@ annotate service.Contracts with @(
             },
             {
                 $Type: 'UI.DataField',
-                Label: 'baseEuriborRate',
-                Value: baseEuriborRate
+                Label: 'baseCentralBankRate',
+                Value: baseCentralBankRate
             },
             {
                 $Type: 'UI.DataField',
@@ -114,7 +131,7 @@ annotate service.Contracts with @(
 );
 
 annotate service.Contracts with {
-    baseEuriborRate @readonly;
+    baseCentralBankRate @readonly;
     totalInterest   @readonly;
 };
 
@@ -191,8 +208,8 @@ annotate service.ContractRates with @(UI: {
         },
         {
             $Type: 'UI.DataField',
-            Label: 'euriborRate',
-            Value: euriborRate
+            Label: 'centralBankRate',
+            Value: centralBankRate
         },
         {
             $Type: 'UI.DataField',

@@ -1,4 +1,4 @@
-ID;parent_ID;validFrom;euriborRate;interestRate
+ID;parent_ID;validFrom;centralBankRate;interestRate
 1203be9f-ccd8-4543-bb12-5fd63d68a159;48d52487-9610-461f-9cf7-9a9106b2990d;2024-07-01;3.642;1.4
 cdc4aae4-64ca-43a6-b300-e5f8ce0ae683;48d52487-9610-461f-9cf7-9a9106b2990d;2025-01-01;3.622;1.4
 ede9f61e-8a29-4fd9-834a-766f17ca4494;48d52487-9610-461f-9cf7-9a9106b2990d;2025-02-01;3.622;2.4

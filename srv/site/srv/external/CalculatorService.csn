@@ -78,7 +78,7 @@
      "precision": 13,
      "scale": 3
     },
-    "baseEuriborRate": {
+    "baseCentralBankRate": {
      "type": "cds.Decimal",
      "precision": 13,
      "scale": 3
@@ -261,7 +261,7 @@
      "@odata.Precision": 7,
      "@odata.Type": "Edm.DateTimeOffset"
     },
-    "euriborRate": {
+    "centralBankRate": {
      "type": "cds.Decimal",
      "precision": 13,
      "scale": 3
@@ -330,7 +330,7 @@
      }
     }
    },
-   "doc": "Contract rates (euribor + interest rate) is not a static thing. Euribor part is recalculated every 6 months. Base rate can be adjusted by discounts or fees",
+   "doc": "Contract rates (centralBank + interest rate) is not a static thing. CentralBank part is recalculated every 6 months. Base rate can be adjusted by discounts or fees",
    "@Common.DraftNode": {
     "$Type": "Common.DraftNodeType",
     "PreparationAction": "CalculatorService.draftPrepare"

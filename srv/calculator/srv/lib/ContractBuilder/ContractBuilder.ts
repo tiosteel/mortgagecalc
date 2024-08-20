@@ -94,7 +94,7 @@ export default class ContractBuilder {
         while (rates.length && new Date(rates.at(0).validFrom) < paymentDate) {
             const firstRate = rates.shift();
             state.interestRate = firstRate.interestRate;
-            state.euriborRate = firstRate.euriborRate;
+            state.centralBankRate = firstRate.centralBankRate;
         } 
     }
 

@@ -1,5 +1,5 @@
 namespace mortgagecalc.db.tables;
-using { cuid, managed } from '@sap/cds/common';
+using { cuid, managed, Currency } from '@sap/cds/common';
 using { mortgagecalc.db.types as types } from './types';
 
 @description : 'Head entity - planned contract to be calculated'
@@ -10,26 +10,28 @@ entity Contracts: cuid, managed {
     dateStart: Date;
     dateFinish: Date;
     baseInterestRate: types.Percentages;
-    baseEuriborRate: types.Percentages;
+    baseCentralBankRate: types.Percentages;
     monthlyPaymentDate: Integer @assert.range: [ 1, 28 ] default 1;
+    Currency: Currency;
     ContractRates: Composition of many ContractRates on ContractRates.parent = $self;
     ContractPayments: Composition of many ContractPayments on ContractPayments.parent = $self;
     ContractExtraPayments: Composition of many ContractPayments on ContractExtraPayments.parent = $self and ContractExtraPayments.required = false;
 
     @calculated numberOfPeriods: Integer = years * 12;
     @calculated totalPayment: types.Money = -amount + totalInterest;
-    @calculated contractTitle: String = concat('Contract: ', concat(dateStart, concat(', ', amount)));
+    @calculated contractTitle: String = concat(amount, concat(' ', concat(Currency.code, concat(', ', concat(baseInterestRate + baseCentralBankRate, ' %')))));
+    @calculated contractDescription: String = concat('from ', concat(dateStart));
 
     totalInterest: types.Money default 0;
 }
 
-@description : `Contract rates (euribor + interest rate) is not a static thing.
-Euribor part is recalculated every 6 months. Base rate can be adjusted by discounts or fees`
+@description : `Contract rates (centralBank + interest rate) is not a static thing.
+CentralBank part is recalculated every 6 months. Base rate can be adjusted by discounts or fees`
 entity ContractRates: cuid {
     parent: Association to one Contracts;
     
     validFrom : Date @cds.valid.from;
-    euriborRate: types.Percentages;
+    centralBankRate: types.Percentages;
     interestRate: types.Percentages;
 }
 
@@ -45,14 +47,14 @@ entity ContractPayments: cuid {
     total: types.Money = interest + body stored;
 }
 
-@description: `Daily Euribor values. Usually defined for workdays only. 
+@description: `Daily CentralBank values. Usually defined for workdays only. 
 If holyday value is needed - previous workday's one can be taken`
 @Capabilities: {
     InsertRestrictions.Insertable: true,
     UpdateRestrictions.Updatable: false,
     DeleteRestrictions.Deletable: false
 }
-entity EuriborValues {
+entity CentralBankValues {
     key day: Date @required;
     weekly: Decimal (13, 3) @required;
     monthly1: Decimal (13, 3);

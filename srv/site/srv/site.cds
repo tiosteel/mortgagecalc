@@ -3,7 +3,7 @@ using { mortgagecalc.db.types as types } from '@mortgagecalc/database';
 
 @path: '/mortgage/site'
 service SiteService {
-    function getEuribor(day: Date, period: types.EuriborPeriod) returns Decimal;
+    function getEuribor(day: Date, period: types.CentralBankPeriod) returns Decimal;
 
     entity Contracts as projection on tables.Contracts;
 }
