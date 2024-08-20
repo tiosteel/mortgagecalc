@@ -95,7 +95,7 @@ annotate service.Contracts with @(
         {
             $Type : 'UI.ReferenceFacet',
             Label : 'Contract Payments',
-            Target: 'ContractPayments/@UI.LineItem'
+            Target: 'ContractPayments/@UI.PresentationVariant'
         },
         {
             $Type : 'UI.ReferenceFacet',
@@ -110,7 +110,8 @@ annotate service.Contracts with {
     totalInterest   @readonly;
 };
 
-annotate service.ContractPayments with @(UI.LineItem: [
+annotate service.ContractPayments with @(UI: {
+    LineItem: [
     {
         $Type: 'UI.DataField',
         Label: 'paymentDate',
@@ -141,7 +142,19 @@ annotate service.ContractPayments with @(UI.LineItem: [
         Label: 'total',
         Value: total
     }
-]);
+    ],
+    PresentationVariant  : {
+        $Type : 'UI.PresentationVariantType',
+        SortOrder       : [ //Default sort order
+            {
+                Property    : paymentDate,
+                Descending  : false,
+            },
+        ],
+        Visualizations  : ['@UI.LineItem'],
+    },
+}
+);
 
 annotate service.ContractRates with @(UI.LineItem: [
     {
@@ -159,4 +172,4 @@ annotate service.ContractRates with @(UI.LineItem: [
         Label: 'interestRate',
         Value: interestRate
     }
-], );
+]);
