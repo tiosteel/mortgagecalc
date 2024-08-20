@@ -20,7 +20,7 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         Currency_code?: string | null;
         ContractRates?: __.Composition.of.many<ContractRates>;
         ContractPayments?: __.Composition.of.many<ContractPayments>;
-        ContractExtraPayments?: __.Composition.of.many<ContractPayments>;
+        ContractExtraPayments?: __.Composition.of.many<ContractExtraPayments>;
         numberOfPeriods?: number | null;
         totalPayment?: _mortgagecalc_db_types.Money | null;
         contractTitle?: string | null;
@@ -72,6 +72,27 @@ Object.defineProperty(ContractPayment, 'is_singular', { value: true })
 export class ContractPayments extends Array<ContractPayment> {static drafts: typeof ContractPayment
 $count?: number}
 Object.defineProperty(ContractPayments, 'name', { value: 'mortgagecalc.db.tables.ContractPayments' })
+
+export function _ContractExtraPaymentAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
+  return class ContractExtraPayment extends _._cuidAspect(Base) {
+        ID?: string;
+        parent?: __.Association.to<Contract> | null;
+        parent_ID?: string | null;
+        paymentDate?: __.CdsDate | null;
+        body?: _mortgagecalc_db_types.Money | null;
+        interest?: _mortgagecalc_db_types.Money | null;
+        required?: boolean | null;
+        remainingDebt?: _mortgagecalc_db_types.Money | null;
+        total?: _mortgagecalc_db_types.Money | null;
+      static readonly actions: Record<never, never>
+  };
+}
+export class ContractExtraPayment extends _ContractExtraPaymentAspect(__.Entity) {static drafts: typeof ContractExtraPayment}
+Object.defineProperty(ContractExtraPayment, 'name', { value: 'mortgagecalc.db.tables.ContractExtraPayments' })
+Object.defineProperty(ContractExtraPayment, 'is_singular', { value: true })
+export class ContractExtraPayments extends Array<ContractExtraPayment> {static drafts: typeof ContractExtraPayment
+$count?: number}
+Object.defineProperty(ContractExtraPayments, 'name', { value: 'mortgagecalc.db.tables.ContractExtraPayments' })
 
 export function _CentralBankValueAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class CentralBankValue extends Base {

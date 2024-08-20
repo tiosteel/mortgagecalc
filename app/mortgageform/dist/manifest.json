@@ -3,7 +3,12 @@
   "sap.app": {
     "id": "mortgagecalc.mortgageform",
     "type": "application",
-    "i18n": "i18n/i18n.properties",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": [
+        ""
+      ]
+    },
     "applicationVersion": {
       "version": "0.0.1"
     },
@@ -74,7 +79,10 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "mortgagecalc.mortgageform.i18n.i18n"
+          "bundleName": "mortgagecalc.mortgageform.i18n.i18n",
+          "supportedLocales": [
+            ""
+          ]
         }
       },
       "": {
@@ -88,7 +96,12 @@
       },
       "@i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
+        "uri": "i18n/i18n.properties",
+        "settings": {
+          "supportedLocales": [
+            ""
+          ]
+        }
       }
     },
     "resources": {
@@ -146,18 +159,6 @@
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable"
-                  }
-                }
-              },
-              "content": {
-                "body": {
-                  "sections": {
-                    "ContractPaymentsFacet": {
-                      "visible": "{= ${ui>/editMode} !== 'Editable'}"
-                    },
-                    "ContractExtraPaymentsFacet": {
-                      "visible": "{= ${ui>/editMode} === 'Editable'}"
-                    }
                   }
                 }
               }

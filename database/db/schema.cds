@@ -15,7 +15,7 @@ entity Contracts: cuid, managed {
     Currency: Currency;
     ContractRates: Composition of many ContractRates on ContractRates.parent = $self;
     ContractPayments: Composition of many ContractPayments on ContractPayments.parent = $self;
-    ContractExtraPayments: Composition of many ContractExtraPayments on ContractExtraPayments.parent = $self and ContractExtraPayments.required = false;
+    ContractExtraPayments: Composition of many ContractExtraPayments on ContractExtraPayments.parent = $self;
     
     @calculated numberOfPeriods: Integer = years * 12;
     @calculated totalPayment: types.Money = -amount + totalInterest;
@@ -42,22 +42,13 @@ entity ContractPayments: cuid {
     paymentDate: Date;
     body: types.Money default 0;
     interest: types.Money default 0;
-    required: Boolean default true;
+    required: Boolean default false;
     remainingDebt: types.Money;
     total: types.Money = interest + body stored;
 }
 
-@description : 'Expected contract payments. Both regular and extra.'
-entity ContractExtraPayments: cuid {
-    parent: Association to one Contracts;
-
-    paymentDate: Date;
-    body: types.Money default 0;
-    interest: types.Money default 0;
-    required: Boolean default true;
-    remainingDebt: types.Money;
-    total: types.Money = interest + body stored;
-}
+@description : 'Expected extra contract payments.'
+entity ContractExtraPayments as projection on ContractPayments where required = false;
 
 @description: `Daily CentralBank values. Usually defined for workdays only. 
 If holyday value is needed - previous workday's one can be taken`

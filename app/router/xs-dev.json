@@ -5,7 +5,7 @@
     {
       "authenticationType": "none",
       "destination": "cap-server",
-      "source": "/mortgage/site(/.*)"
+      "source": "/mortgage/site/(.*)"
     },
     {
       "dependency": "mortgageform",

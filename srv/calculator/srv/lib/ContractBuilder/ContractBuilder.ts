@@ -25,7 +25,11 @@ export default class ContractBuilder {
         preCleansedContract.ContractPayments =
             preCleansedContract.ContractPayments
                 .filter(payment => !payment.required)
-                .map(payment => ({ ...payment, remainingDebt: null }));
+                .map(payment => ({ 
+                    ...payment,
+                    remainingDebt: null,
+                    body: -Math.abs(payment.body)
+                }));
         this.cleansedContractLayer = preCleansedContract;
     }
 
@@ -59,6 +63,7 @@ export default class ContractBuilder {
             resultPayments.push({
                 body: ppmt,
                 interest: ipmt,
+                required: true,
                 paymentDate: state.paymentDateCDS,
                 remainingDebt: state.remainingDebt
             });

@@ -119,15 +119,15 @@ annotate service.Contracts with @(
         },
         {
             $Type : 'UI.ReferenceFacet',
+            ID : 'ContractPaymentsFacet',
             Label : 'Contract Payments',
             Target: 'ContractPayments/@UI.PresentationVariant',
-            ![@UI.Hidden]: true
         },
         {
             $Type : 'UI.ReferenceFacet',
+            ID : 'ContractExtraPaymentsFacet',
             Label : 'Contract Extra Payments',
             Target: 'ContractExtraPayments/@UI.PresentationVariant',
-            ![@UI.Hidden]: false
         },
         {
             $Type : 'UI.ReferenceFacet',
@@ -217,26 +217,6 @@ annotate service.ContractExtraPayments with @(UI: {
             $Type: 'UI.DataField',
             Label: 'body',
             Value: body
-        },
-        {
-            $Type: 'UI.DataField',
-            Label: 'interest',
-            Value: interest
-        },
-        {
-            $Type: 'UI.DataField',
-            Label: 'required',
-            Value: required
-        },
-        {
-            $Type: 'UI.DataField',
-            Label: 'remainingDebt',
-            Value: remainingDebt
-        },
-        {
-            $Type: 'UI.DataField',
-            Label: 'total',
-            Value: total
         }
     ],
     SelectionPresentationVariant  : {
@@ -265,6 +245,10 @@ annotate service.ContractExtraPayments with @(UI: {
         Visualizations: ['@UI.LineItem'],
     },
 });
+
+annotate service.ContractExtraPayments with {
+    required @readonly;
+};
 
 annotate service.ContractRates with @(UI: {
     LineItem           : [
