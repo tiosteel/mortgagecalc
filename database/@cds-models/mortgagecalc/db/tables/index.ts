@@ -13,6 +13,7 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         monthlyPaymentDate?: number | null;
         ContractRates?: __.Composition.of.many<ContractRates>;
         ContractPayments?: __.Composition.of.many<ContractPayments>;
+        ContractExtraPayments?: __.Composition.of.many<ContractPayments>;
         numberOfPeriods?: number | null;
         totalPayment?: _mortgagecalc_db_types.Money | null;
         contractTitle?: string | null;

@@ -151,6 +151,17 @@ annotate service.ContractPayments with @(UI: {
             Value: total
         }
     ],
+    SelectionPresentationVariant  : {
+        $Type : 'UI.SelectionPresentationVariantType',
+        SelectionVariant : {
+            $Type : 'UI.SelectionVariantType',
+            
+        },
+        PresentationVariant : {
+            $Type : 'UI.PresentationVariantType',
+            
+        },
+    },
     PresentationVariant: {
         $Type         : 'UI.PresentationVariantType',
         SortOrder     : [
@@ -166,6 +177,10 @@ annotate service.ContractPayments with @(UI: {
         Visualizations: ['@UI.LineItem'],
     },
 });
+
+annotate service.ContractPayments with {
+    required @readonly;
+};
 
 annotate service.ContractRates with @(UI: {
     LineItem           : [

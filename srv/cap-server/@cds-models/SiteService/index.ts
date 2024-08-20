@@ -3,7 +3,7 @@ import * as _mortgagecalc_db_types from './../mortgagecalc/db/types';
 import * as _ from './..';
 import * as __ from './../_';
 import * as _mortgagecalc_db_tables from './../mortgagecalc/db/tables';
-export default { name: 'CalculatorService' }
+export default { name: 'SiteService' }
 export function _ContractAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class Contract extends _._cuidAspect(_._managedAspect(Base)) {
         ID?: string;
@@ -31,17 +31,15 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         totalPayment?: _mortgagecalc_db_types.Money | null;
         contractTitle?: string | null;
         totalInterest?: _mortgagecalc_db_types.Money | null;
-      static readonly actions: {
-        calculate: { (): Contracts, __parameters: Record<never, never>, __returns: Contracts, kind: 'action'}
-      }
+      static readonly actions: Record<never, never>
   };
 }
 export class Contract extends _ContractAspect(__.Entity) {static drafts: typeof Contract}
-Object.defineProperty(Contract, 'name', { value: 'CalculatorService.Contracts' })
+Object.defineProperty(Contract, 'name', { value: 'SiteService.Contracts' })
 Object.defineProperty(Contract, 'is_singular', { value: true })
 export class Contracts extends Array<Contract> {static drafts: typeof Contract
 $count?: number}
-Object.defineProperty(Contracts, 'name', { value: 'CalculatorService.Contracts' })
+Object.defineProperty(Contracts, 'name', { value: 'SiteService.Contracts' })
 
 export function _ContractRateAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class ContractRate extends _._cuidAspect(Base) {

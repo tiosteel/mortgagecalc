@@ -14,6 +14,7 @@ entity Contracts: cuid, managed {
     monthlyPaymentDate: Integer @assert.range: [ 1, 28 ] default 1;
     ContractRates: Composition of many ContractRates on ContractRates.parent = $self;
     ContractPayments: Composition of many ContractPayments on ContractPayments.parent = $self;
+    ContractExtraPayments: Composition of many ContractPayments on ContractExtraPayments.parent = $self and ContractExtraPayments.required = false;
 
     @calculated numberOfPeriods: Integer = years * 12;
     @calculated totalPayment: types.Money = -amount + totalInterest;

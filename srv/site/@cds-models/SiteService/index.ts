@@ -44,7 +44,7 @@ export function _ContractRateAspect<TBase extends new (...args: any[]) => object
   return class ContractRate extends _._cuidAspect(Base) {
         parent?: __.Association.to<_mortgagecalc_db_tables.Contract> | null;
         parent_ID?: string | null;
-        validFrom?: __.CdsTimestamp | null;
+        validFrom?: __.CdsDate | null;
         euriborRate?: _mortgagecalc_db_types.Percentages | null;
         interestRate?: _mortgagecalc_db_types.Percentages | null;
       static readonly actions: Record<never, never>
