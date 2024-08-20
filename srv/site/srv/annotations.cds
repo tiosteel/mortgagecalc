@@ -175,17 +175,6 @@ annotate service.ContractPayments with @(UI: {
             Value: total
         }
     ],
-    SelectionPresentationVariant  : {
-        $Type : 'UI.SelectionPresentationVariantType',
-        SelectionVariant : {
-            $Type : 'UI.SelectionVariantType',
-            
-        },
-        PresentationVariant : {
-            $Type : 'UI.PresentationVariantType',
-            
-        },
-    },
     PresentationVariant: {
         $Type         : 'UI.PresentationVariantType',
         SortOrder     : [
@@ -199,6 +188,7 @@ annotate service.ContractPayments with @(UI: {
             }
         ],
         Visualizations: ['@UI.LineItem'],
+        MaxItems: 100
     },
 });
 
@@ -219,17 +209,6 @@ annotate service.ContractExtraPayments with @(UI: {
             Value: body
         }
     ],
-    SelectionPresentationVariant  : {
-        $Type : 'UI.SelectionPresentationVariantType',
-        SelectionVariant : {
-            $Type : 'UI.SelectionVariantType',
-            
-        },
-        PresentationVariant : {
-            $Type : 'UI.PresentationVariantType',
-            
-        },
-    },
     PresentationVariant: {
         $Type         : 'UI.PresentationVariantType',
         SortOrder     : [
@@ -243,6 +222,7 @@ annotate service.ContractExtraPayments with @(UI: {
             }
         ],
         Visualizations: ['@UI.LineItem'],
+        MaxItems: 100
     },
 });
 
