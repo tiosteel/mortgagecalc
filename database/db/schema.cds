@@ -1,10 +1,10 @@
 namespace mortgagecalc.db.tables;
-using { cuid } from '@sap/cds/common';
+using { cuid, managed } from '@sap/cds/common';
 using { mortgagecalc.db.types as types } from './types';
 
 @description : 'Head entity - planned contract to be calculated'
 @odata.draft.enabled
-entity Contracts: cuid {
+entity Contracts: cuid, managed {
     years: Integer @assert.range: [ 1, 50 ];
     amount: types.Money;
     dateStart: Date;
@@ -17,6 +17,7 @@ entity Contracts: cuid {
 
     @calculated numberOfPeriods: Integer = years * 12;
     @calculated totalPayment: types.Money = -amount + totalInterest;
+    @calculated contractTitle: String = concat('Contract: ', concat(dateStart, concat(', ', amount)));
 
     totalInterest: types.Money default 0;
 }
