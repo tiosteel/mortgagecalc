@@ -26,7 +26,7 @@
     "test": "jest",
     "start-mortgageform": "npm run start -w mortgagecalc.mortgageform",
     "clean": "rm -rf gen database/gen srv/calculator/gen srv/site/gen mta_archives | find . -name '_build_tmp' -delete",
-    "fullclean": "rm -rf node_modules database/node_modules app/mortgageform/node_modules package-lock.json; npm run clean"
+    "fullclean": "rm -rf node_modules srv/calculator/node_modules srv/cap-server/node_modules srv/site/node_modules database/node_modules app/mortgageform/node_modules package-lock.json; npm run clean"
   },
   "workspaces": [
     "packages/*",
