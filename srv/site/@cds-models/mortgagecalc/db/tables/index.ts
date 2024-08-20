@@ -3,7 +3,7 @@ import * as _ from './../../..';
 import * as _mortgagecalc_db_types from './../types';
 import * as __ from './../../../_';
 export function _ContractAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class Contract extends _._cuidAspect(Base) {
+  return class Contract extends _._cuidAspect(_._managedAspect(Base)) {
         years?: number | null;
         amount?: _mortgagecalc_db_types.Money | null;
         dateStart?: __.CdsDate | null;
@@ -15,6 +15,7 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         ContractPayments?: __.Composition.of.many<ContractPayments>;
         numberOfPeriods?: number | null;
         totalPayment?: _mortgagecalc_db_types.Money | null;
+        contractTitle?: string | null;
         totalInterest?: _mortgagecalc_db_types.Money | null;
       static readonly actions: Record<never, never>
   };

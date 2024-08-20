@@ -27,7 +27,7 @@ Euribor part is recalculated every 6 months. Base rate can be adjusted by discou
 entity ContractRates: cuid {
     parent: Association to one Contracts;
     
-    validFrom : Timestamp @cds.valid.from;
+    validFrom : Date @cds.valid.from;
     euriborRate: types.Percentages;
     interestRate: types.Percentages;
 }

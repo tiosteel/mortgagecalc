@@ -28,6 +28,14 @@ annotate service.Contracts with @(
             Value: baseInterestRate
         }
     ],
+    UI.PresentationVariant    : {
+        $Type         : 'UI.PresentationVariantType',
+        SortOrder     : [{
+            Property  : dateStart,
+            Descending: true,
+        }],
+        Visualizations: ['@UI.LineItem'],
+    },
     UI.LineItem #ContractRates: [
         {
             $Type: 'UI.DataField',
@@ -100,7 +108,7 @@ annotate service.Contracts with @(
         {
             $Type : 'UI.ReferenceFacet',
             Label : 'Contract Rates',
-            Target: 'ContractRates/@UI.LineItem'
+            Target: 'ContractRates/@UI.PresentationVariant'
         }
     ]
 );
@@ -111,65 +119,78 @@ annotate service.Contracts with {
 };
 
 annotate service.ContractPayments with @(UI: {
-    LineItem: [
-    {
-        $Type: 'UI.DataField',
-        Label: 'paymentDate',
-        Value: paymentDate
-    },
-    {
-        $Type: 'UI.DataField',
-        Label: 'body',
-        Value: body
-    },
-    {
-        $Type: 'UI.DataField',
-        Label: 'interest',
-        Value: interest
-    },
-    {
-        $Type: 'UI.DataField',
-        Label: 'required',
-        Value: required
-    },
-    {
-        $Type: 'UI.DataField',
-        Label: 'remainingDebt',
-        Value: remainingDebt
-    },
-    {
-        $Type: 'UI.DataField',
-        Label: 'total',
-        Value: total
-    }
+    LineItem           : [
+        {
+            $Type: 'UI.DataField',
+            Label: 'paymentDate',
+            Value: paymentDate
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'body',
+            Value: body
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'interest',
+            Value: interest
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'required',
+            Value: required
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'remainingDebt',
+            Value: remainingDebt
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'total',
+            Value: total
+        }
     ],
-    PresentationVariant  : {
-        $Type : 'UI.PresentationVariantType',
-        SortOrder       : [ //Default sort order
+    PresentationVariant: {
+        $Type         : 'UI.PresentationVariantType',
+        SortOrder     : [
             {
-                Property    : paymentDate,
-                Descending  : false,
+                Property  : paymentDate,
+                Descending: false,
             },
+            {
+                Property  : required,
+                Descending: true,
+            }
         ],
-        Visualizations  : ['@UI.LineItem'],
+        Visualizations: ['@UI.LineItem'],
     },
-}
-);
+});
 
-annotate service.ContractRates with @(UI.LineItem: [
-    {
-        $Type: 'UI.DataField',
-        Label: 'validFrom',
-        Value: validFrom
+annotate service.ContractRates with @(UI: {
+    LineItem           : [
+        {
+            $Type: 'UI.DataField',
+            Label: 'validFrom',
+            Value: validFrom
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'euriborRate',
+            Value: euriborRate
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'interestRate',
+            Value: interestRate
+        }
+    ],
+    PresentationVariant: {
+        $Type         : 'UI.PresentationVariantType',
+        SortOrder     : [{
+            Property  : validFrom,
+            Descending: false,
+        }],
+        Visualizations: ['@UI.LineItem'],
     },
-    {
-        $Type: 'UI.DataField',
-        Label: 'euriborRate',
-        Value: euriborRate
-    },
-    {
-        $Type: 'UI.DataField',
-        Label: 'interestRate',
-        Value: interestRate
-    }
-]);
+});

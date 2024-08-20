@@ -5,8 +5,18 @@ import * as __ from './../_';
 import * as _mortgagecalc_db_tables from './../mortgagecalc/db/tables';
 export default { name: 'SiteService' }
 export function _ContractAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class Contract extends _._cuidAspect(Base) {
+  return class Contract extends _._cuidAspect(_._managedAspect(Base)) {
         ID?: string;
+        createdAt?: __.CdsTimestamp | null;
+    /**
+    * Canonical user ID
+    */
+        createdBy?: _.User | null;
+        modifiedAt?: __.CdsTimestamp | null;
+    /**
+    * Canonical user ID
+    */
+        modifiedBy?: _.User | null;
         years?: number | null;
         amount?: _mortgagecalc_db_types.Money | null;
         dateStart?: __.CdsDate | null;
@@ -18,6 +28,7 @@ export function _ContractAspect<TBase extends new (...args: any[]) => object>(Ba
         ContractPayments?: __.Composition.of.many<ContractPayments>;
         numberOfPeriods?: number | null;
         totalPayment?: _mortgagecalc_db_types.Money | null;
+        contractTitle?: string | null;
         totalInterest?: _mortgagecalc_db_types.Money | null;
       static readonly actions: Record<never, never>
   };
