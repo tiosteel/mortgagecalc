@@ -17,7 +17,7 @@
     {
       "source": "^/mortgage/site/(.*)$",
       "target": "/mortgage/site/$1",
-      "destination": "mortgage-calculator-api",
+      "destination": "mortgage-site-api",
       "authenticationType": "xsuaa",
       "csrfProtection": false
     },

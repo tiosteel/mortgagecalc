@@ -94,8 +94,8 @@ export class ContractExtraPayments extends Array<ContractExtraPayment> {static d
 $count?: number}
 Object.defineProperty(ContractExtraPayments, 'name', { value: 'mortgagecalc.db.tables.ContractExtraPayments' })
 
-export function _CentralBankValueAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class CentralBankValue extends Base {
+export function _EuriborValueAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
+  return class EuriborValue extends Base {
         day?: __.CdsDate;
         weekly?: number | null;
         monthly1?: number | null;
@@ -105,8 +105,8 @@ export function _CentralBankValueAspect<TBase extends new (...args: any[]) => ob
       static readonly actions: Record<never, never>
   };
 }
-export class CentralBankValue extends _CentralBankValueAspect(__.Entity) {}
-Object.defineProperty(CentralBankValue, 'name', { value: 'mortgagecalc.db.tables.CentralBankValues' })
-Object.defineProperty(CentralBankValue, 'is_singular', { value: true })
-export class CentralBankValues extends Array<CentralBankValue> {$count?: number}
-Object.defineProperty(CentralBankValues, 'name', { value: 'mortgagecalc.db.tables.CentralBankValues' })
+export class EuriborValue extends _EuriborValueAspect(__.Entity) {}
+Object.defineProperty(EuriborValue, 'name', { value: 'mortgagecalc.db.tables.EuriborValues' })
+Object.defineProperty(EuriborValue, 'is_singular', { value: true })
+export class EuriborValues extends Array<EuriborValue> {$count?: number}
+Object.defineProperty(EuriborValues, 'name', { value: 'mortgagecalc.db.tables.EuriborValues' })

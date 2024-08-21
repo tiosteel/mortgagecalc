@@ -10,6 +10,8 @@ module.exports.ContractRate = { is_singular: true, __proto__: csn.ContractRates 
 module.exports.ContractRates = csn.ContractRates
 module.exports.ContractPayment = { is_singular: true, __proto__: csn.ContractPayments }
 module.exports.ContractPayments = csn.ContractPayments
+module.exports.ContractExtraPayment = { is_singular: true, __proto__: csn.ContractExtraPayments }
+module.exports.ContractExtraPayments = csn.ContractExtraPayments
 // events
 // actions
 module.exports.getEuribor = 'getEuribor'

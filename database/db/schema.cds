@@ -20,7 +20,7 @@ entity Contracts: cuid, managed {
     @calculated numberOfPeriods: Integer = years * 12;
     @calculated totalPayment: types.Money = -amount + totalInterest;
     @calculated contractTitle: String = concat(amount, concat(' ', concat(Currency.code, concat(', ', concat(baseInterestRate + baseCentralBankRate, ' %')))));
-    @calculated contractDescription: String = concat('from ', concat(dateStart));
+    @calculated contractDescription: String = concat('from ', dateStart);
 
     totalInterest: types.Money default 0;
 }
@@ -57,7 +57,7 @@ If holyday value is needed - previous workday's one can be taken`
     UpdateRestrictions.Updatable: false,
     DeleteRestrictions.Deletable: false
 }
-entity CentralBankValues {
+entity EuriborValues {
     key day: Date @required;
     weekly: Decimal (13, 3) @required;
     monthly1: Decimal (13, 3);
