@@ -51,7 +51,7 @@ builder:
     - name: ui5-task-zipper
       afterTask: generateCachebusterInfo
       configuration:
-        archiveName: comadidasproductsupplyzschndlmaintkfs
+        archiveName: mortgagecalc-mortgageform
         additionalFiles:
         - xs-app.json
         

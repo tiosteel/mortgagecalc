@@ -145,3 +145,31 @@ resources:
       service: html5-apps-repo
       service-name: mortgagecalc-mortgageform-html5-app-host-service
       service-plan: app-host
+
+  - name: mortgagecalc-mortgageform-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+            - Authentication: NoAuthentication
+              Name: ui5
+              ProxyType: Internet
+              Type: HTTP
+              URL: https://ui5.sap.com
+            - Authentication: NoAuthentication
+              HTML5.DynamicDestination: true
+              HTML5.ForwardAuthToken: true
+              Name: mortgage-calculator-api
+              ProxyType: Internet
+              Type: HTTP
+              URL: ~{mortgage-calculator-api/srv-url}
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: mortgagecalc-mortgageform-destination-service
+      service-plan: lite
+    requires:
+    - name: mortgage-calculator-api

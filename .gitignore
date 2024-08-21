@@ -19,9 +19,11 @@ app/**/dist
 .gen/
 
 # MTA
+Makefile_*.mta
 *_mta_build_tmp
 *.mtar
 mta_archives/
+mortgageformresources/
 
 # Other
 .DS_Store
