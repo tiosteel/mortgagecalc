@@ -162,14 +162,14 @@ resources:
             - Authentication: NoAuthentication
               HTML5.DynamicDestination: true
               HTML5.ForwardAuthToken: true
-              Name: mortgage-calculator-api
+              Name: mortgage-site-api
               ProxyType: Internet
               Type: HTTP
-              URL: ~{mortgage-calculator-api/srv-url}
+              URL: ~{mortgage-site-api/srv-url}
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
       service-name: mortgagecalc-mortgageform-destination-service
       service-plan: lite
     requires:
-    - name: mortgage-calculator-api
+    - name: mortgage-site-api
