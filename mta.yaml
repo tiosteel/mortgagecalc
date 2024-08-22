@@ -83,7 +83,7 @@ modules:
           name: mortgagecalc-auth-key
     parameters:
       content:
-        subaccount:
+        instance:
           destinations:
           - Name: mortgageform-repo-host
             ServiceInstanceName: mortgagecalc-mortgageform-html5-app-host-service
@@ -160,7 +160,7 @@ resources:
               Name: mortgage-site-api
               ProxyType: Internet
               Type: HTTP
-              URL: ~{mortgage-site-api/srv-url}/mortgage/site
+              URL: ~{mortgage-site-api/srv-url}
             existing_destinations_policy: update
         version: 1.0.0
       service: destination

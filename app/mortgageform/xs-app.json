@@ -3,8 +3,8 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/odata/(.*)$",
-      "target": "/odata/$1",
+      "source": "^/mortgage/(.*)$",
+      "target": "/mortgage/$1",
       "destination": "mortgage-site-api",
       "authenticationType": "xsuaa",
       "csrfProtection": false
