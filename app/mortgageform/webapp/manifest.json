@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/mortgage/site/",
+        "uri": "/odata/mortgage/site/",
         "type": "OData",
         "settings": {
           "annotations": [],

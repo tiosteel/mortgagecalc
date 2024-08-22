@@ -3,6 +3,7 @@ ID: mortgagecalc
 version: 1.0.0
 description: "A simple CAP project."
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
@@ -65,32 +66,6 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: mortgagecalc-db
-  
-  - name: mortgagecalc-mortgageform-app-content
-    type: com.sap.application.content
-    path: .
-    requires:
-    - name: mortgagecalc-mortgageform-repo-host
-      parameters:
-        content-target: true
-    build-parameters:
-      build-result: mortgageformresources
-      requires:
-      - artifacts:
-        - mortgagecalc-mortgageform.zip
-        name: mortgagecalc-mortgageform
-        target-path: mortgageformresources/
-
-  - name: mortgagecalc-mortgageform
-    type: html5
-    path: app/mortgageform
-    build-parameters:
-      build-result: dist
-      builder: custom
-      commands:
-      - npm install
-      - npm run build:cf
-      supported-platforms: []
 
   - name: mortgagecalc-mortgageform-destination-content
     type: com.sap.application.content
@@ -122,6 +97,33 @@ modules:
           existing_destinations_policy: update
     build-parameters:
       no-source: true
+
+  - name: mortgagecalc-mortgageform-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+    - name: mortgagecalc-mortgageform-repo-host
+      parameters:
+        content-target: true
+    build-parameters:
+      build-result: mortgageformresources
+      requires:
+      - artifacts:
+        - mortgagecalc-mortgageform.zip
+        name: mortgagecalc-mortgageform
+        target-path: mortgageformresources/
+
+  - name: mortgagecalc-mortgageform
+    type: html5
+    path: app/mortgageform
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+      - npm install
+      - npm run build:cf
+      supported-platforms: []
+
 resources:
   - name: mortgagecalc-db
     type: com.sap.xs.hdi-container
@@ -136,16 +138,9 @@ resources:
       service-plan: application
       path: ./xs-security.json
       config:
-        xsappname: monorepo-${org}-${space}
+        xsappname: mortgagecalc-${org}-${space}
         tenant-mode: dedicated
-  
-  - name: mortgagecalc-mortgageform-repo-host
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: html5-apps-repo
-      service-name: mortgagecalc-mortgageform-html5-app-host-service
-      service-plan: app-host
-
+ 
   - name: mortgagecalc-mortgageform-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
@@ -165,11 +160,18 @@ resources:
               Name: mortgage-site-api
               ProxyType: Internet
               Type: HTTP
-              URL: ~{mortgage-site-api/srv-url}
+              URL: ~{mortgage-site-api/srv-url}/mortgage/site
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
       service-name: mortgagecalc-mortgageform-destination-service
       service-plan: lite
     requires:
-    - name: mortgage-site-api
+    - name: mortgage-site-api  
+
+  - name: mortgagecalc-mortgageform-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: mortgagecalc-mortgageform-html5-app-host-service
+      service-plan: app-host
