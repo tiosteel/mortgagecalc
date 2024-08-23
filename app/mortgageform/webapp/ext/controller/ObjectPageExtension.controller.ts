@@ -1,4 +1,6 @@
 import ControllerExtension from 'sap/ui/core/mvc/ControllerExtension';
+import ExtensionAPI from 'sap/fe/templates/ObjectPage/ExtensionAPI';
+import Context from 'sap/ui/model/Context';
 
 /**
  * @namespace mortgagecalc.mortgageform.ext.conroller.ObjectPageExtension

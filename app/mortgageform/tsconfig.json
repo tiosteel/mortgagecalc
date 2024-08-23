@@ -11,21 +11,10 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "mortgagecalc/mortgageform/*": [
-        "./webapp/*"
-      ]
+      "mortgagecalc/mortgageform/*": ["./webapp/*"]
     },
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@sapui5/types",
-      "../../node_modules/@types",
-      "../../node_modules/@sapui5/types"
-    ]
+    "types": ["@sapui5/ts-types-esm"]
   },
-  "include": [
-    "./webapp/**/*"
-  ],
-  "exclude": [
-    "./test/**/*"
-  ]
+  "include": ["./webapp/**/*"],
+  "exclude": ["./test/**/*"]
 }
