@@ -13,7 +13,9 @@
     "paths": {
       "mortgagecalc/mortgageform/*": ["./webapp/*"]
     },
-    "types": ["@sapui5/ts-types-esm"]
+    "types": [
+      "@sapui5/types"
+    ]
   },
   "include": ["./webapp/**/*"],
   "exclude": ["./test/**/*"]
