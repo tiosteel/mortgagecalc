@@ -3,6 +3,13 @@
   "authenticationMethod": "route",
   "routes": [
     {
+      "source": "^/mortgage/(.*)$",
+      "target": "/mortgage/$1",
+      "destination": "mortgage-site-api",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    },
+    {
       "source": "^/resources/(.*)$",
       "target": "/resources/$1",
       "authenticationType": "none",
@@ -13,13 +20,6 @@
       "target": "/test-resources/$1",
       "authenticationType": "none",
       "destination": "ui5"
-    },
-    {
-      "source": "^/mortgage/site/(.*)$",
-      "target": "/mortgage/site/$1",
-      "destination": "mortgage-site-api",
-      "authenticationType": "xsuaa",
-      "csrfProtection": false
     },
     {
       "source": "^(.*)$",
