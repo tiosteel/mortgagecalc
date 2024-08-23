@@ -98,7 +98,7 @@
       "extensions": {
         "sap.ui.controllerExtensions": {
           "sap.fe.templates.ObjectPage.ObjectPageController": {
-            "controllerName": "mortgagecalc.mortgageform.ext.controller.OPExtension"
+            "controllerName": "mortgagecalc.mortgageform.ext.controller.ObjectPageExtension"
           }
         }
       }
