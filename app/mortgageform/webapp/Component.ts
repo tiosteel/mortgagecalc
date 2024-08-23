@@ -1,4 +1,5 @@
 import BaseComponent from "sap/fe/core/AppComponent";
+import oDataModel from "sap/ui/model/odata/v4/ODataModel";
 
 /**
  * @namespace mortgagecalc.mortgageform
@@ -14,7 +15,20 @@ export default class Component extends BaseComponent {
      * @public
      * @override
      */
-	//public init() : void {
-    //    super.init();
-	//}
+	public init() : void {
+        const oModel : oDataModel | undefined = this.getModel();
+
+        oModel?.attachDataRequested(() => {
+            oModel?.attachDataReceived(this.refreshModel);
+        });
+
+        super.init();
+	};
+
+    public refreshModel() : void {
+        const oModel : oDataModel | undefined = this.getModel();
+
+        oModel?.detachDataReceived(this.refreshModel);
+        oModel?.refresh();
+    }
 }

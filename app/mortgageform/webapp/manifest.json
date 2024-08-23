@@ -94,6 +94,15 @@
     "resources": {
       "css": []
     },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController": {
+            "controllerName": "mortgagecalc.mortgageform.ext.controller.OPExtension"
+          }
+        }
+      }
+    },
     "routing": {
       "config": {},
       "routes": [
