@@ -11,7 +11,9 @@
           "url": "/mortgage/calculator",
           "forwardAuthToken": true
         }
-      }
+      },
+      "kind": "rest",
+      "destination": "mortgage-calculator-api"
     }
   }
 }

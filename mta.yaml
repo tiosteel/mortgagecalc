@@ -57,7 +57,7 @@ modules:
     requires:
       - name: mortgagecalc-db
       - name: mortgagecalc-auth
-      - name: mortgage-calculator-api
+      - name: mortgagecalc-destination-service
 
   - name: mortgagecalc-db-deployer
     type: hdb
@@ -70,7 +70,7 @@ modules:
   - name: mortgagecalc-mortgageform-destination-content
     type: com.sap.application.content
     requires:
-    - name: mortgagecalc-mortgageform-destination-service
+    - name: mortgagecalc-destination-service
       parameters:
         content-target: true
     - name: mortgagecalc-mortgageform-repo-host
@@ -141,7 +141,7 @@ resources:
         xsappname: mortgagecalc-${org}-${space}
         tenant-mode: dedicated
  
-  - name: mortgagecalc-mortgageform-destination-service
+  - name: mortgagecalc-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
       config:
@@ -161,12 +161,18 @@ resources:
               ProxyType: Internet
               Type: HTTP
               URL: ~{mortgage-site-api/srv-url}
+            - Authentication: OAuth2UserTokenExchange
+              Name: mortgage-calculator-api
+              ProxyType: Internet
+              Type: HTTP
+              URL: ~{mortgage-calculator-api/srv-url}
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
-      service-name: mortgagecalc-mortgageform-destination-service
+      service-name: mortgagecalc-destination-service
       service-plan: lite
     requires:
+    - name: mortgage-calculator-api  
     - name: mortgage-site-api  
 
   - name: mortgagecalc-mortgageform-repo-host

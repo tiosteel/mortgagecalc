@@ -12,6 +12,7 @@ export default class ObjectPageExtension extends ControllerExtension<ExtensionAP
 			onBeforeSave(this: ObjectPageExtension) {
                 const extenstionAPI = this.base.getExtensionAPI();
 				const oContext = extenstionAPI.getBindingContext() as Context;
+
                 oContext.getModel().attachEventOnce('dataReceived', () => {
                     extenstionAPI.refresh();
                 });

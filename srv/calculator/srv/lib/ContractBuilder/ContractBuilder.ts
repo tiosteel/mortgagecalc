@@ -46,10 +46,12 @@ export default class ContractBuilder {
         const calculatedContract = structuredClone(contract);
         const state = new ContractBuilderState(contract);
 
-        const resultPayments = this.createFirstPeriodResultPayments(state, contract.numberOfPeriods);
+        const contractNumberOfPeriods = contract.years * 12;
+
+        const resultPayments = this.createFirstPeriodResultPayments(state, contractNumberOfPeriods);
 
         /** first period is calculated by this.createFirstPeriodResultPayments and that's why here we calculate for 1 period lesser */
-        for (let numberOfPeriods = contract.numberOfPeriods - 1; numberOfPeriods > 0; numberOfPeriods--) {
+        for (let numberOfPeriods = contractNumberOfPeriods - 1; numberOfPeriods > 0; numberOfPeriods--) {
             if (state.remainingDebt <= 0) break;
 
             state.paymentDate = this.nextMonth(state.paymentDate);
