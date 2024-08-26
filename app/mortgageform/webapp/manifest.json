@@ -156,6 +156,26 @@
                   "tableSettings": {
                     "type": "ResponsiveTable"
                   }
+                },
+                "@com.sap.vocabularies.UI.v1.FieldGroup#Contract": {
+                  "fields": {
+                    "customDateStart": {
+                      "template": "mortgagecalc.mortgageform.ext.view.fragment.CustomDateStart",
+                      "label": "{i18n>contractsDateStartLabel}",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "DataField::years"
+                      }
+                    },
+                    "test": {
+                      "template": "mortgagecalc.mortgageform.ext.view.fragment.test",
+                      "label": "{i18n>contractsDateStartLabel}",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "customDateStart"
+                      }
+                    }
+                  }
                 }
               },
               "content": {

@@ -85,12 +85,6 @@ annotate service.Contracts with @(
             },
             {
                 $Type: 'UI.DataField',
-                Label: '{i18n>contractsDateStartLabel}',
-                Value: dateStart
-
-            },
-            {
-                $Type: 'UI.DataField',
                 Label: '{i18n>contractsBaseInterestLabel}',
                 Value: baseInterestRate
             },
@@ -197,7 +191,7 @@ annotate service.ContractPayments with {
 };
 
 annotate service.ContractExtraPayments with @(UI: {
-    LineItem           : [
+    LineItem #ExtraPayments: [
         {
             $Type: 'UI.DataField',
             Label: '{i18n>contractPaymentsPaymentDateLabel}',
