@@ -17,10 +17,10 @@ entity Contracts: cuid, managed {
     ContractPayments: Composition of many ContractPayments on ContractPayments.parent = $self;
     ContractExtraPayments: Composition of many ContractExtraPayments on ContractExtraPayments.parent = $self;
     
-    @calculated numberOfPeriods: Integer = years * 12;
-    @calculated totalPayment: types.Money = -amount + totalInterest;
-    @calculated contractTitle: String = concat(amount, concat(' ', concat(Currency.code, concat(', ', concat(baseInterestRate + baseCentralBankRate, ' %')))));
-    @calculated contractDescription: String = concat('from ', dateStart);
+    @calculated numberOfPeriods: Integer = years * 12 stored;
+    @calculated totalPayment: types.Money = -amount + totalInterest stored;
+    @calculated contractTitle: String = concat(amount, concat(' ', concat(Currency.code, concat(', ', concat(baseInterestRate + baseCentralBankRate, ' %'))))) stored;
+    @calculated contractDescription: String = concat('from ', dateStart) stored;
 
     totalInterest: types.Money default 0;
 }

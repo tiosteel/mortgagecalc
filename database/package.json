@@ -2,7 +2,7 @@
   "name": "@mortgagecalc/database",
   "version": "1.0.0",
   "dependencies": {
-    "@sap/cds": "^8"
+    "@sap/cds": "^8.1.1"
   },
   "author": "",
   "license": "ISC",

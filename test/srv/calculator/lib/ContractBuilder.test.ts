@@ -17,7 +17,7 @@ const contract: Contract = {
 describe('Test ContractBuilder', () => {
     test('test buildBasicTimeSheetLayer', () => {
         const contractBuilder = new ContractBuilder(contract, MortgageFormula, ContractPersistanceProxy);
-        contractBuilder.buildCleansedContract();
+        contractBuilder.buildPreCleansedContract();
         expect(contractBuilder.cleansedContractLayer).toMatchObject(contractBuilder.initial);
     });
 });
