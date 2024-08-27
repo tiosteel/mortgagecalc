@@ -1,27 +1,24 @@
 import cds from "@sap/cds";
 import { ApplicationService, Request, ResultSet } from "@sap/cds";
-import type { Contract, Contracts } from "#cds-models/SiteService";
+import type { Contract } from "#cds-models/SiteService";
 
 export class SiteService extends ApplicationService {
     async init(): Promise<void> {
         const { Contracts } = await import('#cds-models/SiteService');
 
-        this.before(['CREATE', 'UPDATE'], Contracts, this.onBeforeContractActicate)
-        this.after(['CREATE', 'UPDATE'], Contracts, this.onAfterContractActicate);
+        this.before(['*'], '*', this.onBeforeAnything);
+
+        this.before(['CREATE', 'UPDATE'], Contracts.name, this.onBeforeContractActicate);
+        this.after(['CREATE', 'UPDATE'], Contracts.name, this.onAfterContractActicate);
 
         return super.init();
     }
-    onBeforeReadContracts(req: cds.Request) {
-        const requiredColumns = ['years', 'totalInterest', 'amount', 'baseInterestRate', 'baseCentralBankRate', 'dateStart', 'Currency_code'];
-        requiredColumns.forEach(column => {
-            if (!req.query.SELECT.columns.some(reqColumn => reqColumn.ref.at(0) === column)) {
-                req.query.SELECT.columns.push({ ref: [column] })
-            }
-        }
-        );
+
+    onBeforeAnything(req: cds.Request) {
+        req;
     }
 
-    async onBeforeContractActicate(req: Request) {
+    onBeforeContractActicate(req: Request) {
         const fields2delete = this.entities.Contracts.elements
             .filter(x => {
                 const obj = x as { [key: string]: any };
@@ -37,12 +34,12 @@ export class SiteService extends ApplicationService {
         }
     }
 
-    async onAfterContractActicate(res: Contract, req: any): Promise<void> {
+    async onAfterContractActicate(res: any, req: any): Promise<void> {
         const ID: Contract["ID"] = req.data.ID;
 
         req.on('succeeded', async () => {
             const srv = await cds.connect.to('ExternalCalculatorService');
-            await srv.post(`/Contracts(ID=${ID},IsActiveEntity=true)/calculate`, {});
+            await srv.tx().post(`/Contracts(ID=${ID},IsActiveEntity=true)/calculate`, {});
         });
     }
 }

@@ -10,7 +10,7 @@
     "@mortgagecalc/database": "*",
     "@mortgagecalc/foundation": "*",
     "@mortgagecalc/siteservice": "*",
-    "@sap/cds": "^8",
+    "@sap/cds": "^8.1.1",
     "@sap/cds-hana": "^2",
     "@sap/xssec": "^4",
     "hdb": "0.19.8",
@@ -18,7 +18,7 @@
     "@sap-cloud-sdk/http-client": "3.18.1"
   },
   "devDependencies": {
-    "@cap-js/cds-typer": "^0.24.0",
+    "@cap-js/cds-typer": "^0.25.0",
     "@cap-js/cds-types": "^0.6.3",
     "dev-approuter": "^0.2.26",
     "@jest/globals": "^29.7.0",

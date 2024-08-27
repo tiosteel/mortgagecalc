@@ -33,7 +33,7 @@
       "type": "node-terminal"
     },
     {
-      "name": "attach to node process",
+      "name": "Calculator remote debug",
       "type": "node",
       "request": "attach",
       "restart": true,
@@ -42,6 +42,18 @@
       "trace": true,
       "preLaunchTask": "tsc build calculator",
       "localRoot": "${workspaceFolder}/srv/calculator/gen/srv",
+      "remoteRoot": "home/vcap/app"
+    },
+    {
+      "name": "Site remote debug",
+      "type": "node",
+      "request": "attach",
+      "restart": true,
+      "port": 9229,
+      "sourceMaps": true,
+      "trace": true,
+      "preLaunchTask": "tsc build site",
+      "localRoot": "${workspaceFolder}/srv/site/gen/srv",
       "remoteRoot": "home/vcap/app"
     }
   ]
