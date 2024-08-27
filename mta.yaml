@@ -70,6 +70,7 @@ modules:
   - name: mortgagecalc-mortgageform-destination-content
     type: com.sap.application.content
     requires:
+    - name: mortgage-calculator-api
     - name: mortgagecalc-destination-service
       parameters:
         content-target: true
@@ -94,6 +95,11 @@ modules:
             ServiceInstanceName: mortgagecalc-auth
             ServiceKeyName: mortgagecalc-auth-key
             sap.cloud.service: mortgagecalcmortgageform
+          - Authentication: OAuth2UserTokenExchange
+            Name: mortgage-calculator-api
+            TokenServiceInstanceName: mortgagecalc-auth
+            TokenServiceKeyName: mortgagecalc-auth-key
+            URL: ~{mortgage-calculator-api/srv-url}
           existing_destinations_policy: update
     build-parameters:
       no-source: true
@@ -161,19 +167,13 @@ resources:
               ProxyType: Internet
               Type: HTTP
               URL: ~{mortgage-site-api/srv-url}
-            - Authentication: OAuth2UserTokenExchange
-              Name: mortgage-calculator-api
-              ProxyType: Internet
-              Type: HTTP
-              URL: ~{mortgage-calculator-api/srv-url}
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
       service-name: mortgagecalc-destination-service
       service-plan: lite
     requires:
-    - name: mortgage-calculator-api  
-    - name: mortgage-site-api  
+    - name: mortgage-site-api
 
   - name: mortgagecalc-mortgageform-repo-host
     type: org.cloudfoundry.managed-service
