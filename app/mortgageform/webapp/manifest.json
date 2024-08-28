@@ -169,7 +169,7 @@
                     }
                   }
                 },
-                "items/@com.sap.vocabularies.UI.v1.LineItem#ExtraPayments": {
+                "@com.sap.vocabularies.UI.v1.LineItem#ExtraPayments": {
 									"columns": {
 										"CustomColumnOnObjectPage": {
 											"header": "{i18n>contractPaymentsPaymentDateLabel}",
