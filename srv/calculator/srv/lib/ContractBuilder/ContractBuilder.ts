@@ -46,12 +46,10 @@ export default class ContractBuilder {
         const calculatedContract = structuredClone(contract);
         const state = new ContractBuilderState(contract);
 
-        const contractNumberOfPeriods = contract.years * 12;
-
-        const resultPayments = this.createFirstPeriodResultPayments(state, contractNumberOfPeriods);
+        const resultPayments = this.createFirstPeriodResultPayments(state, contract.numberOfPeriods);
 
         /** first period is calculated by this.createFirstPeriodResultPayments and that's why here we calculate for 1 period lesser */
-        for (let numberOfPeriods = contractNumberOfPeriods - 1; numberOfPeriods > 0; numberOfPeriods--) {
+        for (let numberOfPeriods = contract.numberOfPeriods - 1; numberOfPeriods > 0; numberOfPeriods--) {
             if (state.remainingDebt <= 0) break;
 
             state.paymentDate = this.nextMonth(state.paymentDate);
@@ -60,7 +58,7 @@ export default class ContractBuilder {
             const ppmt = this.math.PPMT(state.monthlyRate4Formula, 1, numberOfPeriods, state.remainingDebt);
             const ipmt = this.math.IPMT(state.monthlyRate4Formula, 1, numberOfPeriods, state.remainingDebt);
 
-            state.remainingDebt += ppmt;
+            state.remainingDebt = +state.remainingDebt + ppmt;
 
             resultPayments.push({
                 body: ppmt,
@@ -81,12 +79,12 @@ export default class ContractBuilder {
     buildPostCleansedContract(contract: Contract = this.initial) {
         const postCleansedContract = structuredClone(contract);
 
-        postCleansedContract.totalInterest = +postCleansedContract.totalInterest.toFixed(2);
+        postCleansedContract.totalInterest = +(+postCleansedContract.totalInterest).toFixed(2);
 
         postCleansedContract.ContractPayments.forEach(contractPayment => {
-            contractPayment.body = +contractPayment.body.toFixed(2);
-            contractPayment.interest = +contractPayment.interest.toFixed(2);
-            contractPayment.remainingDebt = +contractPayment.remainingDebt.toFixed(2);
+            contractPayment.body = +(+contractPayment.body).toFixed(2);
+            contractPayment.interest = +(+contractPayment.interest).toFixed(2);
+            contractPayment.remainingDebt = +(+contractPayment.remainingDebt).toFixed(2);
         });
         
         this.postCleansedContractLayer = postCleansedContract;
@@ -118,7 +116,7 @@ export default class ContractBuilder {
                 extraPayment.body =  -state.remainingDebt
             }
             
-            state.remainingDebt += extraPayment.body;
+            state.remainingDebt = +state.remainingDebt + extraPayment.body;
             extraPayment.remainingDebt = state.remainingDebt;
             resultPayments.push(extraPayment);
         }

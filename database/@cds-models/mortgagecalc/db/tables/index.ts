@@ -4,29 +4,29 @@ import * as _mortgagecalc_db_types from './../types';
 import * as __ from './../../../_';
 export function _ContractAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class Contract extends _._cuidAspect(_._managedAspect(Base)) {
-        years?: number | null;
-        amount?: _mortgagecalc_db_types.Money | null;
-        dateStart?: __.CdsDate | null;
-        dateFinish?: __.CdsDate | null;
-        baseInterestRate?: _mortgagecalc_db_types.Percentages | null;
-        baseCentralBankRate?: _mortgagecalc_db_types.Percentages | null;
-        monthlyPaymentDate?: number | null;
+        declare years?: number | null;
+        declare amount?: _mortgagecalc_db_types.Money | null;
+        declare dateStart?: __.CdsDate | null;
+        declare dateFinish?: __.CdsDate | null;
+        declare baseInterestRate?: _mortgagecalc_db_types.Percentages | null;
+        declare baseCentralBankRate?: _mortgagecalc_db_types.Percentages | null;
+        declare monthlyPaymentDate?: number | null;
     /**
     * Type for an association to Currencies
     * 
     * See https://cap.cloud.sap/docs/cds/common#type-currency
     */
-        Currency?: _.Currency | null;
-        Currency_code?: string | null;
-        ContractRates?: __.Composition.of.many<ContractRates>;
-        ContractPayments?: __.Composition.of.many<ContractPayments>;
-        ContractExtraPayments?: __.Composition.of.many<ContractExtraPayments>;
-        numberOfPeriods?: number | null;
-        totalPayment?: _mortgagecalc_db_types.Money | null;
-        contractTitle?: string | null;
-        contractDescription?: string | null;
-        totalInterest?: _mortgagecalc_db_types.Money | null;
-      static readonly actions: Record<never, never>
+        declare Currency?: _.Currency | null;
+        declare Currency_code?: string | null;
+        declare ContractRates?: __.Composition.of.many<ContractRates>;
+        declare ContractPayments?: __.Composition.of.many<ContractPayments>;
+        declare ContractExtraPayments?: __.Composition.of.many<ContractExtraPayments>;
+        declare numberOfPeriods?: number | null;
+        declare totalPayment?: _mortgagecalc_db_types.Money | null;
+        declare contractTitle?: string | null;
+        declare contractDescription?: string | null;
+        declare totalInterest?: _mortgagecalc_db_types.Money | null;
+      declare static readonly actions: typeof _.managed.actions & typeof _.cuid.actions & Record<never, never>
   };
 }
 export class Contract extends _ContractAspect(__.Entity) {static drafts: typeof Contract}
@@ -38,12 +38,12 @@ Object.defineProperty(Contracts, 'name', { value: 'mortgagecalc.db.tables.Contra
 
 export function _ContractRateAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class ContractRate extends _._cuidAspect(Base) {
-        parent?: __.Association.to<Contract> | null;
-        parent_ID?: string | null;
-        validFrom?: __.CdsDate | null;
-        centralBankRate?: _mortgagecalc_db_types.Percentages | null;
-        interestRate?: _mortgagecalc_db_types.Percentages | null;
-      static readonly actions: Record<never, never>
+        declare parent?: __.Association.to<Contract> | null;
+        declare parent_ID?: string | null;
+        declare validFrom?: __.CdsDate | null;
+        declare centralBankRate?: _mortgagecalc_db_types.Percentages | null;
+        declare interestRate?: _mortgagecalc_db_types.Percentages | null;
+      declare static readonly actions: typeof _.cuid.actions & Record<never, never>
   };
 }
 export class ContractRate extends _ContractRateAspect(__.Entity) {static drafts: typeof ContractRate}
@@ -55,15 +55,15 @@ Object.defineProperty(ContractRates, 'name', { value: 'mortgagecalc.db.tables.Co
 
 export function _ContractPaymentAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class ContractPayment extends _._cuidAspect(Base) {
-        parent?: __.Association.to<Contract> | null;
-        parent_ID?: string | null;
-        paymentDate?: __.CdsDate | null;
-        body?: _mortgagecalc_db_types.Money | null;
-        interest?: _mortgagecalc_db_types.Money | null;
-        required?: boolean | null;
-        remainingDebt?: _mortgagecalc_db_types.Money | null;
-        total?: _mortgagecalc_db_types.Money | null;
-      static readonly actions: Record<never, never>
+        declare parent?: __.Association.to<Contract> | null;
+        declare parent_ID?: string | null;
+        declare paymentDate?: __.CdsDate | null;
+        declare body?: _mortgagecalc_db_types.Money | null;
+        declare interest?: _mortgagecalc_db_types.Money | null;
+        declare required?: boolean | null;
+        declare remainingDebt?: _mortgagecalc_db_types.Money | null;
+        declare total?: _mortgagecalc_db_types.Money | null;
+      declare static readonly actions: typeof _.cuid.actions & Record<never, never>
   };
 }
 export class ContractPayment extends _ContractPaymentAspect(__.Entity) {static drafts: typeof ContractPayment}
@@ -74,17 +74,17 @@ $count?: number}
 Object.defineProperty(ContractPayments, 'name', { value: 'mortgagecalc.db.tables.ContractPayments' })
 
 export function _ContractExtraPaymentAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
-  return class ContractExtraPayment extends _._cuidAspect(Base) {
-        ID?: string;
-        parent?: __.Association.to<Contract> | null;
-        parent_ID?: string | null;
-        paymentDate?: __.CdsDate | null;
-        body?: _mortgagecalc_db_types.Money | null;
-        interest?: _mortgagecalc_db_types.Money | null;
-        required?: boolean | null;
-        remainingDebt?: _mortgagecalc_db_types.Money | null;
-        total?: _mortgagecalc_db_types.Money | null;
-      static readonly actions: Record<never, never>
+  return class ContractExtraPayment extends Base {
+        declare ID?: string;
+        declare parent?: __.Association.to<Contract> | null;
+        declare parent_ID?: string | null;
+        declare paymentDate?: __.CdsDate | null;
+        declare body?: _mortgagecalc_db_types.Money | null;
+        declare interest?: _mortgagecalc_db_types.Money | null;
+        declare required?: boolean | null;
+        declare remainingDebt?: _mortgagecalc_db_types.Money | null;
+        declare total?: _mortgagecalc_db_types.Money | null;
+      declare static readonly actions: Record<never, never>
   };
 }
 export class ContractExtraPayment extends _ContractExtraPaymentAspect(__.Entity) {static drafts: typeof ContractExtraPayment}
@@ -96,13 +96,13 @@ Object.defineProperty(ContractExtraPayments, 'name', { value: 'mortgagecalc.db.t
 
 export function _EuriborValueAspect<TBase extends new (...args: any[]) => object>(Base: TBase) {
   return class EuriborValue extends Base {
-        day?: __.CdsDate;
-        weekly?: number | null;
-        monthly1?: number | null;
-        monthly3?: number | null;
-        monthly6?: number | null;
-        yearly?: number | null;
-      static readonly actions: Record<never, never>
+        declare day?: __.CdsDate;
+        declare weekly?: number | null;
+        declare monthly1?: number | null;
+        declare monthly3?: number | null;
+        declare monthly6?: number | null;
+        declare yearly?: number | null;
+      declare static readonly actions: Record<never, never>
   };
 }
 export class EuriborValue extends _EuriborValueAspect(__.Entity) {}

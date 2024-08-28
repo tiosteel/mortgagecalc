@@ -22,7 +22,7 @@
     },
     {
       "name": "cds-ts serve production",
-      "command": "npx cds-ts serve --production",
+      "command": "npx cds-ts serve -p @mortgagecalc/cap-server --production",
       "request": "launch",
       "type": "node-terminal"
     },

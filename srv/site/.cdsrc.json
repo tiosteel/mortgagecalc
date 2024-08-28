@@ -13,7 +13,10 @@
         }
       },
       "kind": "rest",
-      "destination": "mortgage-calculator-api"
+      "credentials": {
+        "destination": "mortgage-calculator-api",
+        "path": "/mortgage/calculator"
+      }
     }
   }
 }

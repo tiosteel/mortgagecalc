@@ -9,8 +9,8 @@ entity Contracts: cuid, managed {
     amount: types.Money;
     dateStart: Date;
     dateFinish: Date;
-    baseInterestRate: types.Percentages;
-    baseCentralBankRate: types.Percentages;
+    baseInterestRate: types.Percentages default 0;
+    baseCentralBankRate: types.Percentages default 0;
     monthlyPaymentDate: Integer @assert.range: [ 1, 28 ] default 1;
     Currency: Currency;
     ContractRates: Composition of many ContractRates on ContractRates.parent = $self;

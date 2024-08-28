@@ -6,16 +6,10 @@ export class SiteService extends ApplicationService {
     async init(): Promise<void> {
         const { Contracts } = await import('#cds-models/SiteService');
 
-        this.before(['*'], '*', this.onBeforeAnything);
-
         this.before(['CREATE', 'UPDATE'], Contracts.name, this.onBeforeContractActicate);
         this.after(['CREATE', 'UPDATE'], Contracts.name, this.onAfterContractActicate);
 
         return super.init();
-    }
-
-    onBeforeAnything(req: cds.Request) {
-        req;
     }
 
     onBeforeContractActicate(req: Request) {

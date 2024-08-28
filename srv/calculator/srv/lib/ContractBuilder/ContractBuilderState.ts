@@ -29,6 +29,6 @@ export class ContractBuilderState implements IContractBuilderState {
     }
 
     get monthlyRate4Formula(): number {
-        return (this.interestRate + this.centralBankRate) / 12 /** months */ / 100 /** % */;
+        return ((+this.interestRate) + (+this.centralBankRate)) / 12 /** months */ / 100 /** % */;
     }
 }
