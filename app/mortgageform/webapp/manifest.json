@@ -166,17 +166,25 @@
                         "placement": "After",
                         "anchor": "DataField::years"
                       }
-                    },
-                    "test": {
-                      "template": "mortgagecalc.mortgageform.ext.view.fragment.test",
-                      "label": "{i18n>contractsDateStartLabel}",
-                      "position": {
-                        "placement": "After",
-                        "anchor": "customDateStart"
-                      }
                     }
                   }
-                }
+                },
+                "items/@com.sap.vocabularies.UI.v1.LineItem#ExtraPayments": {
+									"columns": {
+										"CustomColumnOnObjectPage": {
+											"header": "{i18n>contractPaymentsPaymentDateLabel}",
+											"importance": "High",
+											"horizontalAlign": "Center",
+											"position": {
+												"placement": "After",
+												"anchor": "DataField::body"
+											},
+											"template": "mortgagecalc.mortgageform.ext.view.fragment.CustomDateStartColumn",
+											"availability": "Default",
+											"properties": ["paymentDate", "body"]
+										}
+									}
+								}
               },
               "content": {
                 "body": {
