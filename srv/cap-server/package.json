@@ -33,6 +33,7 @@
   },
   "scripts": {
     "start": "cds-ts serve",
+    "clean-build": "rm -rf ./node_modules",
     "generate-cds-models": "npx @cap-js/cds-typer ./index.cds --outputDirectory ./@cds-models",
     "clean-cds-models": "rm -rf ./@cds-models"
   },
