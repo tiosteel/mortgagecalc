@@ -58,7 +58,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.127.1",
+      "minUI5Version": "1.127.0",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -168,7 +168,23 @@
                       }
                     }
                   }
-                }
+                },
+                "ContractExtraPayments/@com.sap.vocabularies.UI.v1.LineItem": {
+									"columns": {
+										"CustomColumnOnObjectPage": {
+											"header": "{i18n>contractPaymentsPaymentDateLabel}",
+											"importance": "Medium",
+											"horizontalAlign": "Begin",
+											"position": {
+												"placement": "Before",
+												"anchor": "DataField::body"
+											},
+											"template": "mortgagecalc.mortgageform.ext.view.fragment.CustomPaymentDateColumn",
+											"availability": "Default",
+											"properties": ["paymentDate"]
+										}
+									}
+								}
               },
               "content": {
                 "body": {
