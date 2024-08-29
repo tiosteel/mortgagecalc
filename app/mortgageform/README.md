@@ -12,7 +12,7 @@
 |**Application Title**<br>Mortgage Calculator|
 |**Namespace**<br>mortgagecalc|
 |**UI5 Theme**<br>sap_horizon|
-|**UI5 Version**<br>1.127.0|
+|**UI5 Version**<br>1.127.1|
 |**Enable Code Assist Libraries**<br>True|
 |**Enable TypeScript**<br>True|
 |**Add Eslint configuration**<br>False|
