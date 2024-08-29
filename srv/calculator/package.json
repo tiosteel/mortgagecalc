@@ -23,7 +23,7 @@
   "scripts": {
     "start": "cds-serve",
     "generate-cds-models": "npx @cap-js/cds-typer ./index.cds --outputDirectory ./@cds-models",
-    "clean-build": "rm -rf ./gen node_modules",
+    "clean-build": "rm -rf ./gen ./node_modules",
     "clean-cds-models": "rm -rf ./@cds-models"
   },
   "imports": {
