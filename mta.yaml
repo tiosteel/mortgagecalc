@@ -9,6 +9,7 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
+        - npm run generate-cds-models
         - npm ci # https://docs.npmjs.com/cli/v10/commands/npm-ci 
         - npx cds build --production # this will mainly build the database according to configuration in root .cdsrc - services must be taken into account
 modules:

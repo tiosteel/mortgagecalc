@@ -10,6 +10,7 @@ connection.properties
 gen/
 node_modules/
 target/
+@cds-models
 
 # SAPUI5
 app/**/dist
