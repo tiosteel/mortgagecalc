@@ -4,6 +4,13 @@
   "dependencies": {
     "@sap/cds": "^8.1.1"
   },
+  "devDependencies": {
+    "@cap-js/cds-typer": "^0.25.0",
+    "@cap-js/cds-types": "^0.6.3"
+  },
+  "scripts": {
+    "generate-cds-models": "npx @cap-js/cds-typer ./index.cds --outputDirectory ./@cds-models"
+  },
   "author": "",
   "license": "ISC",
   "description": "",
