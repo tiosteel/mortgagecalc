@@ -9,7 +9,7 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - npm run generate-cds-models
+        - npm ls
         - npm ci # https://docs.npmjs.com/cli/v10/commands/npm-ci 
         - npx cds build --production # this will mainly build the database according to configuration in root .cdsrc - services must be taken into account
 modules:
@@ -24,6 +24,7 @@ modules:
       build-result: gen/srv
       builder: custom
       commands:
+        - npm run generate-cds-models
         - npx -p @sap/cds-dk cds build --production --ws-pack --opts workspaceRoot=../../
         - tsc
         - cp ../../package-lock.json ./gen/srv
@@ -47,6 +48,7 @@ modules:
       build-result: gen/srv
       builder: custom
       commands:
+        - npm run generate-cds-models
         - npx -p @sap/cds-dk cds build --production --ws-pack --opts workspaceRoot=../../
         - tsc
         - cp ../../package-lock.json ./gen/srv
