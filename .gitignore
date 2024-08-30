@@ -25,6 +25,7 @@ Makefile_*.mta
 *.mtar
 mta_archives/
 mortgageformresources/
+mtad.yaml
 
 # Other
 .DS_Store
