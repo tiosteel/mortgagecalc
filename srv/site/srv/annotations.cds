@@ -2,8 +2,8 @@ using SiteService as service from './site';
 
 annotate service.Contracts with @(
     UI.HeaderInfo: {
-        TypeName : 'Contract',
-        TypeNamePlural: 'Contracts',
+        TypeName : '{i18n>contractHeader}',
+        TypeNamePlural: '{i18n>contractHeaderPlural}',
         Title : {
             $Type : 'UI.DataField',
             Value: contractTitle
@@ -16,27 +16,27 @@ annotate service.Contracts with @(
     UI.LineItem               : [
         {
             $Type: 'UI.DataField',
-            Label: 'years',
+            Label: '{i18n>contractsYearsLabel}',
             Value: years
         },
         {
             $Type: 'UI.DataField',
-            Label: 'amount',
+            Label: '{i18n>contractsAmountLabel}',
             Value: amount
         },
         {
             $Type: 'UI.DataField',
-            Label: 'dateStart',
+            Label: '{i18n>contractsDateStartLabel}',
             Value: dateStart
         },
         {
             $Type: 'UI.DataField',
-            Label: 'dateFinish',
+            Label: '{i18n>contractsDateFinishLabel}',
             Value: dateFinish
         },
         {
             $Type: 'UI.DataField',
-            Label: 'baseInterestRate',
+            Label: '{i18n>contractsBaseInterestLabel}',
             Value: baseInterestRate
         }
     ],
@@ -51,17 +51,17 @@ annotate service.Contracts with @(
     UI.LineItem #ContractRates: [
         {
             $Type: 'UI.DataField',
-            Label: 'validFrom',
+            Label: '{i18n>contractRatesValidFromLabel}',
             Value: ContractRates.validFrom
         },
         {
             $Type: 'UI.DataField',
-            Label: 'centralBankRate',
+            Label: '{i18n>contractRatesCentralBankRateLabel}',
             Value: ContractRates.centralBankRate
         },
         {
             $Type: 'UI.DataField',
-            Label: 'interestRate',
+            Label: '{i18n>contractRatesInterestRateLabel}',
             Value: ContractRates.interestRate
         }
     ],
@@ -70,43 +70,37 @@ annotate service.Contracts with @(
         Data : [ 
             {
                 $Type: 'UI.DataField',
-                Label: 'amount',
+                Label: '{i18n>contractsAmountLabel}',
                 Value: amount
             },
             {
                 $Type: 'UI.DataField',
-                Label: 'currency',
+                Label: '{i18n>contractsCurrencyLabel}',
                 Value: Currency_code
             },
             {
                 $Type: 'UI.DataField',
-                Label: 'years',
+                Label: '{i18n>contractsYearsLabel}',
                 Value: years
             },
             {
                 $Type: 'UI.DataField',
-                Label: 'dateStart',
-                Value: dateStart
-
-            },
-            {
-                $Type: 'UI.DataField',
-                Label: 'baseInterestRate',
+                Label: '{i18n>contractsBaseInterestLabel}',
                 Value: baseInterestRate
             },
             {
                 $Type: 'UI.DataField',
-                Label: 'baseCentralBankRate',
+                Label: '{i18n>contractsBaseCentralBankRateLabel}',
                 Value: baseCentralBankRate
             },
             {
                 $Type: 'UI.DataField',
-                Label: 'totalPayment',
+                Label: '{i18n>contractsTotalPaymentLabel}',
                 Value: totalPayment
             },
             {
                 $Type: 'UI.DataField',
-                Label: 'totalInterest',
+                Label: '{i18n>contractsTotalInterestLabel}',
                 Value: totalInterest
             }
         ]
@@ -114,24 +108,24 @@ annotate service.Contracts with @(
     UI.Facets                 : [
         {
             $Type : 'UI.ReferenceFacet',
-            Label : 'Contract Info',
+            Label : '{i18n>contractInfoLabel}',
             Target: '@UI.FieldGroup#Contract'
         },
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'ContractPaymentsFacet',
-            Label : 'Contract Payments',
+            Label : '{i18n>contractPaymentsLabel}',
             Target: 'ContractPayments/@UI.PresentationVariant',
         },
         {
             $Type : 'UI.ReferenceFacet',
             ID : 'ContractExtraPaymentsFacet',
-            Label : 'Contract Extra Payments',
+            Label : '{i18n>contractExtraPaymentsLabel}',
             Target: 'ContractExtraPayments/@UI.PresentationVariant',
         },
         {
             $Type : 'UI.ReferenceFacet',
-            Label : 'Contract Rates',
+            Label : '{i18n>contractRatesLabel}',
             Target: 'ContractRates/@UI.PresentationVariant',
         }
     ]
@@ -146,32 +140,32 @@ annotate service.ContractPayments with @(UI: {
     LineItem           : [
         {
             $Type: 'UI.DataField',
-            Label: 'paymentDate',
+            Label: '{i18n>contractPaymentsPaymentDateLabel}',
             Value: paymentDate
         },
         {
             $Type: 'UI.DataField',
-            Label: 'body',
+            Label: '{i18n>contractPaymentsBodyLabel}',
             Value: body
         },
         {
             $Type: 'UI.DataField',
-            Label: 'interest',
+            Label: '{i18n>contractPaymentsInterestLabel}',
             Value: interest
         },
         {
             $Type: 'UI.DataField',
-            Label: 'required',
+            Label: '{i18n>contractPaymentsRequiredLabel}',
             Value: required
         },
         {
             $Type: 'UI.DataField',
-            Label: 'remainingDebt',
+            Label: '{i18n>contractPaymentsRemainingDebtLabel}',
             Value: remainingDebt
         },
         {
             $Type: 'UI.DataField',
-            Label: 'total',
+            Label: '{i18n>contractPaymentsTotalLabel}',
             Value: total
         }
     ],
@@ -200,7 +194,7 @@ annotate service.ContractExtraPayments with @(UI: {
     LineItem           : [
         {
             $Type: 'UI.DataField',
-            Label: 'body',
+            Label: '{i18n>contractPaymentsBodyLabel}',
             Value: body
         }
     ],
@@ -229,17 +223,17 @@ annotate service.ContractRates with @(UI: {
     LineItem           : [
         {
             $Type: 'UI.DataField',
-            Label: 'validFrom',
+            Label: '{i18n>contractRatesValidFromLabel}',
             Value: validFrom
         },
         {
             $Type: 'UI.DataField',
-            Label: 'centralBankRate',
+            Label: '{i18n>contractRatesCentralBankRateLabel}',
             Value: centralBankRate
         },
         {
             $Type: 'UI.DataField',
-            Label: 'interestRate',
+            Label: '{i18n>contractRatesInterestRateLabel}',
             Value: interestRate
         }
     ],
