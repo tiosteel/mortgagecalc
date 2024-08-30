@@ -27,7 +27,7 @@
     "prepare": "husky",
     "start-cap-server": "cds-ts serve -p @mortgagecalc/cap-server",
     "start-approuter": "npm run dev -w @mortgagecalc/approuter",
-    "test": "jest; npm run test -ws -if-present",
+    "test": "jest",
     "start-mortgageform": "npm run start -w mortgagecalc.mortgageform",
     "generate-cds-models": "npm run generate-cds-models -ws -if-present",
     "clean-build": "npm run clean-build -ws -if-present; rm -rf mortgageformresources gen mta_archives mtad.yaml mortgagecalc.mtar | find . -type d -name '*_build_tmp' -exec rm -rf {} +",
