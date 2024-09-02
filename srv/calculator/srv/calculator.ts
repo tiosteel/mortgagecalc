@@ -7,6 +7,7 @@ import ContractBuilder from "./lib/ContractBuilder/ContractBuilder";
 import MortgageFormula from './lib/MortgageFormula/MortgageFormula';
 import ContractPersistanceProxy from './lib/ContractPersistanceProxy';
 import { ContractBuilderState } from './lib/ContractBuilder/ContractBuilderState';
+import { QueryHelper } from '@mortgagecalc/foundation';
 
 export class CalculatorService extends ApplicationService {
 
@@ -31,12 +32,10 @@ export class CalculatorService extends ApplicationService {
      * @param { import('@sap/cds').Request } req
      */
     async onCalculate(req: Request) {
-        const contract: Contract = await SELECT.one.from(req.subject)
-            .columns(contract => {
-                contract`.*`;
-                contract.ContractPayments('*');
-                contract.ContractRates('*');
-            });
+        const selectQuery = SELECT.one.from(req.subject);
+        QueryHelper.addAllExpands2Select(selectQuery);
+
+        const contract: Contract = await selectQuery;
 
         const contractBuilder = new ContractBuilder(contract, MortgageFormula, ContractPersistanceProxy);
 

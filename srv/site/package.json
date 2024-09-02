@@ -40,13 +40,5 @@
         "types": "./@cds-models/*/index.ts"
       }
     }
-  },
-  "cds": {
-    "requires": {
-      "CalculatorService": {
-        "kind": "odata",
-        "model": "srv/external/CalculatorService"
-      }
-    }
   }
 }

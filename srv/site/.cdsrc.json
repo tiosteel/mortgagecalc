@@ -6,13 +6,13 @@
     },
     "ExternalCalculatorService": {
       "[development]": {
-        "kind": "rest",
+        "kind": "odata",
         "credentials": {
           "url": "/mortgage/calculator",
           "forwardAuthToken": true
         }
       },
-      "kind": "rest",
+      "kind": "odata",
       "credentials": {
         "destination": "mortgage-calculator-api",
         "path": "/mortgage/calculator"

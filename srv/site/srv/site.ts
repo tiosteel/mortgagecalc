@@ -1,6 +1,7 @@
 import cds from "@sap/cds";
 import { ApplicationService, Request, ResultSet } from "@sap/cds";
 import type { Contract } from "#cds-models/SiteService";
+import { QueryHelper } from '@mortgagecalc/foundation';
 
 export class SiteService extends ApplicationService {
     async init(): Promise<void> {
@@ -13,19 +14,7 @@ export class SiteService extends ApplicationService {
     }
 
     onBeforeContractActicate(req: Request) {
-        const fields2delete = this.entities.Contracts.elements
-            .filter(x => {
-                const obj = x as { [key: string]: any };
-                return obj['@calculated'];
-            }).map(x => x.name);
-
-        if (req.query.UPDATE) {
-            fields2delete.forEach(field2delete => delete req.query.UPDATE.data[field2delete]);
-        } else if (req.query.INSERT) {
-            req.query.INSERT.entries.forEach(entry =>
-                fields2delete.forEach(field2delete => delete entry[field2delete])
-            );
-        }
+        QueryHelper.removeCalculatedFields(req, this.entities.Contracts);
     }
 
     async onAfterContractActicate(res: any, req: any): Promise<void> {
