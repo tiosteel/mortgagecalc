@@ -12,12 +12,13 @@ class QueryHelper {
     }
 
     getFields2delete(entity: cds.entity) {
-        const result = entity.elements
-            .filter(element => {
-                const obj = element as { [key: string]: any };
+        const keys = Object.keys(entity.elements);
+        const result = keys
+            .filter(key => {
+                const obj = entity.elements[key] as { [key: string]: any };
                 return obj['@calculated'];
             })
-            .map(element => element.name);
+            .map(key => entity.elements[key].name);
 
         return result;
     }
