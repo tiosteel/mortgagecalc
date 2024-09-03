@@ -49,5 +49,8 @@
         "types": "./@cds-models/*/index.ts"
       }
     }
+  },
+  "engines": {
+    "node": "^20"
   }
 }

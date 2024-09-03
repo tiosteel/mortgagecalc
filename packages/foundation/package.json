@@ -2,9 +2,13 @@
   "name": "@mortgagecalc/foundation",
   "version": "1.0.0",
   "author": "",
+  "main": "index.js",
   "license": "ISC",
   "description": "",
   "scripts": {
-    "postinstall": "tsc"
+    "prepare": "tsc"
+  },
+  "engines": {
+    "node": "^20"
   }
 }

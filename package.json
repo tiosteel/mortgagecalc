@@ -30,14 +30,15 @@
     "test": "jest; npm run test -ws -if-present",
     "start-mortgageform": "npm run start -w mortgagecalc.mortgageform",
     "generate-cds-models": "npm run generate-cds-models -ws -if-present",
-    "clean-build": "npm run clean-build -ws -if-present; rm -rf mortgageformresources gen mta_archives mtad.yaml mortgagecalc.mtar | find . -type d -name '*_build_tmp' -exec rm -rf {} +",
+    "clean-build": "npm run clean-build -ws -if-present; rm -rf mortgageformresources gen mta_archives mtad.yaml mortgagecalc.mtar | find . -type d -name '*_build_tmp' -exec rm -rf {} + | npm run clean-logs",
+    "clean-logs": "find . -type d -name 'mta-op-*' -exec rm -rf {} +",
     "clean-cds-models": "npm run clean-cds-models -ws -if-present",
     "fullclean": "rm -rf node_modules package-lock.json; npm run clean-build; npm run clean-cds-models",
-    "deploy-calcularor-module": "mbt module-build -m mortgagecalc-calculator-service -g; cf deploy -m mortgagecalc-calculator-service",
-    "deploy-site-module": "mbt module-build -m mortgagecalc-site-service -g; cf deploy -m mortgagecalc-site-service",
-    "deploy-database": "npx cds build --production; mbt module-build -m mortgagecalc-db-deployer -g; cf deploy -m mortgagecalc-db-deployer",
-    "deploy-ui-module": "mbt module-build -m mortgagecalc-mortgageform,mortgagecalc-mortgageform-app-content -g; cf deploy -m mortgagecalc-mortgageform-app-content",
-    "deploy-all": "npm run clean-build; mbt build; cf deploy mta_archives/mortgagecalc_1.0.0.mtar"
+    "deploy-calcularor-module": "mbt module-build -m mortgagecalc-calculator-service -g; cf deploy -m mortgagecalc-calculator-service -f --abort-on-error",
+    "deploy-site-module": "mbt module-build -m mortgagecalc-site-service -g; cf deploy -m mortgagecalc-site-service -f --abort-on-error",
+    "deploy-database": "npx cds build --production; mbt module-build -m mortgagecalc-db-deployer -g; cf deploy -m mortgagecalc-db-deployer -f --abort-on-error",
+    "deploy-ui-module": "mbt module-build -m mortgagecalc-mortgageform,mortgagecalc-mortgageform-app-content -g; cf deploy -m mortgagecalc-mortgageform-app-content -f --abort-on-error",
+    "deploy-all": "npm run clean-build; mbt build; cf deploy mta_archives/mortgagecalc_1.0.0.mtar -f --abort-on-error"
   },
   "workspaces": [
     "packages/*",
@@ -45,6 +46,9 @@
     "app/*",
     "database"
   ],
+  "engines": {
+    "node": "^20"
+  },
   "sapux": [
     "app/mortgageform"
   ]
