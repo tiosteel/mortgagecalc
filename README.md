@@ -1,6 +1,92 @@
-# Getting Started
+## Description of contents:
+
+- [Getting Started](#getting-started)
+    - [Installation](#installation)
+    - [Run](#run)
+    - [Build / Deploy](#build-deploy)
+    - [Remote debug](#remote-debug)
+- [Project structure](#project-structure)
+
+## Getting Started
 
 Welcome to the educational CAP on TypeScript monorepo project - Mortgage calculator.
+
+This is an MTA application which has 2 CAP on TypeScript modules and 1 SAPUI5 on TypeScript module.
+
+CAP modules are enforced with a shared package.
+
+### Installation
+
+###### 1. Install [TypeScript](https://www.typescriptlang.org/download/)
+    npm install typescript -g
+
+###### 2. Install dependencies.
+    npm i
+
+Due to the monorepo structure it has to be done just once in the root folder.
+
+###### 3. Deploy tables / views and master data to SQLite
+    cds d
+
+### Run
+
+All `npm run` scripts have respective run configurations in in `.vscode/launch.json`.
+
+##### Run CAP services
+    npm run start-cap-server
+
+The @mortgagecalc/cap-server package is designed for local run of all CAP services in one Node.js instance.
+
+##### Run approuter
+    npm run dev -w @mortgagecalc/approuter
+
+Current approuter is a PoC in the PoC:
+it's based on non-official [@sap/approuter](https://www.npmjs.com/package/@sap/approuter) extension: [dev-approuter](https://www.npmjs.com/package/dev-approuter). This extension should be able to raise CAP and approuter hosts with one console command instead of two. But it appears that it doesn't allow to select a command to start CAP server => it can't work with TypeScript so that it's working as a regular approuter.
+
+### Build / Deploy
+
+#### Pre-requisites
+
+1. [cf CLI](https://github.com/cloudfoundry/cli#downloads) installed.
+2. [mbt CLI](https://sap.github.io/cloud-mta-build-tool/download/) installed.
+3. BTP subaccount with HANA DB created and started.
+4. cf CLI is authorized with `cf login`.
+
+##### Deploy all modules at once
+    npm run deploy-all
+
+or
+    
+    mbt build
+    cf deploy mta_archives/mortgagecalc_1.0.0.mtar
+
+One of these is strongly recommended for a first deploy.
+
+###### Deploy database module
+    npm run deploy-database
+
+###### Deploy calculator CAP module
+    npm run deploy-calcularor-module
+
+###### Deploy site CAP module
+    npm run deploy-site-module
+
+###### Deploy UI
+    npm run deploy-ui-module
+
+### Remote debug
+
+Detailed community article with full process explanation is [here](https://community.sap.com/t5/technology-blogs-by-sap/set-up-remote-debugging-to-diagnose-cap-applications-node-js-stack-at/ba-p/13515376).
+
+
+1. `cf ssh mortgagecalc-calculator-service` (or mortgagecalc-site-service)
+2. `ps aux | pgrep node`
+Here you'll receive PID (e.g 254)
+3. `kill -usr1 254`
+4. **In another console** `cf ssh -N -L 9229:127.0.0.1:9229 mortgagecalc-calculator-service` (or mortgagecalc-site-service)
+5. Run vscode configuration `Calculator remote debug` (or `Site remote debug`)
+
+## Project structure
 
 It contains these folders and files
 
@@ -22,54 +108,7 @@ File or Folder | Purpose
 `package.json` | project metadata and configuration
 `readme.md` | this getting started guide
 
-## Installation
-
-###### 1. Install [TypeScript](https://www.typescriptlang.org/download/)
-    npm install typescript -g
-
-###### 2. Install dependencies.
-    npm i
-
-Due to the monorepo structure it has to be done just once in the root folder.
-
-###### 3. Deploy tables / views and master data to SQLite
-    cds d
-
-## Run
-
-All listed run commands have respective run configurations in in .vscode/launch.json
-
-### Run CAP services
-    npx cds-ts serve -p @mortgagecalc/cap-server
-
-The @mortgagecalc/cap-server package is designed for local run of all CAP services in one Node.js instance.
-
-### Run approuter
-    npm run dev -w @mortgagecalc/approuter
-
-Current approuter is a PoC in the PoC:
-it's based on non-official [@sap/approuter](https://www.npmjs.com/package/@sap/approuter) extension: [dev-approuter](https://www.npmjs.com/package/dev-approuter). This extension should be able to raise CAP and approuter hosts with one console command instead of two. But it appears that it doesn't allow to select a command to start CAP server => it can't work with TypeScript so that it's working as a regular approuter.
-
-## Build
-
-- To perform the build run `mbt build`.
-- The required build sequence can be seen in the `build-parameters` section of mta.yaml
-- Related duscussion: https://github.com/cap-js/cds-typer/issues/271
-
-## Deploy
-
-As per usual, deploy mtar created by `mbt build`.
-
-## Remote debug
-
-cf ssh -N -L 9229:127.0.0.1:9229 mortgagecalc-calculator-service
-cf ssh -N -L 9229:127.0.0.1:9229 mortgagecalc-site-service
-
-## Learn More
-
-Learn more at https://cap.cloud.sap/docs/get-started/.
-
-## Q&A
+## Further discussions
 
 Q: Any known issues to track?
-A: Waiting for next Typer issue to be resolved: https://github.com/cap-js/cds-types/issues/136. Until then the package "@cap-js/cds-types": ">=0.6.1" must be installed manually.
+A: Waiting for next Typer issue to be resolved: https://github.com/cap-js/cds-types/issues/136. Until then the package "@cap-js/cds-types": ">=0.6.1" must be installed manually. Also https://github.com/cap-js/cds-typer/issues/271.
